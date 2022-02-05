@@ -2,27 +2,29 @@
   <table id="miTabla" class="display responsive nowrap" style="width: 100%">
     <thead>
       <tr>
-        <th>عنوان</th>
+        <th v-for="(row, index) in module.tableRows" :key="index">{{ row }}</th>
         <th width="10px">ویرایش</th>
         <th width="10px">حذف</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="term in terms" :key="term.id">
-        <td>{{ term.title }}</td>
+      <tr v-for="data in datas" :key="data.id">
+        <td v-for="(row, index) in module.tableRows" :key="index">
+          {{ data[index] }}
+        </td>
         <td>
-          <button @click="edit(term.id)" type="button" class="btn btn-success">
+          <button @click="edit(data.id)" type="button" class="btn btn-success">
             <i class="bi bi-pen"></i>
           </button>
         </td>
         <td>
           <button
-            @click="destroy(term.id)"
+            @click="destroy(data.id)"
             type="button"
             class="btn btn-danger"
-            :disabled="term.loading"
+            :disabled="data.loading"
           >
-            <div v-if="term.loading">
+            <div v-if="data.loading">
               <span
                 class="spinner-border spinner-border-sm"
                 role="status"
@@ -41,50 +43,54 @@
 <script>
 //datatable
 // DataTable
-import "../../../../node_modules/datatables.net-dt/css/jquery.dataTables.min.css";
+import "../../../../../node_modules/datatables.net-dt/css/jquery.dataTables.min.css";
 // Responsive DataTable
-import "../../../../node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css";
+import "../../../../../node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css";
 // DataTable
-import "../../../../node_modules/datatables.net/js/jquery.dataTables.min.js";
+import "../../../../../node_modules/datatables.net/js/jquery.dataTables.min.js";
 //DataTable Responsive
-import "../../../../node_modules/datatables.net-responsive/js/dataTables.responsive.min";
+import "../../../../../node_modules/datatables.net-responsive/js/dataTables.responsive.min";
 //Initilize DataTable
-import "../../assets/datatable/initialize";
+import "../../../assets/datatable/initialize";
 
-import miDataTable from "../../assets/datatable/config";
+import miDataTable from "../../../assets/datatable/config";
 
 import * as $ from "jquery";
 
 import { onMounted, ref, inject } from "vue";
-import router from "../../router.js";
+import router from "../../../router.js";
 
 import axios from "axios";
 import Swal from "sweetalert2";
+
 export default {
   name: "Table",
   inject: ["toastShow"],
-
-  setup() {
+  props: {
+    module: Object,
+  },
+  setup(props) {
     onMounted(() => {
       miDataTable();
     });
-    const terms = ref([]);
-    function getTerms() {
+    const datas = ref([]);
+    const module = props.module
+    function getDatas() {
       axios
-        .get("/terms")
+        .get("/" + module.pluralName)
         .then(function (response) {
-          terms.value = response.data.data;
-          for (var key in terms.value) {
-            terms.value[key]["loading"] = false;
+          datas.value = response.data.data;
+          for (var key in datas.value) {
+            datas.value[key]["loading"] = false;
           }
         })
         .catch(function (error) {});
     }
-    getTerms();
+    getDatas();
 
     function edit(id) {
       router.push({
-        name: "termsUpdate",
+        name: module.pluralName + "Update",
         params: { id: id },
       });
     }
@@ -102,67 +108,31 @@ export default {
         confirmButtonText: "بله",
       }).then((result) => {
         if (result.isConfirmed) {
-          let term = {};
-          for (var key in terms.value) {
-            if (terms.value[key].id == id) {
-              term = terms.value[key];
-              term.loading = true;
-              term["key"] = key;
+          let data = {};
+          for (var key in datas.value) {
+            if (datas.value[key].id == id) {
+              data = datas.value[key];
+              data.loading = true;
+              data["key"] = key;
               break;
             }
           }
           axios
-            .delete("/terms/" + id)
+            .delete("/" + module.pluralName + "/" + id)
             .then(function (response) {
-              terms.value.splice(term.key, 1);
+              datas.value.splice(data.key, 1);
               toastShow("success", response.data.message);
             })
             .catch(function (error) {
-              term.loading = false;
+              data.loading = false;
               toastShow("error", error.response.data.message);
             });
         }
       });
     }
 
-    return { terms, destroy, edit };
+    return { datas, destroy, edit, module };
   },
-  // beforeCreate(){
-  //   alert('beforeCreate')
-  // },
-  //  created(){
-  //   alert(' created')
-  // },
-  //  beforeMount(){
-  //   alert(' beforeMount')
-  // },
-  //  mounted(){
-  //   alert(' mounted')
-  // },
-  //  beforeUpdate(){
-  //   alert(' beforeUpdate')
-  // },
-  //  updated(){
-  //   alert(' updated')
-  // },
-  //   activated(){
-  //   alert('  activated')
-  // },
-  //   deactivated(){
-  //   alert('  deactivated')
-  // },
-  //   beforeUnmount(){
-  //   alert('  beforeUnmount')
-  // },
-  //   unmounted(){
-  //   alert('  unmounted')
-  // },
-  //    renderTracked(){
-  //   alert('   renderTracked')
-  // },
-  //    renderTriggered(){
-  //   alert('   renderTriggered')
-  // },
 };
 </script>
 

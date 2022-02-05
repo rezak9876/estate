@@ -6,19 +6,9 @@
       id="myform"
       method="POST"
       class="frmAjax form-vertical"
-      action="http://127.0.0.1:8000/api/v1/admin/terms"
       enctype="multipart/form-data"
     >
-      <div class="mb-3">
-        <label for="title" class="form-label">title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          aria-describedby="emailHelp"
-        />
-      </div>
+      <Form />
 
       <button type="submit" class="btn btn-primary" :disabled="loading">
         <div v-if="loading">
@@ -41,7 +31,8 @@ import * as $ from "jquery";
 import router from "../../router.js";
 import { onMounted, ref, inject } from "vue";
 import axios from "axios";
-
+import module from "./config"
+import Form from './Partials/Form.vue'
 export default {
   inject: ["toastShow"],
   setup() {
@@ -55,10 +46,10 @@ export default {
         var formdata = new FormData(this);
 
         axios
-          .post("/terms", formdata)
+          .post("/"+module.pluralName, formdata)
           .then(function (response) {
             toastShow("success", response.data.message);
-            router.push({ name: "terms" });
+            router.push({ name: module.pluralName });
           })
           .catch(function (error) {
             const obj = error.response.data.errors;
@@ -74,16 +65,17 @@ export default {
     const headerInfo = {
       button: {
         title: "بازگشت",
-        link: { name: "terms" },
+        link: { name: module.pluralName },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left",
       },
-      title: "دسته بندی ها",
+      title: 'افزودن ' + module.singularPersianName,
     };
     return { loading, headerInfo };
   },
   components: {
     Header,
+    Form,
   },
 };
 </script>

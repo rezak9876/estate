@@ -6,22 +6,11 @@
       id="myform"
       method="POST"
       class="frmAjax form-vertical"
-      action="http://127.0.0.1:8000/api/v1/admin/terms"
       enctype="multipart/form-data"
     >
-      <div class="mb-3">
-        <label for="title" class="form-label">title</label>
-        <input
-          v-model.lazy="term.title"
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          aria-describedby="emailHelp"
-        />
-        <input type="hidden" name="_method" value="patch" />
-      </div>
-
+      <input type="hidden" name="_method" value="patch" />
+      {{data.title}}
+      <Form :data="data" :key="componentKey"/>
       <button type="submit" class="btn btn-primary" :disabled="loading">
         <div v-if="loading">
           <span
@@ -41,26 +30,30 @@
 import Header from "../../components/sections/Header.vue";
 import * as $ from "jquery";
 import router from "../../router.js";
-import { onMounted,ref,inject } from "vue";
+import { onMounted, ref, inject } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+import module from "./config";
+import Form from "./Partials/Form.vue";
 
 export default {
   inject: ["toastShow"],
   setup() {
     const loading = ref(false);
-    const term = ref({});
+    const data = ref({});
     const route = useRoute();
     const id = route.params.id;
-    function getTerm() {
+    let componentKey = 0;
+    function getData() {
       axios
-        .get("/terms/" + id)
+        .get("/" + module.pluralName + "/" + id)
         .then(function (response) {
-          term.value = response.data.data;
+          data.value = response.data.data;
+          setTimeout(function (){componentKey++}, 6000);
         })
         .catch(function (error) {});
     }
-    getTerm();
+    getData();
 
     const toastShow = inject("toastShow");
 
@@ -71,10 +64,10 @@ export default {
         var formdata = new FormData(this);
 
         axios
-          .post("/terms/" + id, formdata)
+          .post("/" + module.pluralName + "/" + id, formdata)
           .then(function (response) {
             toastShow("success", response.data.message);
-            router.push({ name: "terms" });
+            router.push({ name: module.pluralName });
           })
           .catch(function (error) {
             loading.value = false;
@@ -88,17 +81,18 @@ export default {
     const headerInfo = {
       button: {
         title: "بازگشت",
-        link: { name: "terms" },
+        link: { name: module.pluralName },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left",
       },
-      title: "دسته بندی ها",
+      title: "ویرایش " + module.singularPersianName,
     };
 
-    return { term, loading, id, headerInfo };
+    return { data,componentKey, loading, id, headerInfo };
   },
   components: {
     Header,
+    Form,
   },
 };
 </script>
