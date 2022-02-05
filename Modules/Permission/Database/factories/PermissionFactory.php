@@ -42,7 +42,7 @@ class PermissionFactory extends Factory
      */
     public function definition()
     {
-        $permission = new Sequence($this->default_values);
+        $permission = $this->default_values[rand(0,16)];
         return [
             'title' => $permission['title'],
             'slug' => $permission['slug'],

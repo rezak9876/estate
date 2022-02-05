@@ -4,6 +4,7 @@ namespace Modules\Role\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Modules\Role\Entities\Role;
 
 class RoleTableSeeder extends Seeder
@@ -17,6 +18,11 @@ class RoleTableSeeder extends Seeder
     {
         Model::unguard();
 
-        Role::factory()->count(1)->create();
+        DB::table('roles')->insert(
+            [
+                'title' => 'مدیر',
+                'slug' => 'admin',
+            ]
+        );
     }
 }

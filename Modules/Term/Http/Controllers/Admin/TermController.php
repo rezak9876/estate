@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Term\Entities\Term;
 use Modules\Term\Http\Requests\TermRequest;
 use Modules\Term\Transformers\TermCollection;
+use Modules\Term\Transformers\TermResource;
 
 class TermController extends Controller
 {
@@ -42,6 +43,21 @@ class TermController extends Controller
             'message' => 'شرط با موفقیت ساخته شد.'
         ], 201);
     }
+
+
+    /**
+     * Show the profile for a given user.
+     *
+     * @param  Term $term
+     * @return \Illuminate\View\View
+     */
+    public function show(Term $term)
+    {
+        return response()->json([
+            'data' => new TermResource($term)
+        ], 200);
+    }
+
 
     /**
      * Update the specified resource in storage.

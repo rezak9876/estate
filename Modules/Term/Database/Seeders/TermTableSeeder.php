@@ -4,6 +4,7 @@ namespace Modules\Term\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Modules\Term\Entities\Term;
 
 class TermTableSeeder extends Seeder
@@ -17,6 +18,25 @@ class TermTableSeeder extends Seeder
     {
         Model::unguard();
 
-        Term::factory()->count(1)->create();
+        $terms = [
+            'پیش فروش',
+            'مشارکتی',
+            'معاوضه',
+            'قابل تبدیل',
+            'موقعیت اداری',
+            'وام‌دار',
+            'قیمت توافقی',
+            'قدرالسهم',
+            'پاساژ',
+            'مال',
+        ];
+        foreach ($terms as $term) {
+            DB::table('terms')->insert(
+                [
+                    'title' => $term,
+                ]
+            );
+        }
+        
     }
 }

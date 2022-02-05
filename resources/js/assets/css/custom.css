@@ -1,0 +1,80 @@
+:root {
+    --first-color: #5A8DEE;
+    --second-color: #0d6efd;
+    --third-color: #f5f6fa;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: IRANSans;
+    direction: rtl;
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 282px auto;
+}
+
+#wrapper.menuDisplayed {
+    grid-template-columns: auto;
+}
+
+#sidebar-wrapper {
+    overflow-y: hidden;
+    background-color: var(--third-color);
+}
+
+#sidebar-wrapper .accordion-item {
+    background: none;
+}
+
+#sidebar-wrapper .accordion-button {
+    background: none;
+}
+
+.sidebar-nav {
+    list-style: none;
+}
+
+.sidebar-nav li a {
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar-nav li a i {
+    margin-left: 10px;
+}
+
+.sidebar-nav li {
+    margin: 10px auto;
+}
+
+#page-content-wrapper {
+    max-width: 100vw;
+}
+
+#top-of-sidebar {
+    color: var(--first-color);
+}
+
+@media (max-width: 767.98px) {
+    #sidebar-wrapper {
+        position: absolute;
+        height: 100%;
+        z-index: 99;
+    }
+    #wrapper {
+        display: grid;
+        grid-template-columns: auto;
+    }
+}
+
+.bg-second-color {
+    background-color: var(--second-color) !important;
+}
+
+.btn-second-color {
+    background-color: var(--second-color) !important;
+    color: #fff;
+    border-color: #0dcaf0;
+}

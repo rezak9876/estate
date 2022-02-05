@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('term')->group(function() {
-    Route::get('/', 'TermController@index');
-});
+// Route::prefix('term')->group(function() {
+//     Route::get('/', 'TermController@index');
+// });
