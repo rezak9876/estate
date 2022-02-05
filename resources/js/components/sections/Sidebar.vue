@@ -34,23 +34,23 @@
             aria-current="page"
           >
             <i class="bi bi-house-door"></i>
-            خانه
+            شرایط
           </router-link>
 
 
         </li>
         <li>
           <router-link
-            to="/terms/create"
+            to="/facilities"
             class="nav-link link-dark"
             aria-current="page"
           >
             <i class="bi bi-house-door"></i>
-            شرایط
+            امکانات
           </router-link>
         </li>
 
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+        <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
               <button
@@ -128,7 +128,7 @@
           </div>
         </div>
 
-        <span class="my-3 ps-3"> نمایش سریع </span>
+        <span class="my-3 ps-3"> نمایش سریع </span> -->
       </ul>
     </div>
   </div>

@@ -1,14 +1,14 @@
 <template>
-  <Form :module="module"/>
+  <Table :module="module"/>
 </template>
 
 <script>
-import Form from "../../../components/Modules/Partials/Form.vue";
+import Table from "../../../components/Modules/Partials/Table.vue";
 import module from "../config";
 
 export default {
   components: {
-    Form,
+    Table,
   },
   setup() {
     return { module };

@@ -1,18 +1,18 @@
 <template>
-  <Create :module="module">
-    <Form />
-  </Create>
+  <Index :module="module">
+    <Table />
+  </Index>
 </template>
 
 <script>
-import Create from "../../components/Modules/Create.vue";
-import Form from "./Partials/Form.vue";
+import Index from "../../components/Modules/Index.vue";
+import Table from "./Partials/Table.vue";
 import module from "./config";
 
 export default {
   components: {
-    Create,
-    Form,
+    Index,
+    Table,
   },
   setup() {
     return { module };
