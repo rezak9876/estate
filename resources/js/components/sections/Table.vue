@@ -59,7 +59,7 @@ import { onMounted, ref, inject } from "vue";
 import router from "../../router.js";
 
 import axios from "axios";
-
+import Swal from "sweetalert2";
 export default {
   name: "Table",
   inject: ["toastShow"],
@@ -89,32 +89,80 @@ export default {
       });
     }
 
-
     const toastShow = inject("toastShow");
     function destroy(id) {
-      let term = {};
-      for (var key in terms.value) {
-        if (terms.value[key].id == id) {
-          term = terms.value[key];
-          term.loading = true;
-          term["key"] = key;
-          break;
+      Swal.fire({
+        title: "آیا اطمینان دارید",
+        text: "بعد از حذف امکان بازگشت وجود ندارد",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "انصراف",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "بله",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let term = {};
+          for (var key in terms.value) {
+            if (terms.value[key].id == id) {
+              term = terms.value[key];
+              term.loading = true;
+              term["key"] = key;
+              break;
+            }
+          }
+          axios
+            .delete("/terms/" + id)
+            .then(function (response) {
+              terms.value.splice(term.key, 1);
+              toastShow("success", response.data.message);
+            })
+            .catch(function (error) {
+              term.loading = false;
+              toastShow("error", error.response.data.message);
+            });
         }
-      }
-      axios
-        .delete("/terms/" + id)
-        .then(function (response) {
-          terms.value.splice(term.key, 1);
-          toastShow("success", response.data.message);
-        })
-        .catch(function (error) {
-          term.loading = false;
-          toastShow("error", error.response.data.message);
-        });
+      });
     }
 
     return { terms, destroy, edit };
   },
+  // beforeCreate(){
+  //   alert('beforeCreate')
+  // },
+  //  created(){
+  //   alert(' created')
+  // },
+  //  beforeMount(){
+  //   alert(' beforeMount')
+  // },
+  //  mounted(){
+  //   alert(' mounted')
+  // },
+  //  beforeUpdate(){
+  //   alert(' beforeUpdate')
+  // },
+  //  updated(){
+  //   alert(' updated')
+  // },
+  //   activated(){
+  //   alert('  activated')
+  // },
+  //   deactivated(){
+  //   alert('  deactivated')
+  // },
+  //   beforeUnmount(){
+  //   alert('  beforeUnmount')
+  // },
+  //   unmounted(){
+  //   alert('  unmounted')
+  // },
+  //    renderTracked(){
+  //   alert('   renderTracked')
+  // },
+  //    renderTriggered(){
+  //   alert('   renderTriggered')
+  // },
 };
 </script>
 

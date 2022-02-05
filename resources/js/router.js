@@ -7,7 +7,7 @@ const routes = [
 
     { path: "/terms", name: 'terms', component: TermIndex },
     { path: "/terms/create", name: 'termsCreate', component: TermCreate },
-    { path: "/terms/:term", name: 'termsUpdate', component: TermUpdate },
+    { path: "/terms/:id", name: 'termsUpdate', component: TermUpdate },
 ];
 
 const router = createRouter({

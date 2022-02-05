@@ -1,3 +1,6 @@
 [submodule "adminpanel"]
 	path = adminpanel
 	url = ./resources/adminpanel
+[submodule "resources/adminpanel"]
+	path = resources/adminpanel
+	url = git@gitlab.com:rezakarimi9876/adminpanel-bootstrap.git

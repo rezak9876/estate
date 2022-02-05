@@ -39,57 +39,51 @@
 import Header from "../../components/sections/Header.vue";
 import * as $ from "jquery";
 import router from "../../router.js";
-import { ref } from "vue";
+import { onMounted, ref, inject } from "vue";
 import axios from "axios";
 
 export default {
   inject: ["toastShow"],
-
   setup() {
     const loading = ref(false);
+    const toastShow = inject("toastShow");
 
-    return { loading };
+    onMounted(() => {
+      $("form#myform").submit(function (e) {
+        e.preventDefault();
+        loading.value = true;
+        var formdata = new FormData(this);
+
+        axios
+          .post("/terms", formdata)
+          .then(function (response) {
+            toastShow("success", response.data.message);
+            router.push({ name: "terms" });
+          })
+          .catch(function (error) {
+            const obj = error.response.data.errors;
+            const firstmessage = obj[Object.keys(obj)[0]][0];
+            toastShow("error", firstmessage);
+          })
+          .then(function (response) {
+            loading.value = false;
+          });
+      });
+    });
+
+    const headerInfo = {
+      button: {
+        title: "بازگشت",
+        link: { name: "terms" },
+        color: "btn btn-danger",
+        icon: "bi bi-arrow-left",
+      },
+      title: "دسته بندی ها",
+    };
+    return { loading, headerInfo };
   },
   components: {
     Header,
-  },
-  mounted() {
-    const vuethis = this;
-    $("form#myform").submit(function (e) {
-      e.preventDefault();
-      vuethis.loading = true;
-      var formdata = new FormData(this);
-
-      axios
-        .post("/terms", formdata)
-        .then(function (response) {
-          console.log(response);
-          vuethis.toastShow("success", response.data.message);
-          router.push({ name: "terms" });
-        })
-        .catch(function (error) {
-          console.log(error);
-          const obj = error.response.data.errors;
-          const firstmessage = obj[Object.keys(obj)[0]][0];
-          vuethis.toastShow("error", firstmessage);
-        })
-        .then(function (response) {
-          vuethis.loading = false;
-        });
-    });
-  },
-  data() {
-    return {
-      headerInfo: {
-        button: {
-          title: "بازگشت",
-          link: { name: "terms" },
-          color: "btn btn-danger",
-          icon: "bi bi-arrow-left",
-        },
-        title: "دسته بندی ها",
-      },
-    };
   },
 };
 </script>

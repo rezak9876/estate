@@ -41,7 +41,7 @@
 import Header from "../../components/sections/Header.vue";
 import * as $ from "jquery";
 import router from "../../router.js";
-import { ref } from "vue";
+import { onMounted,ref,inject } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 
@@ -61,48 +61,44 @@ export default {
         .catch(function (error) {});
     }
     getTerm();
-    return { term, loading, id };
-  },
-  mounted() {
-    const vuethis = this;
-    $("form#myform").submit(function (e) {
-      e.preventDefault();
-      vuethis.loading = true;
-      var formdata = new FormData(this);
 
-      axios
-        .post("/terms/" + vuethis.id,formdata)
-        .then(function (response) {
+    const toastShow = inject("toastShow");
 
-          vuethis.toastShow('success', response.data.message);
-          router.push({ name: "terms" });
+    onMounted(() => {
+      $("form#myform").submit(function (e) {
+        e.preventDefault();
+        loading.value = true;
+        var formdata = new FormData(this);
 
-        })
-        .catch(function (error) {
-          vuethis.loading = false;
-
-          console.log(3 === '3');
-          const obj = error.response.data.errors;
-          const firstmessage = obj[Object.keys(obj)[0]][0];
-          vuethis.toastShow("error", firstmessage);
-        });
+        axios
+          .post("/terms/" + id, formdata)
+          .then(function (response) {
+            toastShow("success", response.data.message);
+            router.push({ name: "terms" });
+          })
+          .catch(function (error) {
+            loading.value = false;
+            const obj = error.response.data.errors;
+            const firstmessage = obj[Object.keys(obj)[0]][0];
+            toastShow("error", firstmessage);
+          });
+      });
     });
+
+    const headerInfo = {
+      button: {
+        title: "بازگشت",
+        link: { name: "terms" },
+        color: "btn btn-danger",
+        icon: "bi bi-arrow-left",
+      },
+      title: "دسته بندی ها",
+    };
+
+    return { term, loading, id, headerInfo };
   },
   components: {
     Header,
-  },
-  data() {
-    return {
-      headerInfo: {
-        button: {
-          title: "بازگشت",
-          link: { name: "terms" },
-          color: "btn btn-danger",
-          icon: "bi bi-arrow-left",
-        },
-        title: "دسته بندی ها",
-      },
-    };
   },
 };
 </script>
