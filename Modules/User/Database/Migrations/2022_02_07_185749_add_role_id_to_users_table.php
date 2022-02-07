@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFacilitiesTable extends Migration
+class AddRoleIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateFacilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('facilities', function (Blueprint $table) {
-            $table->tinyIncrements('id');
-            $table->string('title');
-            $table->integer('type');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedTinyInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
@@ -28,6 +26,7 @@ class CreateFacilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facilities');
+        Schema::table('users', function (Blueprint $table) {
+        });
     }
 }

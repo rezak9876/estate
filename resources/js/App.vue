@@ -94,11 +94,12 @@ export default {
     
     // const token = "Bearer " + getCookie("token");
 
+    const base_url = window.location.origin+'/api/v1/admin';
     // axios.defaults.headers.common["Authorization"] = token;
     axios.defaults.headers["Content-Type"] = "application/json";
     axios.defaults.headers["responseType"] = "json";
     axios.defaults.headers["Accept"] = "application/json";
-    axios.defaults.baseURL = 'http://127.0.0.1:8000/api/v1/admin';
+    axios.defaults.baseURL = base_url;
 
     
   },

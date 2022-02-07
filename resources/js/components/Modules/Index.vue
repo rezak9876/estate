@@ -1,6 +1,4 @@
 <template>
-  <div class="container mt-3"></div>
-
   <div id="page-content" class="bg-light shadow-lg p-3 mb-5 bg-body rounded">
     <Header :header-info="headerInfo" />
     <slot></slot>

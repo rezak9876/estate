@@ -19,21 +19,28 @@ class FacilityTableSeeder extends Seeder
         Model::unguard();
 
         $facilities = [
-            'پیش فروش',
-            'مشارکتی',
-            'معاوضه',
-            'قابل تبدیل',
-            'موقعیت اداری',
-            'وام‌دار',
-            'قیمت توافقی',
-            'قدرالسهم',
-            'پاساژ',
-            'مال',
+            ['title'=>'آسانسور','type'=>0],
+            ['title'=>'پارکینگ','type'=>0],
+            ['title'=>'انباری','type'=>0],
+            ['title'=>'لابی','type'=>0],
+            ['title'=>'استخر','type'=>0],
+            ['title'=>'سونا','type'=>0],
+            ['title'=>'سالن ورزش','type'=>0],
+            ['title'=>'نگهبان','type'=>0],
+            ['title'=>'بالکن','type'=>0],
+            ['title'=>'تهویه مطبوع','type'=>0],
+            ['title'=>'سالن اجتماعات','type'=>0],
+            ['title'=>'روف گاردن','type'=>0],
+            ['title'=>'درب ریموت','type'=>0],
+            ['title'=>'جکوزی','type'=>0],
+            ['title'=>'آنتن مرکزی','type'=>0],
+            ['title'=>'تعداد اتاق','type'=>1],
         ];
         foreach ($facilities as $facility) {
             DB::table('facilities')->insert(
                 [
-                    'title' => $facility,
+                    'title' => $facility['title'],
+                    'type' => $facility['type'],
                 ]
             );
         }
