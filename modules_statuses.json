@@ -2,5 +2,6 @@
     "Term": true,
     "Role": true,
     "User": true,
-    "Permission": true
+    "Permission": true,
+    "Facility": true
 }
