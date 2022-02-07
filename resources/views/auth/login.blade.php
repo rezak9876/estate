@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form id="myform" method="POST" class="frmAjax form-vertical" action="http://127.0.0.1:8000/api/v1/auth/login" enctype="multipart/form-data">
+    <form id="myform" method="POST" class="frmAjax form-vertical"  enctype="multipart/form-data">
         <div class="mb-3">
             <label for="email" class="form-label">email</label>
             <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp" />
@@ -31,41 +31,15 @@
         $("form#myform").submit(function(e) {
             e.preventDefault();
 
-
-            // console.log(getCookie('alw'))
-
-            // function getCookie(cname) {
-            //     let name = cname + "=";
-            //     let decodedCookie = decodeURIComponent(document.cookie);
-            //     let ca = decodedCookie.split(';');
-            //     for (let i = 0; i < ca.length; i++) {
-            //         let c = ca[i];
-            //         while (c.charAt(0) == ' ') {
-            //             c = c.substring(1);
-            //         }
-            //         if (c.indexOf(name) == 0) {
-            //             return c.substring(name.length, c.length);
-            //         }
-            //     }
-            //     return "";
-            // }
-
-
             var formdata = new FormData(this);
             $.ajax({
-                url: "http://127.0.0.1:8000/login",
+                url: "{{route('login')}}",
                 data: formdata,
                 processData: false,
                 contentType: false,
                 type: "post",
                 success: function(data, textStatus, xhr) {
-                    function setCookie(cname, cvalue, exdays) {
-                        const d = new Date();
-                        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-                        let expires = "expires=" + d.toUTCString();
-                        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/admin";
-                    }
-                    setCookie('token', data.access_token, 1)
+                    location.replace("{{route('admin')}}")
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR, textStatus, errorThrown)

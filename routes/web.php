@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/admin', function () {
     return view('welcome');
-});
+})->name('admin');
 
 Route::get('/', function () {
     return view('login');
