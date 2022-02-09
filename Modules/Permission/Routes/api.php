@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/permission', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'],function(){
+    Route::prefix('admin')->as('admin.')->middleware('auth:sanctum')->group(function () {
+        Route::get('permissions','Admin\PermissionController@index');
+    });
 });

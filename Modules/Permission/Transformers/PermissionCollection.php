@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Facility\Transformers;
+namespace Modules\Permission\Transformers;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class FacilityCollection extends ResourceCollection
+class PermissionCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,8 +14,8 @@ class FacilityCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => IndexFacilityResource::collection($this->collection),
+           return [
+            'data' => PermissionResource::collection($this->collection),
             'meta' => [
                 'count' => $this->count($this->collection)
             ]

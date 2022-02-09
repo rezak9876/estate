@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/role', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'],function(){
+    Route::prefix('admin')->as('admin.')->middleware('auth:sanctum')->group(function () {
+        Route::resource('roles','Admin\RoleController')->only([
+            'index', 'store', 'show', 'update', 'destroy'
+        ]);
+    });
 });
