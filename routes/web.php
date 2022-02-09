@@ -18,5 +18,5 @@ Route::middleware('auth:sanctum')->get('/admin', function () {
 })->name('admin');
 
 Route::get('/', function () {
-    return view('login');
+    return redirect(route('admin'));
 });
