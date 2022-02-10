@@ -22907,7 +22907,7 @@ __webpack_require__.r(__webpack_exports__);
     var module = props.module;
 
     for (var field in module.formfields) {
-      if (module.formfields[field].type === "checkboxgroup") data.value[module.formfields[field].name] = [];
+      if (module.formfields[field].type === "checkboxgroup") data.value[field] = [];
     }
 
     if (id) {
@@ -22938,11 +22938,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
 
-    function hasAll(row) {
+    function hasAll(children, group_checkbox_name) {
       var has_all = true;
 
-      for (var currentValue in row.children) {
-        has_all &= data.value[row.name].includes(currentValue);
+      for (var currentValue in children) {
+        has_all &= data.value[group_checkbox_name].includes(currentValue);
       }
 
       return has_all;
@@ -23836,14 +23836,16 @@ var _hoisted_8 = ["value"];
 var _hoisted_9 = {
   key: 2
 };
-var _hoisted_10 = ["checked", "onChange", "id"];
-var _hoisted_11 = ["for"];
-var _hoisted_12 = {
-  "class": "form-check-inline",
-  id: "children"
+var _hoisted_10 = {
+  "class": "table table-striped table-borderless table-sm"
 };
-var _hoisted_13 = ["value", "onUpdate:modelValue", "id"];
-var _hoisted_14 = ["for"];
+var _hoisted_11 = {
+  scope: "row"
+};
+var _hoisted_12 = ["checked", "onChange", "id"];
+var _hoisted_13 = ["for"];
+var _hoisted_14 = ["value", "onUpdate:modelValue", "id"];
+var _hoisted_15 = ["for"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.module.formfields, function (row, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -23893,42 +23895,51 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* PROPS */
     , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.data[index], void 0, {
       lazy: true
-    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'checkboxgroup' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-      checked: $setup.hasAll(row),
-      onChange: function onChange($event) {
-        return $setup.motherchange($event, row.children, row.name);
-      },
-      type: "checkbox",
-      id: 'checkbox_mother' + row.name,
-      "class": "nested_checkbox"
-    }, null, 40
-    /* PROPS, HYDRATE_EVENTS */
-    , _hoisted_10), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-      "for": 'checkbox_mother' + row.name
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
-    /* TEXT, PROPS */
-    , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.children, function (label, children_id) {
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-        key: children_id
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        value: children_id,
-        "class": "form-check-input ml-2",
-        "onUpdate:modelValue": function onUpdateModelValue($event) {
-          return $setup.data[row.name] = $event;
+    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'checkboxgroup' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.categories, function (category, category_index) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+        key: category_index
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        checked: $setup.hasAll(category.children, index),
+        onChange: function onChange($event) {
+          return $setup.motherchange($event, category.children, index);
         },
         type: "checkbox",
-        id: row.name + children_id
-      }, null, 8
-      /* PROPS */
-      , _hoisted_13), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[row.name]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-        "class": "form-check-label",
-        "for": row.name + children_id
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(label), 9
+        id: 'checkbox_mother' + category.persianName,
+        "class": "nested_checkbox"
+      }, null, 40
+      /* PROPS, HYDRATE_EVENTS */
+      , _hoisted_12), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": 'checkbox_mother' + category.persianName
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.persianName), 9
       /* TEXT, PROPS */
-      , _hoisted_14)]);
+      , _hoisted_13)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" children "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(category.children, function (child_title, child_index) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+          scope: "row",
+          key: child_index
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+          value: child_index,
+          "class": "form-check-input ml-2",
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return $setup.data[index] = $event;
+          },
+          type: "checkbox",
+          id: index + _ctx.children_id
+        }, null, 8
+        /* PROPS */
+        , _hoisted_14), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+          "class": "form-check-label",
+          "for": index + _ctx.children_id
+        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(child_title), 9
+        /* TEXT, PROPS */
+        , _hoisted_15)]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))]);
     }), 128
     /* KEYED_FRAGMENT */
-    ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
+    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
     /* CLASS */
     );
   }), 128
@@ -24898,27 +24909,39 @@ __webpack_require__.r(__webpack_exports__);
       persianName: 'اسلاگ',
       col: 6
     },
-    user_permission: {
+    permissions: {
       type: 'checkboxgroup',
-      name: 'permissions',
-      persianName: 'کاربران',
-      col: 6,
-      children: {
-        '1': 'ایجاد کاربر',
-        '2': 'ویرایش کاربر',
-        '3': 'حذف کاربر'
-      }
-    },
-    term_permission: {
-      type: 'checkboxgroup',
-      name: 'terms',
-      persianName: 'شرایط',
-      col: 6,
-      children: {
-        '1': 'ایجاد شرط',
-        '2': 'ویرایش شرط'
-      }
-    }
+      persianName: 'دسترسی ها',
+      col: 12,
+      categories: [{
+        persianName: 'کاربران',
+        children: {
+          '1': 'ایجاد کاربر',
+          '2': 'ویرایش کاربر',
+          '3': 'حذف کاربر'
+        }
+      }, {
+        persianName: 'شرایط',
+        children: {
+          '4': 'ایجاد شرط',
+          '5': 'ویرایش شرط'
+        }
+      }]
+    } // user_permission: {
+    //     type: 'checkboxgroup',
+    //     name: 'permissions',
+    // },
+    // term_permission: {
+    //     type: 'checkboxgroup',
+    //     name: 'terms',
+    //     persianName: 'شرایط',
+    //     col: 6,
+    //     children: {
+    //         '1': 'ایجاد شرط',
+    //         '2': 'ویرایش شرط',
+    //     }
+    // },
+
   }
 });
 

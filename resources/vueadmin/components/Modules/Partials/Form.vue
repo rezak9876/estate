@@ -37,16 +37,48 @@
       </div>
 
       <div v-if="row.type == 'checkboxgroup'">
-        <input
-          :checked="hasAll(row)"
-          @change="motherchange($event, row.children, row.name)"
-          type="checkbox"
-          :id="'checkbox_mother'+row.name"
-          class="nested_checkbox"
-        />
-        <label :for="'checkbox_mother'+row.name">{{ row.persianName }}</label>
+        <table class="table table-striped table-borderless table-sm">
+          <label>{{ row.persianName }}</label>
+          <tbody>
+            <tr
+              v-for="(category, category_index) in row.categories"
+              :key="category_index"
+            >
+              <th scope="row">
+                <input
+                  :checked="hasAll(category.children,index)"
+                  @change="motherchange($event, category.children,index)"
+                  type="checkbox"
+                  :id="'checkbox_mother' + category.persianName"
+                  class="nested_checkbox"
+                />
+                <label :for="'checkbox_mother' + category.persianName">{{
+                  category.persianName
+                }}</label>
+              </th>
+              <!-- children -->
+              <th
+                scope="row"
+                v-for="(child_title, child_index) in category.children"
+                :key="child_index"
+              >
+                <input
+                  :value="child_index"
+                  class="form-check-input ml-2"
+                  v-model="data[index]"
+                  type="checkbox"
+                  :id="index + children_id"
+                />
 
-        <div class="form-check-inline" id="children">
+                <label class="form-check-label" :for="index + children_id">{{
+                  child_title
+                }}</label>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <div class="form-check-inline" id="children">
           <div v-for="(label, children_id) in row.children" :key="children_id">
             <input
               :value="children_id"
@@ -60,7 +92,7 @@
               label
             }}</label>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -89,7 +121,7 @@ export default {
 
     for (var field in module.formfields) {
       if (module.formfields[field].type === "checkboxgroup")
-        data.value[module.formfields[field].name] = [];
+        data.value[field] = [];
     }
     if (id) {
       function getData() {
@@ -121,10 +153,10 @@ export default {
       }
     }
 
-    function hasAll(row) {
+    function hasAll(children,group_checkbox_name) {
       let has_all = true;
-      for (var currentValue in row.children) {
-        has_all &= data.value[row.name].includes(currentValue);
+      for (var currentValue in children) {
+        has_all &= data.value[group_checkbox_name].includes(currentValue);
       }
       return has_all;
     }
