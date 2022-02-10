@@ -1,4 +1,6 @@
 <template>
+  <GetLoading v-if="loading"/>
+
   <table id="miTabla" class="display responsive nowrap" style="width: 100%">
     <thead>
       <tr>
@@ -63,6 +65,9 @@ import router from "../../../router.js";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+
+
+import GetLoading from "../../sections/GetLoading.vue";
 export default {
   name: "Table",
   inject: ["toastShow"],
@@ -70,11 +75,12 @@ export default {
     module: Object,
   },
   setup(props) {
+    const loading = ref(true);
     onMounted(() => {
       miDataTable();
     });
     const datas = ref([]);
-    const module = props.module
+    const module = props.module;
     function getDatas() {
       axios
         .get("/" + module.pluralName)
@@ -84,7 +90,10 @@ export default {
             datas.value[key]["loading"] = false;
           }
         })
-        .catch(function (error) {});
+        .catch(function (error) {})
+        .then(function () {
+          loading.value = false;
+        });
     }
     getDatas();
 
@@ -131,7 +140,10 @@ export default {
       });
     }
 
-    return { datas, destroy, edit, module };
+    return { loading, datas, destroy, edit, module };
+  },
+  components: {
+    GetLoading,
   },
 };
 </script>

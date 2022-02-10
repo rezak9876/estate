@@ -24,18 +24,33 @@ export default module = {
             col: 12,
             categories: [{
                 persianName: 'کاربران',
-                children: {
-                    '1': 'ایجاد کاربر',
-                    '2': 'ویرایش کاربر',
-                    '3': 'حذف کاربر',
-                }
+                children: [
+                    {
+                        id: 3,
+                        title: 'ایجاد کاربر',
+                    },
+                    {
+                        id: 1,
+                        title: 'ویرایش کاربر',
+                    },
+                    {
+                        id: 2,
+                        title: 'حذف کاربر',
+                    },
+                ]
             },
             {
                 persianName: 'شرایط',
-                children: {
-                    '4': 'ایجاد شرط',
-                    '5': 'ویرایش شرط',
-                }
+                children: [
+                    {
+                        id: 6,
+                        title: 'ایجاد شرط',
+                    },
+                    {
+                        id: 4,
+                        title: 'ویرایش شرط',
+                    },
+                ]
             }]
         },
         // user_permission: {

@@ -1,4 +1,5 @@
 <template>
+  <GetLoading v-if="loading" />
   <div class="mb-3 row">
     <div
       v-for="(row, index) in module.formfields"
@@ -46,8 +47,8 @@
             >
               <th scope="row">
                 <input
-                  :checked="hasAll(category.children,index)"
-                  @change="motherchange($event, category.children,index)"
+                  :checked="hasAll(category.children, index)"
+                  @change="motherchange($event, category.children, index)"
                   type="checkbox"
                   :id="'checkbox_mother' + category.persianName"
                   class="nested_checkbox"
@@ -59,19 +60,20 @@
               <!-- children -->
               <th
                 scope="row"
-                v-for="(child_title, child_index) in category.children"
-                :key="child_index"
+                v-for="child in category.children"
+                :key="child.id"
               >
                 <input
-                  :value="child_index"
+                  :name="index + '[]'"
+                  :value="child.id"
                   class="form-check-input ml-2"
                   v-model="data[index]"
                   type="checkbox"
-                  :id="index + children_id"
+                  :id="index + child.id"
                 />
 
-                <label class="form-check-label" :for="index + children_id">{{
-                  child_title
+                <label class="form-check-label" :for="index + child.id">{{
+                  child.title
                 }}</label>
               </th>
             </tr>
@@ -105,14 +107,17 @@ import { useRoute } from "vue-router";
 import axios from "axios";
 import * as $ from "jquery";
 
+import GetLoading from "../../sections/GetLoading.vue";
 export default {
   components: {
     Table,
+    GetLoading,
   },
   props: {
     module: Object,
   },
   setup(props) {
+    const loading = ref(true);
     const data = ref({});
 
     const route = useRoute();
@@ -130,20 +135,26 @@ export default {
           .then(function (response) {
             data.value = response.data.data;
           })
-          .catch(function (error) {});
+          .catch(function (error) {})
+          .then(function () {
+            loading.value = false;
+          });
       }
       getData();
+    } else {
+      loading.value = false;
     }
 
     function motherchange(event, children, checkbox_name) {
       let mother_checkbox_status = event.target.checked;
 
       for (var currentValue in children) {
-        let data_checkbox_index =
-          data.value[checkbox_name].indexOf(currentValue);
+        let data_checkbox_index = data.value[checkbox_name].indexOf(
+          children[currentValue].id
+        );
         if (mother_checkbox_status === true) {
           if (data_checkbox_index < 0) {
-            data.value[checkbox_name].push(currentValue);
+            data.value[checkbox_name].push(children[currentValue].id);
           }
         } else {
           if (data_checkbox_index > -1) {
@@ -153,14 +164,16 @@ export default {
       }
     }
 
-    function hasAll(children,group_checkbox_name) {
+    function hasAll(children, group_checkbox_name) {
       let has_all = true;
       for (var currentValue in children) {
-        has_all &= data.value[group_checkbox_name].includes(currentValue);
+        has_all &= data.value[group_checkbox_name].includes(
+          children[currentValue].id
+        );
       }
       return has_all;
     }
-    return { module, data, motherchange, hasAll };
+    return { loading, module, data, motherchange, hasAll };
   },
 };
 </script>

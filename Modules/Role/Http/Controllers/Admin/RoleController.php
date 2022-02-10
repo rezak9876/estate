@@ -39,6 +39,7 @@ class RoleController extends Controller
 //        $this->validateRole($request);
         $role = new Role();
         $role->create($request->all());
+        $role->permissions()->attach($request->permissions);
         return response()->json([
             'message' => 'شرط با موفقیت ساخته شد.'
         ], 201);
@@ -68,6 +69,7 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         $role->update($request->all());
+        $role->permissions()->sync($request->permissions);
         return response()->json([
             'message' => 'شرط با موفقیت آپدیت شد.'
         ], 200);
