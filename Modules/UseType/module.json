@@ -1,0 +1,13 @@
+{
+    "name": "UseType",
+    "alias": "usetype",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UseType\\Providers\\UseTypeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -3,5 +3,6 @@
     "Role": true,
     "User": true,
     "Permission": true,
-    "Facility": true
+    "Facility": true,
+    "UseType": true
 }
