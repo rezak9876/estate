@@ -7,5 +7,6 @@
     "UseType": true,
     "UseTypeProperty": true,
     "Province": true,
-    "City": true
+    "City": true,
+    "Region": true
 }
