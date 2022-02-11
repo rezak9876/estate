@@ -15,7 +15,6 @@ export default {
         axios
             .get("/permissions")
             .then(function (response) {
-                alert(response.data);
             })
             .catch(function (error) {
             })

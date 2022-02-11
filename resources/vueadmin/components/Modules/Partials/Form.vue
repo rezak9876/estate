@@ -98,8 +98,7 @@
       </div>
 
       <div v-if="row.type == 'map'">
-        <span>با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید</span>
-        <div id="mapid"></div>
+       <Map :data="data" />
       </div>
     </div>
   </div>
@@ -107,16 +106,19 @@
 
 <script>
 import Table from "../../../components/Modules/Partials/Table.vue";
-import { ref } from "vue";
+import Map from "./FormPartials/Map.vue";
+import {  ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import * as $ from "jquery";
 
 import GetLoading from "../../sections/GetLoading.vue";
+
 export default {
   components: {
     Table,
     GetLoading,
+    Map
   },
   props: {
     module: Object,
@@ -183,4 +185,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
