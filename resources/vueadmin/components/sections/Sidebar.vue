@@ -62,6 +62,17 @@
           </router-link>
         </li>
 
+        <li>
+          <router-link
+            to="/estates"
+            class="nav-link link-dark"
+            aria-current="page"
+          >
+            <i class="bi bi-house-door"></i>
+            آگهی ها
+          </router-link>
+        </li>
+
         <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">

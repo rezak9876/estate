@@ -9,5 +9,6 @@
     "Province": true,
     "City": true,
     "Region": true,
-    "Neighborhood": true
+    "Neighborhood": true,
+    "Estate": true
 }

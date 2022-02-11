@@ -11,6 +11,10 @@ import FacilityUpdate from './pages/Facility/Update'
 import RoleIndex from './pages/Role/Index.vue'
 import RoleCreate from './pages/Role/Create'
 import RoleUpdate from './pages/Role/Update'
+
+import EstateIndex from './pages/Estate/Index.vue'
+import EstateCreate from './pages/Estate/Create'
+import EstateUpdate from './pages/Estate/Update'
 const routes = [
 
     { path: "/terms", name: 'terms', component: TermIndex },
@@ -24,6 +28,10 @@ const routes = [
     { path: "/roles", name: 'roles', component: RoleIndex },
     { path: "/roles/create", name: 'rolesCreate', component: RoleCreate },
     { path: "/roles/:id", name: 'rolesUpdate', component: RoleUpdate },
+
+    { path: "/estates", name: 'estates', component: EstateIndex },
+    { path: "/estates/create", name: 'estatesCreate', component: EstateCreate },
+    { path: "/estates/:id", name: 'estatesUpdate', component: EstateUpdate },
 ];
 
 const router = createRouter({

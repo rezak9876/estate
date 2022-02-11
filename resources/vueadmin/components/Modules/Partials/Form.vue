@@ -96,6 +96,11 @@
           </div>
         </div> -->
       </div>
+
+      <div v-if="row.type == 'map'">
+        <span>با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید</span>
+        <div id="mapid"></div>
+      </div>
     </div>
   </div>
 </template>
