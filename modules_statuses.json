@@ -8,5 +8,6 @@
     "UseTypeProperty": true,
     "Province": true,
     "City": true,
-    "Region": true
+    "Region": true,
+    "Neighborhood": true
 }
