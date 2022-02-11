@@ -1,0 +1,13 @@
+{
+    "name": "UseTypeProperty",
+    "alias": "usetypeproperty",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UseTypeProperty\\Providers\\UseTypePropertyServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

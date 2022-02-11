@@ -4,5 +4,6 @@
     "User": true,
     "Permission": true,
     "Facility": true,
-    "UseType": true
+    "UseType": true,
+    "UseTypeProperty": true
 }
