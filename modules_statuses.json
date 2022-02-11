@@ -6,5 +6,6 @@
     "Facility": true,
     "UseType": true,
     "UseTypeProperty": true,
-    "Province": true
+    "Province": true,
+    "City": true
 }
