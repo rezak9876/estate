@@ -1,8 +1,8 @@
 <template>
   <span>با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید</span>
   <div id="mapid"></div>
-  <input type="text" name="latitude" />
-  <input type="text" name="longitude" />
+  <input v-model="data.latitude" type="text" name="latitude" />
+  <input v-model="data.longitude" type="text" name="longitude" />
   <div class="form-group">
     <label for="formGroupExampleInput">استان</label>
     <input
@@ -13,15 +13,16 @@
       readonly
     />
     <label for="formGroupExampleInput">شهر</label>
-    <input type="text" class="form-control" name="city" readonly />
+    <input v-model="data.city" type="text" class="form-control" name="city" readonly />
     <label for="formGroupExampleInput">منطقه</label>
-    <input type="text" class="form-control" name="region" readonly />
+    <input v-model="data.region" type="text" class="form-control" name="region" readonly />
     <label for="formGroupExampleInput">محله</label>
-    <input type="text" class="form-control" name="neighborhood" readonly />
+    <input v-model="data.neighborhood" type="text" class="form-control" name="neighborhood" readonly />
   </div>
   <div class="form-group">
     <label for="formGroupExampleInput">آدرس</label>
     <textarea
+    v-model="data.address"
       name="address"
       type="text"
       class="form-control"
@@ -91,13 +92,13 @@ export default {
           url: url,
           success: function (result) {
             // $("input[name=province]").val(result.province).change();
-            props.data.value.province = result.province
-            $("input[name=city]").val(result.city).change();
-            $("input[name=region]").val(result.region).change();
-            $("input[name=neighborhood]").val(result.neighbourhood).change();
-            $("textarea[name=address]").html(result.address_compact).change();
-            $("input[name=latitude]").val(latitude).change();
-            $("input[name=longitude]").val(longitude).change();
+            props.data.province = result.province
+            props.data.city = result.city
+            props.data.region = result.region
+            props.data.neighborhood = result.neighbourhood
+            props.data.address = result.address
+            props.data.latitude = result.latitude
+            props.data.province = result.province
           },
           error: function (jqXhr, textStatus, errorMessage) {
             // error callback

@@ -10,7 +10,7 @@
         <label :for="index" class="form-label">{{ row.persianName }}</label>
         <input
           v-model.lazy="data[index]"
-          type="text"
+          :type="row.input_type"
           class="form-control"
           :id="index"
           :name="index"
@@ -27,6 +27,19 @@
           :name="index"
           aria-describedby="emailHelp"
         >
+          <optgroup
+            v-for="(optgroup, optgroup_index) in row.optgroups"
+            :key="optgroup_index"
+            :label="optgroup.persianName"
+          >
+            <option
+              v-for="(label, value) in optgroup.options"
+              :key="value"
+              :value="value"
+            >
+              {{ label }}
+            </option>
+          </optgroup>
           <option
             v-for="(value, integer) in row.options"
             :key="integer"
@@ -98,7 +111,7 @@
       </div>
 
       <div v-if="row.type == 'map'">
-       <Map :data="data" />
+        <Map :data="data" />
       </div>
     </div>
   </div>
@@ -107,7 +120,7 @@
 <script>
 import Table from "../../../components/Modules/Partials/Table.vue";
 import Map from "./FormPartials/Map.vue";
-import {  ref } from "vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import * as $ from "jquery";
@@ -118,7 +131,7 @@ export default {
   components: {
     Table,
     GetLoading,
-    Map
+    Map,
   },
   props: {
     module: Object,
@@ -186,5 +199,4 @@ export default {
 </script>
 
 <style>
-
 </style>
