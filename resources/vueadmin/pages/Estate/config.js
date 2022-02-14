@@ -17,6 +17,11 @@ export default module = {
                 1: 'رهن و اجاره',
                 2: 'پیش فروش',
                 3: 'معاوضه',
+            },
+            events: {
+                click : function () {
+                    alert('hi');
+                }
             }
         },
 
@@ -55,12 +60,105 @@ export default module = {
             type: 'input',
             persianName: 'متراژ',
             input_type: 'number',
-            col:6
+            col: 6
+        },
+        year_of_construction: {
+            type: 'input',
+            persianName: 'سال ساخت',
+            input_type: 'number',
+            col: 6
+        },
+        total_price: {
+            type: 'input',
+            persianName: 'قیمت',
+            input_type: 'number',
+            col: 6
+        },
+
+        mortgage_price: {
+            type: 'input',
+            persianName: 'قیمت رهن',
+            input_type: 'number',
+            col: 6
+        },
+
+        rent_price: {
+            type: 'input',
+            persianName: 'قیمت اجاره',
+            input_type: 'number',
+            col: 6
+        },
+
+
+        title: {
+            type: 'input',
+            persianName: 'عنوان',
+            col: 6
+        },
+
+
+        slug: {
+            type: 'input',
+            persianName: 'اسلاگ',
+            col: 6
+        },
+
+
+
+        description: {
+            type: 'textarea',
+            persianName: 'توضیحات',
+            col: 6
+        },
+
+
+
+        main_pic: {
+            type: 'input',
+            persianName: 'تصویر اصلی',
+            input_type: 'file',
+            col: 6
+        },
+
+
+        galleries: {
+            type: 'input',
+            persianName: 'گالری تصاویر',
+            input_type: 'file',
+            col: 6,
+            attributes: {
+                multiple: true
+            }
+        },
+
+        facilities: {
+            type: 'multiple_checkboxes',
+            persianName: 'امکانات',
+            col: 6,
+            children: {
+                1: 'آسانسور',
+                2: 'پارکینگ',
+                3: 'انباری',
+                4: 'لابی',
+            }
+        },
+
+        terms: {
+            type: 'multiple_checkboxes',
+            persianName: 'شرایط',
+            col: 6,
+            children: {
+                1: 'پیش فروش',
+                2: 'مشارکتی',
+                3: 'معاوضه',
+            }
         },
         map: {
             type: 'map',
             persianName: 'نقشه',
             col: 6,
         },
+
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Estate\Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -104,7 +105,7 @@ class EstateTableSeeder extends Seeder
                 'status' => rand(0, 1),
                 'title' => $estate['title'],
                 'description' => $estate['description'],
-                'user_id' => 2,
+                'user_id' => User::first()->id,
                 'views' => rand(0, 100),
                 'use_type_property_id' => rand(1, 13),
                 'slug' => $estate['title'] . rand(),

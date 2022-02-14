@@ -22912,9 +22912,31 @@ __webpack_require__.r(__webpack_exports__);
     var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.useRoute)();
     var id = route.params.id;
     var module = props.module;
+    jquery__WEBPACK_IMPORTED_MODULE_4__("input").on({
+      mouseenter: function mouseenter() {
+        alert('mouseenter');
+      },
+      mouseleave: function mouseleave() {
+        alert('mouseleave');
+      },
+      click: function click() {
+        alert('click');
+      }
+    });
 
-    for (var field in module.formfields) {
-      if (module.formfields[field].type === "checkboxgroup") data.value[field] = [];
+    for (var field_index in module.formfields) {
+      var field = module.formfields[field_index];
+      if (field.type === "checkboxgroup" || field.type === "multiple_checkboxes") data.value[field_index] = [];
+
+      if (typeof field.events !== "undefined") {
+        for (var event in field.events) {
+          var events_object = field.events;
+          var handler = events_object[event];
+        } // $("p").on("click", function () {
+        //   $(this).hide();
+        // });
+
+      }
     }
 
     if (id) {
@@ -24102,7 +24124,7 @@ var _hoisted_2 = {
   key: 0
 };
 var _hoisted_3 = ["for"];
-var _hoisted_4 = ["onUpdate:modelValue", "type", "id", "name"];
+var _hoisted_4 = ["onUpdate:modelValue", "type", "id", "name", "multiple"];
 var _hoisted_5 = {
   key: 1
 };
@@ -24126,6 +24148,15 @@ var _hoisted_16 = ["name", "value", "onUpdate:modelValue", "id"];
 var _hoisted_17 = ["for"];
 var _hoisted_18 = {
   key: 3
+};
+var _hoisted_19 = {
+  "class": "form-check-inline",
+  id: "children"
+};
+var _hoisted_20 = ["value", "onUpdate:modelValue", "id"];
+var _hoisted_21 = ["for"];
+var _hoisted_22 = {
+  key: 4
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_GetLoading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("GetLoading");
@@ -24151,7 +24182,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "form-control",
       id: index,
       name: index,
-      "aria-describedby": "emailHelp"
+      "aria-describedby": "emailHelp",
+      multiple: typeof row.attributes !== 'undefined' && row.attributes.multiple
     }, null, 8
     /* PROPS */
     , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.data[index], void 0, {
@@ -24245,7 +24277,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ))]);
     }), 128
     /* KEYED_FRAGMENT */
-    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'map' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Map, {
+    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'multiple_checkboxes' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.children, function (label, value) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+        key: value
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        value: value,
+        "class": "form-check-input ml-2",
+        "onUpdate:modelValue": function onUpdateModelValue($event) {
+          return $setup.data[index] = $event;
+        },
+        type: "checkbox",
+        id: index + value
+      }, null, 8
+      /* PROPS */
+      , _hoisted_20), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "class": "form-check-label",
+        "for": index + value
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(label), 9
+      /* TEXT, PROPS */
+      , _hoisted_21)]);
+    }), 128
+    /* KEYED_FRAGMENT */
+    ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'map' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Map, {
       data: $setup.data
     }, null, 8
     /* PROPS */
@@ -25536,6 +25589,11 @@ __webpack_require__.r(__webpack_exports__);
         1: 'رهن و اجاره',
         2: 'پیش فروش',
         3: 'معاوضه'
+      },
+      events: {
+        click: function click() {
+          alert('hi');
+        }
       }
     },
     use_type_property_id: {
@@ -25573,6 +25631,81 @@ __webpack_require__.r(__webpack_exports__);
       persianName: 'متراژ',
       input_type: 'number',
       col: 6
+    },
+    year_of_construction: {
+      type: 'input',
+      persianName: 'سال ساخت',
+      input_type: 'number',
+      col: 6
+    },
+    total_price: {
+      type: 'input',
+      persianName: 'قیمت',
+      input_type: 'number',
+      col: 6
+    },
+    mortgage_price: {
+      type: 'input',
+      persianName: 'قیمت رهن',
+      input_type: 'number',
+      col: 6
+    },
+    rent_price: {
+      type: 'input',
+      persianName: 'قیمت اجاره',
+      input_type: 'number',
+      col: 6
+    },
+    title: {
+      type: 'input',
+      persianName: 'عنوان',
+      col: 6
+    },
+    slug: {
+      type: 'input',
+      persianName: 'اسلاگ',
+      col: 6
+    },
+    description: {
+      type: 'textarea',
+      persianName: 'توضیحات',
+      col: 6
+    },
+    main_pic: {
+      type: 'input',
+      persianName: 'تصویر اصلی',
+      input_type: 'file',
+      col: 6
+    },
+    galleries: {
+      type: 'input',
+      persianName: 'گالری تصاویر',
+      input_type: 'file',
+      col: 6,
+      attributes: {
+        multiple: true
+      }
+    },
+    facilities: {
+      type: 'multiple_checkboxes',
+      persianName: 'امکانات',
+      col: 6,
+      children: {
+        1: 'آسانسور',
+        2: 'پارکینگ',
+        3: 'انباری',
+        4: 'لابی'
+      }
+    },
+    terms: {
+      type: 'multiple_checkboxes',
+      persianName: 'شرایط',
+      col: 6,
+      children: {
+        1: 'پیش فروش',
+        2: 'مشارکتی',
+        3: 'معاوضه'
+      }
     },
     map: {
       type: 'map',

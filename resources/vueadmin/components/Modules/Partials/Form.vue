@@ -15,6 +15,9 @@
           :id="index"
           :name="index"
           aria-describedby="emailHelp"
+          :multiple="
+            typeof row.attributes !== 'undefined' && row.attributes.multiple
+          "
         />
       </div>
 
@@ -110,6 +113,24 @@
         </div> -->
       </div>
 
+      <div v-if="row.type == 'multiple_checkboxes'">
+        <div class="form-check-inline" id="children">
+          <div v-for="(label, value) in row.children" :key="value">
+            <input
+              :value="value"
+              class="form-check-input ml-2"
+              v-model="data[index]"
+              type="checkbox"
+              :id="index + value"
+            />
+
+            <label class="form-check-label" :for="index + value">{{
+              label
+            }}</label>
+          </div>
+        </div>
+      </div>
+
       <div v-if="row.type == 'map'">
         <Map :data="data" />
       </div>
@@ -144,9 +165,35 @@ export default {
     const id = route.params.id;
     const module = props.module;
 
-    for (var field in module.formfields) {
-      if (module.formfields[field].type === "checkboxgroup")
-        data.value[field] = [];
+    $("input").on({
+      mouseenter: function () {
+        alert('mouseenter')
+      },
+      mouseleave: function () {
+        alert('mouseleave')
+      },
+      click: function () {
+        alert('click')
+      },
+    });
+    for (var field_index in module.formfields) {
+      let field = module.formfields[field_index];
+      if (
+        field.type === "checkboxgroup" ||
+        field.type === "multiple_checkboxes"
+      )
+        data.value[field_index] = [];
+
+      if (typeof field.events !== "undefined") {
+        for (var event in field.events) {
+          let events_object = field.events;
+          let handler = events_object[event];
+          
+        }
+        // $("p").on("click", function () {
+        //   $(this).hide();
+        // });
+      }
     }
     if (id) {
       function getData() {
