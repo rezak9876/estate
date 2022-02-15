@@ -22914,13 +22914,13 @@ __webpack_require__.r(__webpack_exports__);
     var module = props.module;
     jquery__WEBPACK_IMPORTED_MODULE_4__("input").on({
       mouseenter: function mouseenter() {
-        alert('mouseenter');
+        alert("mouseenter");
       },
       mouseleave: function mouseleave() {
-        alert('mouseleave');
+        alert("mouseleave");
       },
       click: function click() {
-        alert('click');
+        alert("click");
       }
     });
 
@@ -23019,7 +23019,6 @@ __webpack_require__.r(__webpack_exports__);
     data: Object
   },
   setup: function setup(props) {
-    console.log(props.data);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       var latitude = 35.66240244665957;
       var longitude = 51.38972845460646;
@@ -23066,6 +23065,8 @@ __webpack_require__.r(__webpack_exports__);
             props.data.address = result.address;
             props.data.latitude = result.latitude;
             props.data.province = result.province;
+            props.data.latitude = latitude;
+            props.data.longitude = longitude;
           },
           error: function error(jqXhr, textStatus, errorMessage) {
             // error callback
@@ -23432,8 +23433,21 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Form: _components_Modules_Partials_Form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  beforeCreate: function beforeCreate() {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/terms").then(function (response) {
+      response.data.data.forEach(function (currentValue, index, arr) {
+        console.log(currentValue.id, currentValue.title);
+        _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields.terms.children[currentValue.id] = currentValue.title;
+      });
+    })["catch"](function (error) {});
+  },
   setup: function setup() {
-    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/permissions").then(function (response) {})["catch"](function (error) {});
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/permissions").then(function (response) {})["catch"](function (error) {}); // module.formfields.terms.children = {
+    //   1: "پیش فروش",
+    //   2: "مشارکتی",
+    //   3: "معاوضه",
+    // };
+
     return {
       module: _config__WEBPACK_IMPORTED_MODULE_1__["default"]
     };
@@ -24130,33 +24144,38 @@ var _hoisted_5 = {
 };
 var _hoisted_6 = ["for"];
 var _hoisted_7 = ["onUpdate:modelValue", "id", "name"];
-var _hoisted_8 = ["label"];
-var _hoisted_9 = ["value"];
-var _hoisted_10 = ["value"];
-var _hoisted_11 = {
+var _hoisted_8 = {
   key: 2
 };
-var _hoisted_12 = {
-  "class": "table table-striped table-borderless table-sm"
-};
-var _hoisted_13 = {
-  scope: "row"
-};
-var _hoisted_14 = ["checked", "onChange", "id"];
-var _hoisted_15 = ["for"];
-var _hoisted_16 = ["name", "value", "onUpdate:modelValue", "id"];
-var _hoisted_17 = ["for"];
-var _hoisted_18 = {
+var _hoisted_9 = ["for"];
+var _hoisted_10 = ["onUpdate:modelValue", "id", "name"];
+var _hoisted_11 = ["label"];
+var _hoisted_12 = ["value"];
+var _hoisted_13 = ["value"];
+var _hoisted_14 = {
   key: 3
 };
-var _hoisted_19 = {
+var _hoisted_15 = {
+  "class": "table table-striped table-borderless table-sm"
+};
+var _hoisted_16 = {
+  scope: "row"
+};
+var _hoisted_17 = ["checked", "onChange", "id"];
+var _hoisted_18 = ["for"];
+var _hoisted_19 = ["name", "value", "onUpdate:modelValue", "id"];
+var _hoisted_20 = ["for"];
+var _hoisted_21 = {
+  key: 4
+};
+var _hoisted_22 = {
   "class": "form-check-inline",
   id: "children"
 };
-var _hoisted_20 = ["value", "onUpdate:modelValue", "id"];
-var _hoisted_21 = ["for"];
-var _hoisted_22 = {
-  key: 4
+var _hoisted_23 = ["value", "onUpdate:modelValue", "id"];
+var _hoisted_24 = ["for"];
+var _hoisted_25 = {
+  key: 5
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_GetLoading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("GetLoading");
@@ -24188,12 +24207,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* PROPS */
     , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.data[index], void 0, {
       lazy: true
-    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'select' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'textarea' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
       "for": index,
       "class": "form-label"
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
     /* TEXT, PROPS */
-    , _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    , _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return $setup.data[index] = $event;
+      },
+      "class": "form-control",
+      id: index,
+      name: index
+    }, null, 8
+    /* PROPS */
+    , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.data[index], void 0, {
+      lazy: true
+    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'select' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      "for": index,
+      "class": "form-label"
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
+    /* TEXT, PROPS */
+    , _hoisted_9), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $setup.data[index] = $event;
       },
@@ -24211,12 +24246,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           value: value
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(label), 9
         /* TEXT, PROPS */
-        , _hoisted_9);
+        , _hoisted_12);
       }), 128
       /* KEYED_FRAGMENT */
       ))], 8
       /* PROPS */
-      , _hoisted_8);
+      , _hoisted_11);
     }), 128
     /* KEYED_FRAGMENT */
     )), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.options, function (value, integer) {
@@ -24225,19 +24260,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         value: integer
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value), 9
       /* TEXT, PROPS */
-      , _hoisted_10);
+      , _hoisted_13);
     }), 128
     /* KEYED_FRAGMENT */
     ))], 8
     /* PROPS */
-    , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.data[index], void 0, {
+    , _hoisted_10), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.data[index], void 0, {
       lazy: true
-    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'checkboxgroup' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 1
+    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'checkboxgroup' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.categories, function (category, category_index) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
         key: category_index
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         checked: $setup.hasAll(category.children, index),
         onChange: function onChange($event) {
           return $setup.motherchange($event, category.children, index);
@@ -24247,11 +24282,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "nested_checkbox"
       }, null, 40
       /* PROPS, HYDRATE_EVENTS */
-      , _hoisted_14), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      , _hoisted_17), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "for": 'checkbox_mother' + category.persianName
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.persianName), 9
       /* TEXT, PROPS */
-      , _hoisted_15)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" children "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(category.children, function (child) {
+      , _hoisted_18)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" children "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(category.children, function (child) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
           scope: "row",
           key: child.id
@@ -24266,18 +24301,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           id: index + child.id
         }, null, 8
         /* PROPS */
-        , _hoisted_16), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        , _hoisted_19), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
           "class": "form-check-label",
           "for": index + child.id
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(child.title), 9
         /* TEXT, PROPS */
-        , _hoisted_17)]);
+        , _hoisted_20)]);
       }), 128
       /* KEYED_FRAGMENT */
       ))]);
     }), 128
     /* KEYED_FRAGMENT */
-    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'multiple_checkboxes' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.children, function (label, value) {
+    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'multiple_checkboxes' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.children, function (label, value) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
         key: value
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -24290,15 +24325,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         id: index + value
       }, null, 8
       /* PROPS */
-      , _hoisted_20), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      , _hoisted_23), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "class": "form-check-label",
         "for": index + value
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(label), 9
       /* TEXT, PROPS */
-      , _hoisted_21)]);
+      , _hoisted_24)]);
     }), 128
     /* KEYED_FRAGMENT */
-    ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'map' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Map, {
+    ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'map' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Map, {
       data: $setup.data
     }, null, 8
     /* PROPS */
@@ -24327,57 +24362,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "row"
+};
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید", -1
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید", -1
 /* HOISTED */
 );
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  id: "mapid"
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  id: "mapid",
+  "class": "col-md-6"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_3 = {
-  "class": "form-group"
+var _hoisted_4 = {
+  "class": "form-group col-md-6"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "formGroupExampleInput"
 }, "استان", -1
 /* HOISTED */
 );
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "formGroupExampleInput"
 }, "شهر", -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "formGroupExampleInput"
 }, "منطقه", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "formGroupExampleInput"
 }, "محله", -1
 /* HOISTED */
 );
 
-var _hoisted_8 = {
+var _hoisted_9 = {
   "class": "form-group"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "formGroupExampleInput"
 }, "آدرس", -1
 /* HOISTED */
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $props.data.latitude = $event;
     }),
@@ -24393,7 +24432,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     name: "longitude"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.longitude]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.longitude]]), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $props.data.province = $event;
     }),
@@ -24403,7 +24442,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     readonly: ""
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.province]]), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.province]]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $props.data.city = $event;
     }),
@@ -24413,7 +24452,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     readonly: ""
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.city]]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.city]]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $props.data.region = $event;
     }),
@@ -24423,7 +24462,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     readonly: ""
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.region]]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.region]]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $props.data.neighborhood = $event;
     }),
@@ -24433,7 +24472,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     readonly: ""
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.neighborhood]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.neighborhood]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $props.data.address = $event;
     }),
@@ -24443,9 +24482,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     placeholder: "آدرس"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.address]])])], 64
-  /* STABLE_FRAGMENT */
-  );
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.data.address]])])])]);
 }
 
 /***/ }),
@@ -25700,17 +25737,12 @@ __webpack_require__.r(__webpack_exports__);
     terms: {
       type: 'multiple_checkboxes',
       persianName: 'شرایط',
-      col: 6,
-      children: {
-        1: 'پیش فروش',
-        2: 'مشارکتی',
-        3: 'معاوضه'
-      }
+      col: 6
     },
     map: {
       type: 'map',
       persianName: 'نقشه',
-      col: 6
+      col: 12
     }
   }
 });

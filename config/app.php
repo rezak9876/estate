@@ -177,6 +177,7 @@ return [
 
         App\Providers\FortifyServiceProvider::class,
 
+        Hekmatinasser\Verta\Laravel\VertaServiceProvider::class,
     ],
 
     /*
@@ -232,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Verta' => Hekmatinasser\Verta\Verta::class,
     ],
 
 ];

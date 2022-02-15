@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Estate\Entities\Estate;
 use Modules\Role\Entities\Role;
 
 class User extends Authenticatable
@@ -52,4 +53,10 @@ class User extends Authenticatable
     {
         return $this->role->permissions();
     }
+
+    public function estates()
+    {
+        return $this->hasMany(Estate::class);
+    }
+
 }

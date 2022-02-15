@@ -1,33 +1,54 @@
 <template>
-  <span>با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید</span>
-  <div id="mapid"></div>
-  <input v-model="data.latitude" type="text" name="latitude" />
-  <input v-model="data.longitude" type="text" name="longitude" />
-  <div class="form-group">
-    <label for="formGroupExampleInput">استان</label>
-    <input
-      v-model="data.province"
-      type="text"
-      class="form-control"
-      name="province"
-      readonly
-    />
-    <label for="formGroupExampleInput">شهر</label>
-    <input v-model="data.city" type="text" class="form-control" name="city" readonly />
-    <label for="formGroupExampleInput">منطقه</label>
-    <input v-model="data.region" type="text" class="form-control" name="region" readonly />
-    <label for="formGroupExampleInput">محله</label>
-    <input v-model="data.neighborhood" type="text" class="form-control" name="neighborhood" readonly />
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput">آدرس</label>
-    <textarea
-    v-model="data.address"
-      name="address"
-      type="text"
-      class="form-control"
-      placeholder="آدرس"
-    ></textarea>
+  <div class="row">
+    <span>با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید</span>
+    <input v-model="data.latitude" type="text" name="latitude" />
+    <input v-model="data.longitude" type="text" name="longitude" />
+    <div id="mapid" class="col-md-6"></div>
+    <div class="form-group col-md-6">
+      <label for="formGroupExampleInput">استان</label>
+      <input
+        v-model="data.province"
+        type="text"
+        class="form-control"
+        name="province"
+        readonly
+      />
+      <label for="formGroupExampleInput">شهر</label>
+      <input
+        v-model="data.city"
+        type="text"
+        class="form-control"
+        name="city"
+        readonly
+      />
+      <label for="formGroupExampleInput">منطقه</label>
+      <input
+        v-model="data.region"
+        type="text"
+        class="form-control"
+        name="region"
+        readonly
+      />
+      <label for="formGroupExampleInput">محله</label>
+      <input
+        v-model="data.neighborhood"
+        type="text"
+        class="form-control"
+        name="neighborhood"
+        readonly
+      />
+
+      <div class="form-group">
+        <label for="formGroupExampleInput">آدرس</label>
+        <textarea
+          v-model="data.address"
+          name="address"
+          type="text"
+          class="form-control"
+          placeholder="آدرس"
+        ></textarea>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,7 +63,6 @@ export default {
     data: Object,
   },
   setup(props) {
-    console.log(props.data);
     onMounted(() => {
       let latitude = 35.66240244665957;
       let longitude = 51.38972845460646;
@@ -92,13 +112,15 @@ export default {
           url: url,
           success: function (result) {
             // $("input[name=province]").val(result.province).change();
-            props.data.province = result.province
-            props.data.city = result.city
-            props.data.region = result.region
-            props.data.neighborhood = result.neighbourhood
-            props.data.address = result.address
-            props.data.latitude = result.latitude
-            props.data.province = result.province
+            props.data.province = result.province;
+            props.data.city = result.city;
+            props.data.region = result.region;
+            props.data.neighborhood = result.neighbourhood;
+            props.data.address = result.address;
+            props.data.latitude = result.latitude;
+            props.data.province = result.province;
+            props.data.latitude = latitude;
+            props.data.longitude = longitude;
           },
           error: function (jqXhr, textStatus, errorMessage) {
             // error callback

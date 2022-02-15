@@ -5,8 +5,14 @@ namespace Modules\Estate\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\City\Entities\City;
 use Modules\Estate\Entities\Estate;
+use Modules\Estate\Http\Requests\EstateRequest;
 use Modules\Estate\Transformers\EstateCollection;
+use Modules\Neighborhood\Entities\Neighborhood;
+use Modules\Province\Entities\Province;
+use Modules\Region\Entities\Region;
 
 class EstateController extends Controller
 {
@@ -31,12 +37,73 @@ class EstateController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param EstateRequest $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(EstateRequest $request)
     {
-        //
+        $province_id = $this->check_province($request->province);
+        $city_id = $this->check_city($request->city, $province_id);
+        $region_id = $this->check_region($request->region, $city_id);
+        $neighborhood_id = $this->check_neighborhood($request->neighborhood, $region_id);
+        $request->merge([
+            'neighborhood_id' => $neighborhood_id,
+        ]);
+        if ($request->hasfile('main_pic')) {
+
+            $file = $request->file('main_pic');
+            $name = $this->image_name($request->slug, $file->extension());
+            $image_path = $this->image_path($name);
+            $this->save_picture($file, $name);
+            // resize image instance
+            $this->create_thumbnail_picture($image_path, $name);
+            $request->merge([
+                'main_picture' => $name,
+            ]);
+        }
+
+
+        $estate = Auth::user()->estates()->create($request->all());
+
+        // if ($request->hasfile('galleries')) {
+        //     $files = $request->file('galleries');
+        //     foreach ($files as $file) {
+        //         $name = $this->image_name($request->slug, $file->extension());
+        //         $this->save_picture($file, $name);
+        //         $gallery = new Gallery();
+        //         $gallery->path = $name;
+        //         $gallery->estate_id = $estate->id;
+        //         $gallery->save();
+        //     }
+        // }
+
+        // $estate->terms()->attach($request->terms);
+
+
+        // //Setting zero unregistered integer facilities
+        // $facilities_array = [];
+        // foreach ($request->int_facilities as $id => $facility) {
+        //     if ($facility == null) {
+        //         $facilities_array[$id] = 0;
+        //     } else
+        //         $facilities_array[$id] = $facility;
+        // }
+
+
+        // $int_facilities = collect($facilities_array, [])
+        //     ->map(function ($facility) {
+        //         return ['value' => $facility];
+        //     });
+        // $estate->intfacilities()->attach($int_facilities);
+
+        // $txt_facilities = collect($request->txt_facilities, [])
+        //     ->map(function ($facility) {
+        //         return ['value' => $facility];
+        //     });
+        // $estate->txtfacilities()->attach($txt_facilities);
+
+
+        // $estate->boolfacilities()->attach($request->bool_facilities);
     }
 
     /**
@@ -78,5 +145,53 @@ class EstateController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    protected function check_province($province_title)
+    {
+        $province = Province::where('title', $province_title)->first();
+        if ($province == null) {
+            $province = new Province();
+            $province->title = $province_title;
+            $province->save();
+        }
+        return $province->id;
+    }
+
+    protected function check_city($city_title, $province_id)
+    {
+        $city = City::where('title', $city_title)->where('province_id', $province_id)->first();
+        if ($city == null) {
+            $city = new City();
+            $city->title = $city_title;
+            $city->province_id = $province_id;
+            $city->save();
+        }
+        return $city->id;
+    }
+
+    protected function check_region($region_title, $city_id)
+    {
+        $region = Region::where('title', $region_title)->where('city_id', $city_id)->first();
+        if ($region == null) {
+            $region = new Region();
+            $region->title = $region_title;
+            $region->city_id = $city_id;
+            $region->save();
+        }
+        return $region->id;
+    }
+
+    protected function check_neighborhood($neighborhood_title, $region_id)
+    {
+        $neighborhood = Neighborhood::where('title', $neighborhood_title)->where('region_id', $region_id)->first();
+        if ($neighborhood == null) {
+            $neighborhood = new Neighborhood();
+            $neighborhood->title = $neighborhood_title;
+            $neighborhood->region_id = $region_id;
+            $neighborhood->save();
+        }
+        return $neighborhood->id;
     }
 }

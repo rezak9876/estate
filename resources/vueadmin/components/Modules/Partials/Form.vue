@@ -21,6 +21,15 @@
         />
       </div>
 
+      <div v-if="row.type == 'textarea'">
+        <label :for="index" class="form-label">{{ row.persianName }}</label>
+        <textarea
+          v-model.lazy="data[index]"
+          class="form-control"
+          :id="index"
+          :name="index"
+        />
+      </div>
       <div v-if="row.type == 'select'">
         <label :for="index" class="form-label">{{ row.persianName }}</label>
         <select
@@ -167,13 +176,13 @@ export default {
 
     $("input").on({
       mouseenter: function () {
-        alert('mouseenter')
+        alert("mouseenter");
       },
       mouseleave: function () {
-        alert('mouseleave')
+        alert("mouseleave");
       },
       click: function () {
-        alert('click')
+        alert("click");
       },
     });
     for (var field_index in module.formfields) {
@@ -188,7 +197,6 @@ export default {
         for (var event in field.events) {
           let events_object = field.events;
           let handler = events_object[event];
-          
         }
         // $("p").on("click", function () {
         //   $(this).hide();

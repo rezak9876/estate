@@ -147,16 +147,11 @@ export default module = {
             type: 'multiple_checkboxes',
             persianName: 'شرایط',
             col: 6,
-            children: {
-                1: 'پیش فروش',
-                2: 'مشارکتی',
-                3: 'معاوضه',
-            }
         },
         map: {
             type: 'map',
             persianName: 'نقشه',
-            col: 6,
+            col: 12,
         },
 
 
