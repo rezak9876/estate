@@ -131,23 +131,21 @@ export default module = {
             }
         },
 
-        facilities: {
-            type: 'multiple_checkboxes',
-            persianName: 'امکانات',
-            col: 6,
-            children: {
-                1: 'آسانسور',
-                2: 'پارکینگ',
-                3: 'انباری',
-                4: 'لابی',
-            }
-        },
-
         terms: {
             type: 'multiple_checkboxes',
             persianName: 'شرایط',
             col: 6,
+            children : {}
         },
+
+        bool_facilities: {
+            type: 'multiple_checkboxes',
+            persianName: 'شرایط',
+            col: 6,
+            children : {}
+        },
+
+        
         map: {
             type: 'map',
             persianName: 'نقشه',

@@ -8,14 +8,20 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\City\Entities\City;
 use Modules\Estate\Entities\Estate;
+use Modules\Estate\Entities\Gallery;
 use Modules\Estate\Http\Requests\EstateRequest;
 use Modules\Estate\Transformers\EstateCollection;
+use Modules\Estate\Transformers\TermEstateFormResource;
+use Modules\Facility\Entities\Facility;
 use Modules\Neighborhood\Entities\Neighborhood;
 use Modules\Province\Entities\Province;
 use Modules\Region\Entities\Region;
+use Modules\Term\Entities\Term;
 
 class EstateController extends Controller
 {
+
+    public static $prefix_images = 'images/estate';
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -32,7 +38,17 @@ class EstateController extends Controller
      */
     public function create()
     {
-        return view('estate::create');
+        $txt_facilities = Facility::where('type',Facility::Text)->pluck('title','id');
+        $int_facilities = Facility::where('type',Facility::Integer)->pluck('title','id');
+        $bool_facilities = Facility::where('type',Facility::Check_box)->pluck('title','id');
+        $terms = Term::pluck('title','id');
+        return response()->json([
+            'txt_facilities' =>$txt_facilities,
+            'int_facilities' =>$int_facilities,
+            'bool_facilities' =>$bool_facilities,
+            'terms' =>$terms,
+        ]);
+
     }
 
     /**
@@ -56,7 +72,7 @@ class EstateController extends Controller
             $image_path = $this->image_path($name);
             $this->save_picture($file, $name);
             // resize image instance
-            $this->create_thumbnail_picture($image_path, $name);
+            // $this->create_thumbnail_picture($image_path, $name);
             $request->merge([
                 'main_picture' => $name,
             ]);
@@ -65,45 +81,49 @@ class EstateController extends Controller
 
         $estate = Auth::user()->estates()->create($request->all());
 
-        // if ($request->hasfile('galleries')) {
-        //     $files = $request->file('galleries');
-        //     foreach ($files as $file) {
-        //         $name = $this->image_name($request->slug, $file->extension());
-        //         $this->save_picture($file, $name);
-        //         $gallery = new Gallery();
-        //         $gallery->path = $name;
-        //         $gallery->estate_id = $estate->id;
-        //         $gallery->save();
-        //     }
-        // }
+        if ($request->hasfile('galleries')) {
+            $files = $request->file('galleries');
+            foreach ($files as $file) {
+                $name = $this->image_name($request->slug, $file->extension());
+                $this->save_picture($file, $name);
+                $gallery = new Gallery();
+                $gallery->path = $name;
+                $gallery->estate_id = $estate->id;
+                $gallery->save();
+            }
+        }
 
-        // $estate->terms()->attach($request->terms);
-
-
-        // //Setting zero unregistered integer facilities
-        // $facilities_array = [];
-        // foreach ($request->int_facilities as $id => $facility) {
-        //     if ($facility == null) {
-        //         $facilities_array[$id] = 0;
-        //     } else
-        //         $facilities_array[$id] = $facility;
-        // }
+        $estate->terms()->attach($request->terms);
 
 
-        // $int_facilities = collect($facilities_array, [])
-        //     ->map(function ($facility) {
-        //         return ['value' => $facility];
-        //     });
-        // $estate->intfacilities()->attach($int_facilities);
-
-        // $txt_facilities = collect($request->txt_facilities, [])
-        //     ->map(function ($facility) {
-        //         return ['value' => $facility];
-        //     });
-        // $estate->txtfacilities()->attach($txt_facilities);
+        //Setting zero unregistered integer facilities
+        $facilities_array = [];
+        foreach ($request->int_facilities as $id => $facility) {
+            if ($facility == null) {
+                $facilities_array[$id] = 0;
+            } else
+                $facilities_array[$id] = $facility;
+        }
 
 
-        // $estate->boolfacilities()->attach($request->bool_facilities);
+        $int_facilities = collect($facilities_array, [])
+            ->map(function ($facility) {
+                return ['value' => $facility];
+            });
+        $estate->intfacilities()->attach($int_facilities);
+
+        $txt_facilities = collect($request->txt_facilities, [])
+            ->map(function ($facility) {
+                return ['value' => $facility];
+            });
+        $estate->txtfacilities()->attach($txt_facilities);
+
+
+        $estate->boolfacilities()->attach($request->bool_facilities);
+
+        return response()->json([
+            'message' => 'آگهی با موفقیت ساخته شد.'
+        ], 201);
     }
 
     /**
@@ -193,5 +213,51 @@ class EstateController extends Controller
             $neighborhood->save();
         }
         return $neighborhood->id;
+    }
+
+
+
+    protected function delete_picture($picture_name, $has_thumbnail = true)
+    {
+        unlink(self::$prefix_images . '/' . $picture_name);
+        if ($has_thumbnail)
+            unlink(self::$prefix_images . '/' . Gallery::$prefix_thumbnail . $picture_name);
+    }
+
+    protected function save_picture($file, $name)
+    {
+        // $setting = Setting::first();
+        if (false) {
+            // open an image file
+            $img = Image::make($file);
+            // insert a watermark
+            $img->insert(Setting::PATH_UPLOAD . $setting->watermark, $setting->watermarkPosition);
+            // save image in desired format
+            $img->save(self::$prefix_images . '/' . $name);
+            return self::$prefix_images . '/' . $name;
+        } else {
+            $file->move(self::$prefix_images, $name);
+            return self::$prefix_images . '/' . $name;
+        }
+    }
+
+    protected function create_thumbnail_picture($file, $name)
+    {
+        // open an image file
+        $img = Image::make($file);
+        // resize image instance
+        $img->resize(320, 240);
+        // save image in desired format
+        $img->save(self::$prefix_images . '/' . Gallery::$prefix_thumbnail . $name);
+    }
+
+    protected function image_name($slug, $extension)
+    {
+        return rand() . $slug . '.' . $extension;
+    }
+
+    protected function image_path($name)
+    {
+        return self::$prefix_images . '/' . $name;
     }
 }

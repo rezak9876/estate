@@ -4,8 +4,10 @@ namespace Modules\Estate\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EstateResource extends JsonResource
+class TermEstateFormResource extends JsonResource
 {
+
+    public $preserveKeys = true;
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +16,8 @@ class EstateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->title;
+        return [
+            $this->id => $this->title,
+        ];
     }
 }

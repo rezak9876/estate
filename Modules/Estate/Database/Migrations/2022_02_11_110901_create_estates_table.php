@@ -33,6 +33,8 @@ class CreateEstatesTable extends Migration
             $table->integer('views')->default(0);
 //            $table->unsignedBigInteger('use_type_id');
             $table->unsignedBigInteger('use_type_property_id');
+            $table->string('main_picture')->nullable();
+
             $table->timestamps();
 
             $table->foreign('neighborhood_id')->references('id')->on('neighborhoods');

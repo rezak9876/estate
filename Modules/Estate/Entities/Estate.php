@@ -4,6 +4,8 @@ namespace Modules\Estate\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Facility\Entities\Facility;
+use Modules\Term\Entities\Term;
 
 class Estate extends Model
 {
@@ -98,5 +100,23 @@ class Estate extends Model
     public function year()
     {
         return verta()->year - $this->year_of_construction;
+    }
+
+    public function terms()
+    {
+        return $this->belongsToMany(Term::class);
+    }
+
+    public function intfacilities()
+    {
+        return $this->belongsToMany(Facility::class,'int_estate_facility')->withPivot('value');
+    }
+    public function txtfacilities()
+    {
+        return $this->belongsToMany(Facility::class,'txt_estate_facility')->withPivot('value');
+    }
+    public function boolfacilities()
+    {
+        return $this->belongsToMany(Facility::class,'bool_estate_facility');
     }
 }

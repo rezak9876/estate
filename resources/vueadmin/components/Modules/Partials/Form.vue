@@ -13,7 +13,7 @@
           :type="row.input_type"
           class="form-control"
           :id="index"
-          :name="index"
+          :name="index+((typeof row.attributes !== 'undefined' && row.attributes.multiple)?'[]':'')"
           aria-describedby="emailHelp"
           :multiple="
             typeof row.attributes !== 'undefined' && row.attributes.multiple
@@ -127,6 +127,7 @@
           <div v-for="(label, value) in row.children" :key="value">
             <input
               :value="value"
+              :name="index+'[]'"
               class="form-check-input ml-2"
               v-model="data[index]"
               type="checkbox"
