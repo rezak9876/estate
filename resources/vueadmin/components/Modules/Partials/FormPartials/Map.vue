@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <span>با حرکت دادن مکان‌نما محدوده ملک خود را مشخص کنید</span>
-    <input v-model="data.latitude" type="text" name="latitude" />
-    <input v-model="data.longitude" type="text" name="longitude" />
+    <input v-model="data.latitude" type="hidden" name="latitude" />
+    <input v-model="data.longitude" type="hidden" name="longitude" />
     <div id="mapid" class="col-md-6"></div>
     <div class="form-group col-md-6">
       <label for="formGroupExampleInput">استان</label>

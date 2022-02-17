@@ -22911,18 +22911,17 @@ __webpack_require__.r(__webpack_exports__);
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)({});
     var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.useRoute)();
     var id = route.params.id;
-    var module = props.module;
-    jquery__WEBPACK_IMPORTED_MODULE_4__("input").on({
-      mouseenter: function mouseenter() {
-        alert("mouseenter");
-      },
-      mouseleave: function mouseleave() {
-        alert("mouseleave");
-      },
-      click: function click() {
-        alert("click");
-      }
-    });
+    var module = props.module; // $("input").on({
+    //   mouseenter: function () {
+    //     alert("mouseenter");
+    //   },
+    //   mouseleave: function () {
+    //     alert("mouseleave");
+    //   },
+    //   click: function () {
+    //     alert("click");
+    //   },
+    // });
 
     for (var field_index in module.formfields) {
       var field = module.formfields[field_index];
@@ -22981,12 +22980,29 @@ __webpack_require__.r(__webpack_exports__);
       return has_all;
     }
 
+    var url = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)({});
+    jquery__WEBPACK_IMPORTED_MODULE_4__(document).ready(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_4__("input[type='file']").change(function (e) {
+        if (jquery__WEBPACK_IMPORTED_MODULE_4__(this)[0].multiple) {
+          // gallery
+          var input_name = jquery__WEBPACK_IMPORTED_MODULE_4__(this)[0].name.slice(0, -2);
+          var file = e.target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        } else {
+          // picture
+          var _input_name = jquery__WEBPACK_IMPORTED_MODULE_4__(this)[0].name;
+          var _file = e.target.files[0];
+          url.value[_input_name] = URL.createObjectURL(_file);
+        }
+      });
+    });
     return {
       loading: loading,
       module: module,
       data: data,
       motherchange: motherchange,
-      hasAll: hasAll
+      hasAll: hasAll,
+      url: url
     };
   }
 });
@@ -24167,53 +24183,118 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 
 var _hoisted_1 = {
   "class": "mb-3 row"
 };
 var _hoisted_2 = {
-  key: 0
+  key: 0,
+  "class": "d-flex justify-content-between align-items-center mt-2"
 };
-var _hoisted_3 = ["for"];
-var _hoisted_4 = ["onUpdate:modelValue", "type", "id", "name", "multiple"];
-var _hoisted_5 = {
+var _hoisted_3 = ["src"];
+var _hoisted_4 = {
+  "class": "w-100"
+};
+var _hoisted_5 = ["for"];
+var _hoisted_6 = ["onUpdate:modelValue", "type", "id", "name", "multiple"];
+var _hoisted_7 = {
   key: 1
 };
-var _hoisted_6 = ["for"];
-var _hoisted_7 = ["onUpdate:modelValue", "id", "name"];
-var _hoisted_8 = {
+var _hoisted_8 = ["for"];
+var _hoisted_9 = ["onUpdate:modelValue", "id", "name"];
+var _hoisted_10 = {
   key: 2
 };
-var _hoisted_9 = ["for"];
-var _hoisted_10 = ["onUpdate:modelValue", "id", "name"];
-var _hoisted_11 = ["label"];
-var _hoisted_12 = ["value"];
-var _hoisted_13 = ["value"];
-var _hoisted_14 = {
+var _hoisted_11 = ["for"];
+var _hoisted_12 = ["onUpdate:modelValue", "id", "name"];
+var _hoisted_13 = ["label"];
+var _hoisted_14 = ["value"];
+var _hoisted_15 = ["value"];
+var _hoisted_16 = {
   key: 3
 };
-var _hoisted_15 = {
+var _hoisted_17 = {
   "class": "table table-striped table-borderless table-sm"
 };
-var _hoisted_16 = {
+var _hoisted_18 = {
   scope: "row"
 };
-var _hoisted_17 = ["checked", "onChange", "id"];
-var _hoisted_18 = ["for"];
-var _hoisted_19 = ["name", "value", "onUpdate:modelValue", "id"];
+var _hoisted_19 = ["checked", "onChange", "id"];
 var _hoisted_20 = ["for"];
-var _hoisted_21 = {
+var _hoisted_21 = ["name", "value", "onUpdate:modelValue", "id"];
+var _hoisted_22 = ["for"];
+var _hoisted_23 = {
   key: 4
 };
-var _hoisted_22 = {
-  "class": "form-check-inline",
+var _hoisted_24 = {
+  "class": "form-group"
+};
+var _hoisted_25 = {
+  "class": "form-check"
+};
+var _hoisted_26 = {
+  "class": "row",
   id: "children"
 };
-var _hoisted_23 = ["value", "name", "onUpdate:modelValue", "id"];
-var _hoisted_24 = ["for"];
-var _hoisted_25 = {
+var _hoisted_27 = ["onUpdate:modelValue", "name", "id", "value"];
+var _hoisted_28 = ["for"];
+var _hoisted_29 = {
   key: 5
 };
+var _hoisted_30 = {
+  key: 6
+};
+var _hoisted_31 = {
+  "class": "mt-5"
+};
+
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "برای حذف عکس تیک آن را بزنید.", -1
+/* HOISTED */
+);
+
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_34 = {
+  "class": "d-flex flex-column align-items-center"
+};
+var _hoisted_35 = ["for"];
+var _hoisted_36 = ["src"];
+var _hoisted_37 = ["id", "name"];
+
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_39 = {
+  key: 7
+};
+var _hoisted_40 = {
+  "class": "mt-5"
+};
+
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "برای حذف عکس تیک آن را بزنید.", -1
+/* HOISTED */
+);
+
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_43 = {
+  "class": "row"
+};
+var _hoisted_44 = ["for"];
+var _hoisted_45 = ["src"];
+var _hoisted_46 = ["id", "name", "value"];
+
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_GetLoading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("GetLoading");
 
@@ -24222,15 +24303,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_GetLoading, {
     key: 0
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.module.formfields, function (row, index) {
+    var _$setup$url$index;
+
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index,
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('col-' + row.col)
-    }, [row.type == 'input' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    }, [row.type == 'input' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [row.input_type == 'file' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
+      key: 0,
+      src: (_$setup$url$index = $setup.url[index]) !== null && _$setup$url$index !== void 0 ? _$setup$url$index : '/images/helper/upload.png',
+      "class": "w-25 m-2",
+      alt: ""
+    }, null, 8
+    /* PROPS */
+    , _hoisted_3)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
       "for": index,
       "class": "form-label"
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
     /* TEXT, PROPS */
-    , _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    , _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $setup.data[index] = $event;
       },
@@ -24242,14 +24332,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       multiple: typeof row.attributes !== 'undefined' && row.attributes.multiple
     }, null, 8
     /* PROPS */
-    , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.data[index], void 0, {
+    , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.data[index], void 0, {
       lazy: true
-    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'textarea' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    }]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'textarea' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
       "for": index,
       "class": "form-label"
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
     /* TEXT, PROPS */
-    , _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    , _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $setup.data[index] = $event;
       },
@@ -24258,14 +24348,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       name: index
     }, null, 8
     /* PROPS */
-    , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.data[index], void 0, {
+    , _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.data[index], void 0, {
       lazy: true
-    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'select' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'select' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
       "for": index,
       "class": "form-label"
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
     /* TEXT, PROPS */
-    , _hoisted_9), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $setup.data[index] = $event;
       },
@@ -24283,12 +24373,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           value: value
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(label), 9
         /* TEXT, PROPS */
-        , _hoisted_12);
+        , _hoisted_14);
       }), 128
       /* KEYED_FRAGMENT */
       ))], 8
       /* PROPS */
-      , _hoisted_11);
+      , _hoisted_13);
     }), 128
     /* KEYED_FRAGMENT */
     )), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.options, function (value, integer) {
@@ -24297,19 +24387,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         value: integer
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value), 9
       /* TEXT, PROPS */
-      , _hoisted_13);
+      , _hoisted_15);
     }), 128
     /* KEYED_FRAGMENT */
     ))], 8
     /* PROPS */
-    , _hoisted_10), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.data[index], void 0, {
+    , _hoisted_12), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.data[index], void 0, {
       lazy: true
-    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'checkboxgroup' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 1
+    }]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'checkboxgroup' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.categories, function (category, category_index) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
         key: category_index
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         checked: $setup.hasAll(category.children, index),
         onChange: function onChange($event) {
           return $setup.motherchange($event, category.children, index);
@@ -24319,11 +24409,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "nested_checkbox"
       }, null, 40
       /* PROPS, HYDRATE_EVENTS */
-      , _hoisted_17), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      , _hoisted_19), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "for": 'checkbox_mother' + category.persianName
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.persianName), 9
       /* TEXT, PROPS */
-      , _hoisted_18)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" children "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(category.children, function (child) {
+      , _hoisted_20)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" children "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(category.children, function (child) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
           scope: "row",
           key: child.id
@@ -24338,44 +24428,92 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           id: index + child.id
         }, null, 8
         /* PROPS */
-        , _hoisted_19), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        , _hoisted_21), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
           "class": "form-check-label",
           "for": index + child.id
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(child.title), 9
         /* TEXT, PROPS */
-        , _hoisted_20)]);
+        , _hoisted_22)]);
       }), 128
       /* KEYED_FRAGMENT */
       ))]);
     }), 128
     /* KEYED_FRAGMENT */
-    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'multiple_checkboxes' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.children, function (label, value) {
+    ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check-inline\" id=\"children\">\r\n          <div v-for=\"(label, children_id) in row.children\" :key=\"children_id\">\r\n            <input\r\n              :value=\"children_id\"\r\n              class=\"form-check-input ml-2\"\r\n              v-model=\"data[row.name]\"\r\n              type=\"checkbox\"\r\n              :id=\"row.name + children_id\"\r\n            />\r\n\r\n            <label class=\"form-check-label\" :for=\"row.name + children_id\">{{\r\n              label\r\n            }}</label>\r\n          </div>\r\n        </div> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'multiple_checkboxes' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(row.children, function (label, value) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+        "class": "col-3 mt-2",
         key: value
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        value: value,
-        name: index + '[]',
-        "class": "form-check-input ml-2",
         "onUpdate:modelValue": function onUpdateModelValue($event) {
           return $setup.data[index] = $event;
         },
+        name: index + '[]',
+        "class": "form-check-input",
+        id: index + value,
         type: "checkbox",
-        id: index + value
+        value: value
       }, null, 8
       /* PROPS */
-      , _hoisted_23), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      , _hoisted_27), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.data[index]]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "class": "form-check-label",
         "for": index + value
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(label), 9
       /* TEXT, PROPS */
-      , _hoisted_24)]);
+      , _hoisted_28)]);
     }), 128
     /* KEYED_FRAGMENT */
-    ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'map' && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Map, {
+    ))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'map' && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Map, {
       data: $setup.data
     }, null, 8
     /* PROPS */
-    , ["data"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
+    , ["data"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'picture' && $setup.data[index] ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      "for": index
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      src: $setup.data[index],
+      style: {
+        "width": "10rem"
+      },
+      alt: ""
+    }, null, 8
+    /* PROPS */
+    , _hoisted_36)], 8
+    /* PROPS */
+    , _hoisted_35), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "checkbox",
+      id: index,
+      name: index,
+      value: "true"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_37)]), _hoisted_38])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'galleries' && $setup.data[index] && _typeof($setup.data[index]) == 'object' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [_hoisted_41, _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.data[index], function (path, gallery_id) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+        key: gallery_id,
+        "class": "d-flex flex-column align-items-center col-md"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": index + gallery_id
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+        src: path,
+        style: {
+          "width": "10rem"
+        },
+        alt: ""
+      }, null, 8
+      /* PROPS */
+      , _hoisted_45)], 8
+      /* PROPS */
+      , _hoisted_44), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "checkbox",
+        id: index + gallery_id,
+        name: index + '[]',
+        value: gallery_id
+      }, null, 8
+      /* PROPS */
+      , _hoisted_46)]);
+    }), 128
+    /* KEYED_FRAGMENT */
+    ))]), _hoisted_47])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
     /* CLASS */
     );
   }), 128
@@ -24458,7 +24596,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $props.data.latitude = $event;
     }),
-    type: "text",
+    type: "hidden",
     name: "latitude"
   }, null, 512
   /* NEED_PATCH */
@@ -24466,7 +24604,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $props.data.longitude = $event;
     }),
-    type: "text",
+    type: "hidden",
     name: "longitude"
   }, null, 512
   /* NEED_PATCH */
@@ -25753,6 +25891,11 @@ __webpack_require__.r(__webpack_exports__);
       input_type: 'file',
       col: 6
     },
+    delete_main_picture: {
+      type: 'picture',
+      persianName: 'تصویر اصلی',
+      col: 12
+    },
     galleries: {
       type: 'input',
       persianName: 'گالری تصاویر',
@@ -25762,6 +25905,11 @@ __webpack_require__.r(__webpack_exports__);
         multiple: true
       }
     },
+    delete_galleries: {
+      type: 'galleries',
+      persianName: 'گالری',
+      col: 12
+    },
     terms: {
       type: 'multiple_checkboxes',
       persianName: 'شرایط',
@@ -25770,7 +25918,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     bool_facilities: {
       type: 'multiple_checkboxes',
-      persianName: 'شرایط',
+      persianName: 'امکانات',
       col: 6,
       children: {}
     },

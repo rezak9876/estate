@@ -120,6 +120,12 @@ export default module = {
             col: 6
         },
 
+        delete_main_picture: {
+            type: 'picture',
+            persianName: 'تصویر اصلی',
+            col: 12
+        },
+        
 
         galleries: {
             type: 'input',
@@ -131,6 +137,13 @@ export default module = {
             }
         },
 
+        
+        delete_galleries: {
+            type: 'galleries',
+            persianName: 'گالری',
+            col: 12
+        },
+
         terms: {
             type: 'multiple_checkboxes',
             persianName: 'شرایط',
@@ -140,7 +153,7 @@ export default module = {
 
         bool_facilities: {
             type: 'multiple_checkboxes',
-            persianName: 'شرایط',
+            persianName: 'امکانات',
             col: 6,
             children : {}
         },

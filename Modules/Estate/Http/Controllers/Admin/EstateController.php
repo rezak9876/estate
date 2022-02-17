@@ -186,7 +186,7 @@ class EstateController extends Controller
             $image_path = $this->image_path($name);
             $this->save_picture($file, $name);
             // resize image instance
-            $this->create_thumbnail_picture($image_path, $name);
+            // $this->create_thumbnail_picture($image_path, $name);
             $request->merge([
                 'main_picture' => $name,
             ]);
@@ -283,8 +283,8 @@ class EstateController extends Controller
     }
 
 
-
-    protected function delete_picture($picture_name, $has_thumbnail = true)
+    // has_thumbnail was true
+    protected function delete_picture($picture_name, $has_thumbnail = false)
     {
         unlink(self::$prefix_images . '/' . $picture_name);
         if ($has_thumbnail)

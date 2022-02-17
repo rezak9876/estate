@@ -6,19 +6,35 @@
       :key="index"
       :class="'col-' + row.col"
     >
-      <div v-if="row.type == 'input'">
-        <label :for="index" class="form-label">{{ row.persianName }}</label>
-        <input
-          v-model.lazy="data[index]"
-          :type="row.input_type"
-          class="form-control"
-          :id="index"
-          :name="index+((typeof row.attributes !== 'undefined' && row.attributes.multiple)?'[]':'')"
-          aria-describedby="emailHelp"
-          :multiple="
-            typeof row.attributes !== 'undefined' && row.attributes.multiple
-          "
+      <div
+        v-if="row.type == 'input'"
+        class="d-flex justify-content-between align-items-center mt-2"
+      >
+        <img
+          v-if="row.input_type == 'file'"
+          :src="url[index] ?? '/images/helper/upload.png'"
+          class="w-25 m-2"
+          alt=""
         />
+        <div class="w-100">
+          <label :for="index" class="form-label">{{ row.persianName }}</label>
+          <input
+            v-model.lazy="data[index]"
+            :type="row.input_type"
+            class="form-control"
+            :id="index"
+            :name="
+              index +
+              (typeof row.attributes !== 'undefined' && row.attributes.multiple
+                ? '[]'
+                : '')
+            "
+            aria-describedby="emailHelp"
+            :multiple="
+              typeof row.attributes !== 'undefined' && row.attributes.multiple
+            "
+          />
+        </div>
       </div>
 
       <div v-if="row.type == 'textarea'">
@@ -123,26 +139,73 @@
       </div>
 
       <div v-if="row.type == 'multiple_checkboxes'">
-        <div class="form-check-inline" id="children">
-          <div v-for="(label, value) in row.children" :key="value">
-            <input
-              :value="value"
-              :name="index+'[]'"
-              class="form-check-input ml-2"
-              v-model="data[index]"
-              type="checkbox"
-              :id="index + value"
-            />
-
-            <label class="form-check-label" :for="index + value">{{
-              label
-            }}</label>
+        <div class="form-group">
+          <label>{{row.persianName}}</label>
+          <div class="form-check">
+            <div class="row" id="children">
+              <div
+                class="col-3 mt-2"
+                v-for="(label, value) in row.children"
+                :key="value"
+              >
+                <input
+                  v-model="data[index]"
+                  :name="index + '[]'"
+                  class="form-check-input"
+                  :id="index + value"
+                  type="checkbox"
+                  :value="value"
+                />
+                <label class="form-check-label" :for="index + value">
+                  {{ label }}
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div v-if="(row.type == 'map') && !loading">
+      <div v-if="row.type == 'map' && !loading">
         <Map :data="data" />
+      </div>
+
+      <div v-if="row.type == 'picture' && data[index]">
+        <div class="mt-5">
+          <span>برای حذف عکس تیک آن را بزنید.</span>
+          <br />
+          <div class="d-flex flex-column align-items-center">
+            <label :for="index"
+              ><img :src="data[index]" style="width: 10rem" alt=""
+            /></label>
+            <input type="checkbox" :id="index" :name="index" value="true" />
+          </div>
+          <hr />
+        </div>
+      </div>
+
+      <div v-if="row.type == 'galleries' && data[index] &&(typeof data[index] == 'object')">
+        <div class="mt-5">
+          <span>برای حذف عکس تیک آن را بزنید.</span>
+          <br />
+          <div class="row">
+            <div
+              v-for="(path, gallery_id) in data[index]"
+              :key="gallery_id"
+              class="d-flex flex-column align-items-center col-md"
+            >
+              <label :for="index + gallery_id"
+                ><img :src="path" style="width: 10rem" alt=""
+              /></label>
+              <input
+                type="checkbox"
+                :id="index + gallery_id"
+                :name="index + '[]'"
+                :value="gallery_id"
+              />
+            </div>
+          </div>
+          <hr />
+        </div>
       </div>
     </div>
   </div>
@@ -175,17 +238,17 @@ export default {
     const id = route.params.id;
     const module = props.module;
 
-    $("input").on({
-      mouseenter: function () {
-        alert("mouseenter");
-      },
-      mouseleave: function () {
-        alert("mouseleave");
-      },
-      click: function () {
-        alert("click");
-      },
-    });
+    // $("input").on({
+    //   mouseenter: function () {
+    //     alert("mouseenter");
+    //   },
+    //   mouseleave: function () {
+    //     alert("mouseleave");
+    //   },
+    //   click: function () {
+    //     alert("click");
+    //   },
+    // });
     for (var field_index in module.formfields) {
       let field = module.formfields[field_index];
       if (
@@ -249,7 +312,24 @@ export default {
       }
       return has_all;
     }
-    return { loading, module, data, motherchange, hasAll };
+
+    const url = ref({});
+    $(document).ready(() => {
+      $("input[type='file']").change(function (e) {
+        if ($(this)[0].multiple) {
+          // gallery
+          let input_name = $(this)[0].name.slice(0, -2);
+          const file = e.target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        } else {
+          // picture
+          let input_name = $(this)[0].name;
+          const file = e.target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        }
+      });
+    });
+    return { loading, module, data, motherchange, hasAll, url };
   },
 };
 </script>

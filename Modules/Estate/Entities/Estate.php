@@ -120,6 +120,9 @@ class Estate extends Model
     {
         return $this->belongsToMany(Facility::class,'bool_estate_facility');
     }
-
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
     
 }

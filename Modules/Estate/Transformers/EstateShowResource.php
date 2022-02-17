@@ -3,6 +3,7 @@
 namespace Modules\Estate\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Estate\Entities\Gallery;
 
 class EstateShowResource extends JsonResource
 {
@@ -36,15 +37,19 @@ class EstateShowResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'type' => $this->type,
+            'delete_main_picture' => $this->main_picture ? Gallery::$prefix_images . $this->main_picture : null,
+            'delete_galleries' => $this->galleries->pluck('path', 'id')->map(function ($item, $key) {
+                return Gallery::$prefix_images.$item;
+            }),
         ];
 
-        foreach($this->intfacilities as $int_facility){
-            $estate['int_facilities['.$int_facility->id.']'] = $int_facility->pivot->value;
+        foreach ($this->intfacilities as $int_facility) {
+            $estate['int_facilities[' . $int_facility->id . ']'] = $int_facility->pivot->value;
         }
 
-        
-        foreach($this->txtfacilities as $txt_facility){
-            $estate['txt_facilities['.$txt_facility->id.']'] = $txt_facility->pivot->value;
+
+        foreach ($this->txtfacilities as $txt_facility) {
+            $estate['txt_facilities[' . $txt_facility->id . ']'] = $txt_facility->pivot->value;
         }
         return $estate;
     }
