@@ -23018,8 +23018,27 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     data: Object
   },
+  updated: function updated() {
+    console.log(this.$props.data);
+  },
+  created: function created() {
+    console.log(this.$props.data);
+  },
+  renderTracked: function renderTracked() {
+    console.log(this.$props.data);
+  },
+  renderTriggered: function renderTriggered() {
+    console.log(this.$props.data);
+  },
+  activated: function activated() {
+    console.log(this.$props.data);
+  },
+  serverPrefetch: function serverPrefetch() {
+    console.log(this.$props.data);
+  },
   setup: function setup(props) {
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      console.log(props.data.value);
       var latitude = 35.66240244665957;
       var longitude = 51.38972845460646;
       var mymap = L.map("mapid").setView([latitude, longitude], 15);

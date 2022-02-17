@@ -40,17 +40,16 @@ class EstateController extends Controller
      */
     public function create()
     {
-        $txt_facilities = Facility::where('type',Facility::Text)->pluck('title','id');
-        $int_facilities = Facility::where('type',Facility::Integer)->pluck('title','id');
-        $bool_facilities = Facility::where('type',Facility::Check_box)->pluck('title','id');
-        $terms = Term::pluck('title','id');
+        $txt_facilities = Facility::where('type', Facility::Text)->pluck('title', 'id');
+        $int_facilities = Facility::where('type', Facility::Integer)->pluck('title', 'id');
+        $bool_facilities = Facility::where('type', Facility::Check_box)->pluck('title', 'id');
+        $terms = Term::pluck('title', 'id');
         return response()->json([
-            'txt_facilities' =>$txt_facilities,
-            'int_facilities' =>$int_facilities,
-            'bool_facilities' =>$bool_facilities,
-            'terms' =>$terms,
+            'txt_facilities' => $txt_facilities,
+            'int_facilities' => $int_facilities,
+            'bool_facilities' => $bool_facilities,
+            'terms' => $terms,
         ]);
-
     }
 
     /**
@@ -156,9 +155,73 @@ class EstateController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Estate $estate)
     {
-        //
+        if ($request->delete_galleries != null) {
+            foreach ($request->delete_galleries as $delete_gallery_id) {
+                $gallery = Gallery::find($delete_gallery_id);
+                $this->delete_picture($gallery->path, false);
+                $gallery->delete();
+            }
+        }
+        if ($request->delete_main_picture != null) {
+            $this->delete_picture($estate->main_picture);
+            $request->merge([
+                'main_picture' => null,
+            ]);
+        }
+        $province_id = $this->check_province($request->province);
+        $city_id = $this->check_city($request->city, $province_id);
+        $region_id = $this->check_region($request->region, $city_id);
+        $neighborhood_id = $this->check_neighborhood($request->neighborhood, $region_id);
+        $request->merge([
+            'neighborhood_id' => $neighborhood_id,
+        ]);
+        if ($request->hasfile('main_pic')) {
+            if ($estate->main_picture) {
+                $this->delete_picture($estate->main_picture);
+            }
+            $file = $request->file('main_pic');
+            $name = $this->image_name($request->slug, $file->extension());
+            $image_path = $this->image_path($name);
+            $this->save_picture($file, $name);
+            // resize image instance
+            $this->create_thumbnail_picture($image_path, $name);
+            $request->merge([
+                'main_picture' => $name,
+            ]);
+        }
+        $estate->update($request->all());
+        $estate->terms()->sync($request->terms);
+        $int_facilities = collect($request->int_facilities, [])
+            ->map(function ($facility) {
+                return ['value' => $facility];
+            });
+        $estate->intfacilities()->sync($int_facilities);
+
+        $txt_facilities = collect($request->txt_facilities, [])
+            ->map(function ($facility) {
+                return ['value' => $facility];
+            });
+        $estate->txtfacilities()->sync($txt_facilities);
+
+
+        $estate->boolfacilities()->sync($request->bool_facilities);
+
+        if ($request->hasfile('galleries')) {
+            $files = $request->file('galleries');
+            foreach ($files as $file) {
+                $name = $this->image_name($request->slug, $file->extension());
+                $this->save_picture($file, $name);
+                $gallery = new Gallery();
+                $gallery->path = $name;
+                $gallery->estate_id = $estate->id;
+                $gallery->save();
+            }
+        }
+        return response()->json([
+            'message' => 'شرط با موفقیت آپدیت شد.'
+        ], 200);
     }
 
     /**
