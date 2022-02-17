@@ -62,30 +62,28 @@ export default {
   props: {
     data: Object,
   },
-  updated() {
-    console.log(this.$props.data);
-  },
-  created() {
-    console.log(this.$props.data);
-  },
-  renderTracked() {
-    console.log(this.$props.data);
-  },
-  renderTriggered() {
-    console.log(this.$props.data);
-  },
-  activated() {
-    console.log(this.$props.data);
-  },
-  serverPrefetch() {
-    console.log(this.$props.data);
-  },
+  // updated() {
+  //   console.log(this.$props.data);
+  // },
+  // created() {
+  //   console.log(this.$props.data);
+  // },
+  // renderTracked() {
+  //   console.log(this.$props.data);
+  // },
+  // renderTriggered() {
+  //   console.log(this.$props.data);
+  // },
+  // activated() {
+  //   console.log(this.$props.data);
+  // },
+  // serverPrefetch() {
+  //   console.log(this.$props.data);
+  // },
   setup(props) {
     onMounted(() => {
-      console.log(props.data.value);
-
-      let latitude = 35.66240244665957;
-      let longitude = 51.38972845460646;
+      let latitude = props.data.latitude ?? 35.66240244665957;
+      let longitude = props.data.longitude ?? 51.38972845460646;
       var mymap = L.map("mapid").setView([latitude, longitude], 15);
       L.tileLayer(
         "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",

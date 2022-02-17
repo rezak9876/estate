@@ -141,7 +141,7 @@
         </div>
       </div>
 
-      <div v-if="row.type == 'map'">
+      <div v-if="(row.type == 'map') && !loading">
         <Map :data="data" />
       </div>
     </div>
