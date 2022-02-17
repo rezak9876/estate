@@ -14,7 +14,7 @@ class CreateTxtEstateFacilityTable extends Migration
     public function up()
     {
         Schema::create('txt_estate_facility', function (Blueprint $table) {
-            $table->unsignedBigInteger('facility_id');
+            $table->unsignedTinyInteger('facility_id');
             $table->unsignedBigInteger('estate_id');
             $table->string('value')->nullable();
             $table->foreign('facility_id')->references('id')->on('facilities');

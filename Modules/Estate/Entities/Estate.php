@@ -5,6 +5,7 @@ namespace Modules\Estate\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Facility\Entities\Facility;
+use Modules\Neighborhood\Entities\Neighborhood;
 use Modules\Term\Entities\Term;
 
 class Estate extends Model
@@ -119,4 +120,6 @@ class Estate extends Model
     {
         return $this->belongsToMany(Facility::class,'bool_estate_facility');
     }
+
+    
 }

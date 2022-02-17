@@ -21,7 +21,6 @@ export default {
           response.data.bool_facilities;
           var int_facilities = response.data.int_facilities
         for (var facility_id in int_facilities) {
-          alert(facility_id)
           module.formfields['int_facilities['+facility_id+']'] = {};
           module.formfields['int_facilities['+facility_id+']'].persianName = int_facilities[facility_id];
           module.formfields['int_facilities['+facility_id+']'].type = 'input';
@@ -31,11 +30,9 @@ export default {
 
         var txt_facilities = response.data.txt_facilities
         for (var facility_id in txt_facilities) {
-          alert(facility_id)
           module.formfields['txt_facilities['+facility_id+']'] = {};
           module.formfields['txt_facilities['+facility_id+']'].persianName = txt_facilities[facility_id];
           module.formfields['txt_facilities['+facility_id+']'].type = 'input';
-          module.formfields['txt_facilities['+facility_id+']'].input_type = 'number';
           module.formfields['txt_facilities['+facility_id+']'].col = 6;
         }
       })

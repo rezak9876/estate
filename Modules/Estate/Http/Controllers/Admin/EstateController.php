@@ -11,6 +11,8 @@ use Modules\Estate\Entities\Estate;
 use Modules\Estate\Entities\Gallery;
 use Modules\Estate\Http\Requests\EstateRequest;
 use Modules\Estate\Transformers\EstateCollection;
+use Modules\Estate\Transformers\EstateResource;
+use Modules\Estate\Transformers\EstateShowResource;
 use Modules\Estate\Transformers\TermEstateFormResource;
 use Modules\Facility\Entities\Facility;
 use Modules\Neighborhood\Entities\Neighborhood;
@@ -131,9 +133,11 @@ class EstateController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Estate $estate)
     {
-        return view('estate::show');
+        return response()->json([
+            'data' => new EstateShowResource($estate)
+        ], 200);
     }
 
     /**

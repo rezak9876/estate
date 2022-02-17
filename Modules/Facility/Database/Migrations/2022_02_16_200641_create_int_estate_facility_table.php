@@ -14,7 +14,7 @@ class CreateIntEstateFacilityTable extends Migration
     public function up()
     {
         Schema::create('int_estate_facility', function (Blueprint $table) {
-            $table->unsignedBigInteger('facility_id');
+            $table->unsignedTinyInteger('facility_id');
             $table->unsignedBigInteger('estate_id');
             $table->integer('value')->nullable();
             $table->foreign('facility_id')->references('id')->on('facilities');

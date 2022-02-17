@@ -23443,7 +23443,6 @@ __webpack_require__.r(__webpack_exports__);
       var int_facilities = response.data.int_facilities;
 
       for (var facility_id in int_facilities) {
-        alert(facility_id);
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['int_facilities[' + facility_id + ']'] = {};
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['int_facilities[' + facility_id + ']'].persianName = int_facilities[facility_id];
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['int_facilities[' + facility_id + ']'].type = 'input';
@@ -23454,11 +23453,9 @@ __webpack_require__.r(__webpack_exports__);
       var txt_facilities = response.data.txt_facilities;
 
       for (var facility_id in txt_facilities) {
-        alert(facility_id);
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['txt_facilities[' + facility_id + ']'] = {};
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['txt_facilities[' + facility_id + ']'].persianName = txt_facilities[facility_id];
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['txt_facilities[' + facility_id + ']'].type = 'input';
-        _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['txt_facilities[' + facility_id + ']'].input_type = 'number';
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields['txt_facilities[' + facility_id + ']'].col = 6;
       }
     })["catch"](function (error) {}).then(function () {

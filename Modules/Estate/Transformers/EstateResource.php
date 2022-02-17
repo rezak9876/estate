@@ -14,6 +14,10 @@ class EstateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->title;
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'type' => $this->gettypeName()
+        ];
     }
 }
