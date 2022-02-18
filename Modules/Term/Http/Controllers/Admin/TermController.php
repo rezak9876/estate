@@ -51,7 +51,7 @@ class TermController extends Controller
      * @param  Term $term
      * @return \Illuminate\View\View
      */
-    public function show(Term $term)
+    public function edit(Term $term)
     {
         return response()->json([
             'data' => new TermResource($term)

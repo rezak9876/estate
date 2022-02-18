@@ -53,9 +53,14 @@ export default {
             router.push({ name: props.module.pluralName });
           })
           .catch(function (error) {
-            const obj = error.response.data.errors;
-            const firstmessage = obj[Object.keys(obj)[0]][0];
-            toastShow("error", firstmessage);
+            const response = error.response
+            if(response.status == 403)
+              toastShow("error", response.data.message);
+            else{
+              const obj = response.data.errors;
+              const firstmessage = obj[Object.keys(obj)[0]][0];
+              toastShow("error", firstmessage);
+            }
           })
           .then(function (response) {
             loading.value = false;

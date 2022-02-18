@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'],function(){
     Route::prefix('admin')->as('admin.')->middleware('auth:sanctum')->group(function () {
         Route::resource('estates','Admin\EstateController')->only([
-            'index','create', 'store', 'show', 'update', 'destroy'
+            'index','create', 'store', 'edit', 'update', 'destroy'
         ]);
     });
 });

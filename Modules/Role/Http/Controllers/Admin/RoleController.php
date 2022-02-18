@@ -42,7 +42,7 @@ class RoleController extends Controller
         $role->create($request->all());
         $role->permissions()->attach($request->permissions);
         return response()->json([
-            'message' => 'شرط با موفقیت ساخته شد.'
+            'message' => 'نقش با موفقیت ساخته شد.'
         ], 201);
     }
 
@@ -96,7 +96,7 @@ class RoleController extends Controller
      * @param  Role $role
      * @return \Illuminate\View\View
      */
-    public function show(Role $role)
+    public function edit(Role $role)
     {
         return response()->json([
             'data' => new RoleResource($role)
@@ -115,7 +115,7 @@ class RoleController extends Controller
         $role->update($request->all());
         $role->permissions()->sync($request->permissions);
         return response()->json([
-            'message' => 'شرط با موفقیت آپدیت شد.'
+            'message' => 'نقش با موفقیت آپدیت شد.'
         ], 200);
     }
 
@@ -128,7 +128,7 @@ class RoleController extends Controller
     {
         $role->delete();
         return response()->json([
-            'message' => 'شرط با موفقیت حذف شد.'
+            'message' => 'نقش با موفقیت حذف شد.'
         ], 200);
     }
 }

@@ -40,7 +40,7 @@ class FacilityController extends Controller
         $facility = new Facility();
         $facility->create($request->all());
         return response()->json([
-            'message' => 'شرط با موفقیت ساخته شد.'
+            'message' => 'امکان با موفقیت ساخته شد.'
         ], 201);
     }
 
@@ -51,7 +51,7 @@ class FacilityController extends Controller
      * @param  Facility $facility
      * @return \Illuminate\View\View
      */
-    public function show(Facility $facility)
+    public function edit(Facility $facility)
     {
         return response()->json([
             'data' => new FacilityResource($facility)
@@ -69,7 +69,7 @@ class FacilityController extends Controller
     {
         $facility->update($request->all());
         return response()->json([
-            'message' => 'شرط با موفقیت آپدیت شد.'
+            'message' => 'امکان با موفقیت آپدیت شد.'
         ], 200);
     }
 
@@ -82,7 +82,7 @@ class FacilityController extends Controller
     {
         $facility->delete();
         return response()->json([
-            'message' => 'شرط با موفقیت حذف شد.'
+            'message' => 'امکان با موفقیت حذف شد.'
         ], 200);
 
     }

@@ -138,22 +138,13 @@ class EstateController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show(Estate $estate)
+    public function edit(Estate $estate)
     {
         return response()->json([
             'data' => new EstateShowResource($estate)
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('estate::edit');
-    }
 
     /**
      * Update the specified resource in storage.
@@ -226,7 +217,7 @@ class EstateController extends Controller
             }
         }
         return response()->json([
-            'message' => 'شرط با موفقیت آپدیت شد.'
+            'message' => 'آگهی با موفقیت آپدیت شد.'
         ], 200);
     }
 
@@ -244,7 +235,7 @@ class EstateController extends Controller
         } finally {
             $estate->delete();
             return response()->json([
-                'message' => 'شرط با موفقیت حذف شد.'
+                'message' => 'آگهی با موفقیت حذف شد.'
             ], 200);
         }
     }

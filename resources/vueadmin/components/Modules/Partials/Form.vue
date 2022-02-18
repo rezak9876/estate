@@ -271,7 +271,7 @@ export default {
     if (id) {
       function getData() {
         axios
-          .get("/" + module.pluralName + "/" + id)
+          .get("/" + module.pluralName + "/" + id+"/edit")
           .then(function (response) {
             data.value = response.data.data;
           })

@@ -22798,9 +22798,12 @@ __webpack_require__.r(__webpack_exports__);
             name: props.module.pluralName
           });
         })["catch"](function (error) {
-          var obj = error.response.data.errors;
-          var firstmessage = obj[Object.keys(obj)[0]][0];
-          toastShow("error", firstmessage);
+          var response = error.response;
+          if (response.status == 403) toastShow("error", response.data.message);else {
+            var obj = response.data.errors;
+            var firstmessage = obj[Object.keys(obj)[0]][0];
+            toastShow("error", firstmessage);
+          }
         }).then(function (response) {
           loading.value = false;
         });
@@ -22942,7 +22945,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (id) {
       var getData = function getData() {
-        axios__WEBPACK_IMPORTED_MODULE_3___default().get("/" + module.pluralName + "/" + id).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_3___default().get("/" + module.pluralName + "/" + id + "/edit").then(function (response) {
           data.value = response.data.data;
         })["catch"](function (error) {
           if (error.response.status == 403) _router__WEBPACK_IMPORTED_MODULE_5__["default"].push('/');

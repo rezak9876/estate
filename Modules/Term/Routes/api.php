@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'],function(){
     Route::prefix('admin')->as('admin.')->middleware('auth:sanctum')->group(function () {
         Route::resource('terms','Admin\TermController')->only([
-            'index', 'store', 'show', 'update', 'destroy'
+            'index', 'store', 'edit', 'update', 'destroy'
         ]);
     });
 });
