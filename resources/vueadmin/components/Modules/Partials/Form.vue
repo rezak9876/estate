@@ -101,20 +101,20 @@
               <!-- children -->
               <th
                 scope="row"
-                v-for="child in category.children"
-                :key="child.id"
+                v-for="(child_title, child_index) in category.children"
+                :key="child_index"
               >
                 <input
                   :name="index + '[]'"
-                  :value="child.id"
+                  :value="child_index"
                   class="form-check-input ml-2"
                   v-model="data[index]"
                   type="checkbox"
-                  :id="index + child.id"
+                  :id="index + child_index"
                 />
 
-                <label class="form-check-label" :for="index + child.id">{{
-                  child.title
+                <label class="form-check-label" :for="index + child_index">{{
+                  child_title
                 }}</label>
               </th>
             </tr>
@@ -218,6 +218,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import * as $ from "jquery";
+import router from "../../../router";
 
 import GetLoading from "../../sections/GetLoading.vue";
 
@@ -274,7 +275,10 @@ export default {
           .then(function (response) {
             data.value = response.data.data;
           })
-          .catch(function (error) {})
+          .catch(function (error) {
+            if(error.response.status == 403)
+              router.push('/');
+          })
           .then(function () {
             loading.value = false;
           });
@@ -285,29 +289,36 @@ export default {
     }
 
     function motherchange(event, children, checkbox_name) {
-      let mother_checkbox_status = event.target.checked;
+      // let mother_checkbox_status = event.target.checked;
 
-      for (var currentValue in children) {
-        let data_checkbox_index = data.value[checkbox_name].indexOf(
-          children[currentValue].id
-        );
-        if (mother_checkbox_status === true) {
-          if (data_checkbox_index < 0) {
-            data.value[checkbox_name].push(children[currentValue].id);
-          }
-        } else {
-          if (data_checkbox_index > -1) {
-            data.value[checkbox_name].splice(data_checkbox_index);
-          }
-        }
-      }
+      // for (var currentValue in children) {
+      //   let data_checkbox_index = data.value[checkbox_name].indexOf(
+      //     currentValue
+      //   );
+      //   if (mother_checkbox_status === true) {
+      //     if (data_checkbox_index < 0) {
+      //       data.value[checkbox_name].push(currentValue);
+      //     }
+      //   } else {
+      //     if (data_checkbox_index > -1) {
+      //       data.value[checkbox_name].splice(data_checkbox_index);
+      //     }
+      //   }
+      // }
     }
 
     function hasAll(children, group_checkbox_name) {
+      currentValue =  parseInt(currentValue)
       let has_all = true;
       for (var currentValue in children) {
+        console.log(typeof data.value[group_checkbox_name][0])
+        console.log(typeof currentValue)
+        console.log(data.value[group_checkbox_name].includes(
+          currentValue
+        ))
+        alert(data.value[group_checkbox_name])
         has_all &= data.value[group_checkbox_name].includes(
-          children[currentValue].id
+          currentValue
         );
       }
       return has_all;

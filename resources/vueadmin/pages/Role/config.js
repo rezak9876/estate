@@ -22,36 +22,7 @@ export default module = {
             type: 'checkboxgroup',
             persianName: 'دسترسی ها',
             col: 12,
-            categories: [{
-                persianName: 'کاربران',
-                children: [
-                    {
-                        id: 3,
-                        title: 'ایجاد کاربر',
-                    },
-                    {
-                        id: 1,
-                        title: 'ویرایش کاربر',
-                    },
-                    {
-                        id: 2,
-                        title: 'حذف کاربر',
-                    },
-                ]
-            },
-            {
-                persianName: 'شرایط',
-                children: [
-                    {
-                        id: 6,
-                        title: 'ایجاد شرط',
-                    },
-                    {
-                        id: 4,
-                        title: 'ویرایش شرط',
-                    },
-                ]
-            }]
+            categories: []
         },
         // user_permission: {
         //     type: 'checkboxgroup',

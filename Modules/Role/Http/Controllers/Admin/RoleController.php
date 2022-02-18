@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Permission\Entities\Permission;
 use Modules\Role\Entities\Role;
 use Modules\Role\Http\Requests\RoleRequest;
 use Modules\Role\Transformers\RoleCollection;
@@ -36,13 +37,56 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-//        $this->validateRole($request);
+        //        $this->validateRole($request);
         $role = new Role();
         $role->create($request->all());
         $role->permissions()->attach($request->permissions);
         return response()->json([
             'message' => 'شرط با موفقیت ساخته شد.'
         ], 201);
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function create()
+    {
+        $permissions = Permission::pluck('title', 'id');
+        return response()->json([
+            'data' =>  [
+                [
+                    'persianName' => 'کاربران',
+                    'children' =>Permission::where('slug', 'like', 'user.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'شرایط',
+                    'children' =>Permission::where('slug', 'like', 'term.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'نقش ها',
+                    'children' =>Permission::where('slug', 'like', 'role.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'صفحات',
+                    'children' =>Permission::where('slug', 'like', 'page.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'امکانات',
+                    'children' =>Permission::where('slug', 'like', 'facility.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'آگهی ها',
+                    'children' =>Permission::where('slug', 'like', 'estate.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'تنظیمات',
+                    'children' =>Permission::where('slug', 'like', 'setting.%')->pluck('title', 'id')
+                ]
+            ]
+        ]);
     }
 
 
@@ -86,6 +130,5 @@ class RoleController extends Controller
         return response()->json([
             'message' => 'شرط با موفقیت حذف شد.'
         ], 200);
-
     }
 }

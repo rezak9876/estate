@@ -19,11 +19,17 @@ use Modules\Neighborhood\Entities\Neighborhood;
 use Modules\Province\Entities\Province;
 use Modules\Region\Entities\Region;
 use Modules\Term\Entities\Term;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EstateController extends Controller
 {
 
+    use AuthorizesRequests;
     public static $prefix_images = 'images/estate';
+    public function __construct()
+    {
+        $this->authorizeResource(Estate::class);
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -229,9 +235,18 @@ class EstateController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Estate $estate)
     {
-        //
+        try {
+            foreach ($estate->galleries as $gallery) {
+                $this->delete_picture($gallery->path, false);
+            }
+        } finally {
+            $estate->delete();
+            return response()->json([
+                'message' => 'شرط با موفقیت حذف شد.'
+            ], 200);
+        }
     }
 
 
