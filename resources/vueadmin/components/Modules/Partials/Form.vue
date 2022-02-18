@@ -1,6 +1,6 @@
 <template>
   <GetLoading v-if="loading" />
-  <div class="mb-3 row">
+  <div v-else class="mb-3 row">
     <div
       v-for="(row, index) in module.formfields"
       :key="index"
@@ -183,7 +183,7 @@
         </div>
       </div>
 
-      <div v-if="row.type == 'galleries' && data[index] &&(typeof data[index] == 'object')">
+      <div v-if="row.type == 'galleries' && data[index] &&(Object.keys(data[index]).length)">
         <div class="mt-5">
           <span>برای حذف عکس تیک آن را بزنید.</span>
           <br />
