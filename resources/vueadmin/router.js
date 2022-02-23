@@ -15,6 +15,10 @@ import RoleUpdate from './pages/Role/Update'
 import EstateIndex from './pages/Estate/Index.vue'
 import EstateCreate from './pages/Estate/Create'
 import EstateUpdate from './pages/Estate/Update'
+
+import UserIndex from './pages/User/Index.vue'
+import UserCreate from './pages/User/Create'
+import UserUpdate from './pages/User/Update'
 const routes = [
 
     { path: "/terms", name: 'terms', component: TermIndex },
@@ -32,6 +36,10 @@ const routes = [
     { path: "/estates", name: 'estates', component: EstateIndex },
     { path: "/estates/create", name: 'estatesCreate', component: EstateCreate },
     { path: "/estates/:id", name: 'estatesUpdate', component: EstateUpdate },
+
+    { path: "/users", name: 'users', component: UserIndex },
+    { path: "/users/create", name: 'usersCreate', component: UserCreate },
+    { path: "/users/:id", name: 'usersUpdate', component: UserUpdate },
 ];
 
 const router = createRouter({

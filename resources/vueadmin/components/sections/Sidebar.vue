@@ -73,6 +73,17 @@
           </router-link>
         </li>
 
+        <li>
+          <router-link
+            to="/users"
+            class="nav-link link-dark"
+            aria-current="page"
+          >
+            <i class="bi bi-house-door"></i>
+            کاربران
+          </router-link>
+        </li>
+
         <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
