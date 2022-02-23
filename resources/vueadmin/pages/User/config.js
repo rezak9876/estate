@@ -17,6 +17,7 @@ export default module = {
             persianName: 'تلفن ثابت',
             col:6
         },
+        
         mobile: {
             type: 'input',
             persianName: 'موبایل',
@@ -61,6 +62,10 @@ export default module = {
             input_type: 'file',
             col: 6
         },
-        
+        delete_picture: {
+            type: 'picture',
+            persianName: 'تصویر اصلی',
+            col: 12
+        },
     }
 }

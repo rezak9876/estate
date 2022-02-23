@@ -140,7 +140,7 @@
 
       <div v-if="row.type == 'multiple_checkboxes'">
         <div class="form-group">
-          <label>{{row.persianName}}</label>
+          <label>{{ row.persianName }}</label>
           <div class="form-check">
             <div class="row" id="children">
               <div
@@ -183,7 +183,13 @@
         </div>
       </div>
 
-      <div v-if="row.type == 'galleries' && data[index] &&(Object.keys(data[index]).length)">
+      <div
+        v-if="
+          row.type == 'galleries' &&
+          data[index] &&
+          Object.keys(data[index]).length
+        "
+      >
         <div class="mt-5">
           <span>برای حذف عکس تیک آن را بزنید.</span>
           <br />
@@ -214,7 +220,7 @@
 <script>
 import Table from "../../../components/Modules/Partials/Table.vue";
 import Map from "./FormPartials/Map.vue";
-import { ref } from "vue";
+import { ref, onUpdated } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import * as $ from "jquery";
@@ -232,6 +238,21 @@ export default {
     module: Object,
   },
   setup(props) {
+    onUpdated(() => {
+      $("input[type='file']").change(function (e) {
+        if ($(this)[0].multiple) {
+          // gallery
+          let input_name = $(this)[0].name.slice(0, -2);
+          const file = e.target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        } else {
+          // picture
+          let input_name = $(this)[0].name;
+          const file = e.target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        }
+      });
+    });
     const loading = ref(true);
     const data = ref({});
 
@@ -276,8 +297,7 @@ export default {
             data.value = response.data.data;
           })
           .catch(function (error) {
-            if(error.response.status == 403)
-              router.push('/');
+            if (error.response.status == 403) router.push("/");
           })
           .then(function () {
             loading.value = false;
@@ -290,7 +310,6 @@ export default {
 
     function motherchange(event, children, checkbox_name) {
       // let mother_checkbox_status = event.target.checked;
-
       // for (var currentValue in children) {
       //   let data_checkbox_index = data.value[checkbox_name].indexOf(
       //     currentValue
@@ -308,40 +327,42 @@ export default {
     }
 
     function hasAll(children, group_checkbox_name) {
-      currentValue =  parseInt(currentValue)
+      currentValue = parseInt(currentValue);
       let has_all = true;
       for (var currentValue in children) {
-        console.log(typeof data.value[group_checkbox_name][0])
-        console.log(typeof currentValue)
-        console.log(data.value[group_checkbox_name].includes(
-          currentValue
-        ))
-        alert(data.value[group_checkbox_name])
-        has_all &= data.value[group_checkbox_name].includes(
-          currentValue
-        );
+        console.log(typeof data.value[group_checkbox_name][0]);
+        console.log(typeof currentValue);
+        console.log(data.value[group_checkbox_name].includes(currentValue));
+        alert(data.value[group_checkbox_name]);
+        has_all &= data.value[group_checkbox_name].includes(currentValue);
       }
       return has_all;
     }
 
     const url = ref({});
-    $(document).ready(() => {
-      $("input[type='file']").change(function (e) {
-        if ($(this)[0].multiple) {
-          // gallery
-          let input_name = $(this)[0].name.slice(0, -2);
-          const file = e.target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        } else {
-          // picture
-          let input_name = $(this)[0].name;
-          const file = e.target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        }
-      });
-    });
     return { loading, module, data, motherchange, hasAll, url };
   },
+  // created(){
+  //   alert('created')
+  // },
+  // mounted(){
+  //   alert('mounted')
+  // },
+  // updated(){
+  //   alert('updated')
+  // },
+  // renderTracked(){
+  //   // alert('renderTracked')
+  // },
+  // renderTriggered(){
+  //   alert('renderTriggered')
+  // },
+  // activated(){
+  //   alert('activated')
+  // },
+  // serverPrefetch(){
+  //   alert('serverPrefetch')
+  // },
 };
 </script>
 

@@ -39,8 +39,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         //        $this->validateUser($request);
-        $user = new User();
-        $user->create($request->all());
+        $request_data = $request->except(['picture']);
         if ($request->hasfile('picture')) {
 
             $file = $request->file('picture');
@@ -49,10 +48,11 @@ class UserController extends Controller
             $this->save_picture($file, $name);
             // resize image instance
             // $this->create_thumbnail_picture($image_path, $name);
-            $request->merge([
-                'picture' => $name,
-            ]);
+            $request_data['picture']= $name;
         }
+        $user = new User();
+        $user->create($request_data);
+        
         return response()->json([
             'message' => 'کاربر با موفقیت ساخته شد.'
         ], 201);
@@ -81,11 +81,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        if ($request->delete_main_picture != null) {
+        $request_data = $request->except(['picture']);
+        if ($request->delete_picture != null) {
             $this->delete_picture($user->picture);
-            $request->merge([
-                'picture' => null,
-            ]);
+            $request_data['picture']=null;
         }
 
 
@@ -100,15 +99,14 @@ class UserController extends Controller
             $this->save_picture($file, $name);
             // resize image instance
             // $this->create_thumbnail_picture($image_path, $name);
-            $request->merge([
-                'picture' => $name,
-            ]);
+            $request_data['picture']=$name;
+
         }
 
-        if ($request->password == null) {
-            unset($request['password']);
+        if ($request_data['password'] == null) {
+            unset($request_data['password']);
         }
-        $user->update($request->all());
+        $user->update($request_data);
         return response()->json([
             'message' => 'کاربر با موفقیت آپدیت شد.'
         ], 200);

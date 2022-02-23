@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'description' => $this->description,
             'role_id' => $this->role_id,
-            'picture' => $this->picture,
+            'delete_picture' => $this->picture ? '/images/users/' . $this->picture : null,
         ];
     }
 }
