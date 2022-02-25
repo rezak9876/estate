@@ -38,6 +38,19 @@
         </div>
       </div>
 
+      <div v-if="row.type == 'radio'">
+          <label class="form-label d-block">{{ row.persianName }}</label>
+        <div v-for="(persianName, value) in row.options" :key="value" class="d-inline-block mx-1">
+          <label :for="index+value" class="form-label">{{ persianName }}</label>
+          <input
+            v-model.lazy="data[index]"
+            type="radio"
+            :value="value"
+            :id="index+value"
+            :name="index"
+          />
+        </div>
+      </div>
       <div v-if="row.type == 'textarea'">
         <label :for="index" class="form-label">{{ row.persianName }}</label>
         <textarea
@@ -345,18 +358,17 @@ export default {
 
     function fileInputChange(event) {
       const target = event.target;
-       if (target.multiple) {
-          // gallery
-          let input_name = target.name.slice(0, -2);
-          const file = target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        } else {
-          // picture
-          let input_name = target.name;
-          const file = target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        }
-
+      if (target.multiple) {
+        // gallery
+        let input_name = target.name.slice(0, -2);
+        const file = target.files[0];
+        url.value[input_name] = URL.createObjectURL(file);
+      } else {
+        // picture
+        let input_name = target.name;
+        const file = target.files[0];
+        url.value[input_name] = URL.createObjectURL(file);
+      }
     }
 
     return {

@@ -19,6 +19,10 @@ import EstateUpdate from './pages/Estate/Update'
 import UserIndex from './pages/User/Index.vue'
 import UserCreate from './pages/User/Create'
 import UserUpdate from './pages/User/Update'
+
+import SettingIndex from './pages/Setting/Index.vue'
+import SettingCreate from './pages/Setting/Create'
+import SettingUpdate from './pages/Setting/Update'
 const routes = [
 
     { path: "/terms", name: 'terms', component: TermIndex },
@@ -40,6 +44,11 @@ const routes = [
     { path: "/users", name: 'users', component: UserIndex },
     { path: "/users/create", name: 'usersCreate', component: UserCreate },
     { path: "/users/:id", name: 'usersUpdate', component: UserUpdate },
+
+    
+    { path: "/settings", name: 'settings', component: SettingIndex },
+    { path: "/settings/create", name: 'settingsCreate', component: SettingCreate },
+    { path: "/settings/:id", name: 'settingsUpdate', component: SettingUpdate },
 ];
 
 const router = createRouter({

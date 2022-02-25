@@ -27,8 +27,7 @@
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-
-             <router-link
+          <router-link
             to="/terms"
             class="nav-link link-dark"
             aria-current="page"
@@ -36,8 +35,6 @@
             <i class="bi bi-house-door"></i>
             شرایط
           </router-link>
-
-
         </li>
         <li>
           <router-link
@@ -47,18 +44,6 @@
           >
             <i class="bi bi-house-door"></i>
             امکانات
-          </router-link>
-        </li>
-
-
-        <li>
-          <router-link
-            to="/roles"
-            class="nav-link link-dark"
-            aria-current="page"
-          >
-            <i class="bi bi-house-door"></i>
-            نقش ها
           </router-link>
         </li>
 
@@ -75,6 +60,17 @@
 
         <li>
           <router-link
+            to="/roles"
+            class="nav-link link-dark"
+            aria-current="page"
+          >
+            <i class="bi bi-house-door"></i>
+            نقش ها
+          </router-link>
+        </li>
+
+        <li>
+          <router-link
             to="/users"
             class="nav-link link-dark"
             aria-current="page"
@@ -84,7 +80,27 @@
           </router-link>
         </li>
 
-        <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
+        <li>
+          <router-link
+            to="/settings/1"
+            class="nav-link link-dark"
+            aria-current="page"
+          >
+            <i class="bi bi-house-door"></i>
+            تنظیمات
+          </router-link>
+        </li>
+
+        <li>
+          <a href="/" class="nav-link link-dark" aria-current="page">
+            <i class="bi bi-house-door"></i>
+            مشاهده سایت
+          </a>
+        </li>
+
+
+        
+        <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
               <button
@@ -135,7 +151,7 @@
                 aria-controls="flush-collapseOne2"
               >
                 <i class="bi bi-house-door"></i>
-                امکانات
+                آگهی ها
               </button>
             </h2>
             <div
@@ -146,23 +162,23 @@
             >
               <div class="accordion-body">
                 <li>
-                  <a href="#" class="nav-link link-dark">
+                  <router-link to="/estates/create" class="nav-link link-dark">
                     <i class="bi bi-house-door"></i>
-                    شرایط
-                  </a>
+                    ایجاد آگهی
+                  </router-link>
                 </li>
-                <li>
-                  <a href="#" class="nav-link link-dark">
+                 <li>
+                  <router-link to="/estates" class="nav-link link-dark">
                     <i class="bi bi-house-door"></i>
-                    شرایط
-                  </a>
+                    لیست آگهی ها
+                  </router-link>
                 </li>
               </div>
             </div>
           </div>
         </div>
 
-        <span class="my-3 ps-3"> نمایش سریع </span> -->
+        <span class="my-3 ps-3"> نمایش سریع </span>
       </ul>
     </div>
   </div>

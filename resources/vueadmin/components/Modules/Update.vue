@@ -42,7 +42,6 @@ export default {
     const loading = ref(false);
     const route = useRoute();
     const id = route.params.id;
-    
 
     const toastShow = inject("toastShow");
 
@@ -56,6 +55,8 @@ export default {
           .post("/" + props.module.pluralName + "/" + id, formdata)
           .then(function (response) {
             toastShow("success", response.data.message);
+            loading.value = false;
+            if(props.module.redirect != false)
             router.push({ name: props.module.pluralName });
           })
           .catch(function (error) {
@@ -77,7 +78,7 @@ export default {
       title: "ویرایش " + props.module.singularPersianName,
     };
 
-    return {  loading, id, headerInfo };
+    return { loading, id, headerInfo };
   },
   components: {
     Header,
