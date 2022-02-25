@@ -22914,21 +22914,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     module: Object
   },
   setup: function setup(props) {
-    (0,vue__WEBPACK_IMPORTED_MODULE_2__.onUpdated)(function () {
-      jquery__WEBPACK_IMPORTED_MODULE_4__("input[type='file']").change(function (e) {
-        if (jquery__WEBPACK_IMPORTED_MODULE_4__(this)[0].multiple) {
-          // gallery
-          var input_name = jquery__WEBPACK_IMPORTED_MODULE_4__(this)[0].name.slice(0, -2);
-          var file = e.target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        } else {
-          // picture
-          var _input_name = jquery__WEBPACK_IMPORTED_MODULE_4__(this)[0].name;
-          var _file = e.target.files[0];
-          url.value[_input_name] = URL.createObjectURL(_file);
-        }
-      });
-    });
+    // onUpdated(() => {
+    //   $("input[type='file']").change(function (e) {
+    //     console.log($(this)[0])
+    //     if ($(this)[0].multiple) {
+    //       // gallery
+    //       let input_name = $(this)[0].name.slice(0, -2);
+    //       const file = e.target.files[0];
+    //       url.value[input_name] = URL.createObjectURL(file);
+    //     } else {
+    //       // picture
+    //       let input_name = $(this)[0].name;
+    //       const file = e.target.files[0];
+    //       url.value[input_name] = URL.createObjectURL(file);
+    //     }
+    //   });
+    // });
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)(true);
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)({});
     var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.useRoute)();
@@ -23009,13 +23010,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     var url = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)({});
+
+    function fileInputChange(event) {
+      var target = event.target;
+
+      if (target.multiple) {
+        // gallery
+        var input_name = target.name.slice(0, -2);
+        var file = target.files[0];
+        url.value[input_name] = URL.createObjectURL(file);
+      } else {
+        // picture
+        var _input_name = target.name;
+        var _file = target.files[0];
+        url.value[_input_name] = URL.createObjectURL(_file);
+      }
+    }
+
     return {
       loading: loading,
       module: module,
       data: data,
       motherchange: motherchange,
       hasAll: hasAll,
-      url: url
+      url: url,
+      fileInputChange: fileInputChange
     };
   } // created(){
   //   alert('created')
@@ -24518,18 +24537,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "form-label"
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.persianName), 9
     /* TEXT, PROPS */
-    , _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    , _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $setup.data[index] = $event;
-      },
+      }
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toHandlers)(row.input_type == 'file' ? {
+      change: $setup.fileInputChange
+    } : {}), {
       type: row.input_type,
       "class": "form-control",
       id: index,
       name: index + (typeof row.attributes !== 'undefined' && row.attributes.multiple ? '[]' : ''),
       "aria-describedby": "emailHelp",
       multiple: typeof row.attributes !== 'undefined' && row.attributes.multiple
-    }, null, 8
-    /* PROPS */
+    }), null, 16
+    /* FULL_PROPS */
     , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.data[index], void 0, {
       lazy: true
     }]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), row.type == 'textarea' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {

@@ -10,5 +10,6 @@
     "City": true,
     "Region": true,
     "Neighborhood": true,
-    "Estate": true
+    "Estate": true,
+    "Setting": true
 }

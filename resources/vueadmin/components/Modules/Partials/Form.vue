@@ -20,6 +20,7 @@
           <label :for="index" class="form-label">{{ row.persianName }}</label>
           <input
             v-model.lazy="data[index]"
+            v-on="row.input_type == 'file' ? { change: fileInputChange } : {}"
             :type="row.input_type"
             class="form-control"
             :id="index"
@@ -238,21 +239,22 @@ export default {
     module: Object,
   },
   setup(props) {
-    onUpdated(() => {
-      $("input[type='file']").change(function (e) {
-        if ($(this)[0].multiple) {
-          // gallery
-          let input_name = $(this)[0].name.slice(0, -2);
-          const file = e.target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        } else {
-          // picture
-          let input_name = $(this)[0].name;
-          const file = e.target.files[0];
-          url.value[input_name] = URL.createObjectURL(file);
-        }
-      });
-    });
+    // onUpdated(() => {
+    //   $("input[type='file']").change(function (e) {
+    //     console.log($(this)[0])
+    //     if ($(this)[0].multiple) {
+    //       // gallery
+    //       let input_name = $(this)[0].name.slice(0, -2);
+    //       const file = e.target.files[0];
+    //       url.value[input_name] = URL.createObjectURL(file);
+    //     } else {
+    //       // picture
+    //       let input_name = $(this)[0].name;
+    //       const file = e.target.files[0];
+    //       url.value[input_name] = URL.createObjectURL(file);
+    //     }
+    //   });
+    // });
     const loading = ref(true);
     const data = ref({});
 
@@ -340,7 +342,32 @@ export default {
     }
 
     const url = ref({});
-    return { loading, module, data, motherchange, hasAll, url };
+
+    function fileInputChange(event) {
+      const target = event.target;
+       if (target.multiple) {
+          // gallery
+          let input_name = target.name.slice(0, -2);
+          const file = target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        } else {
+          // picture
+          let input_name = target.name;
+          const file = target.files[0];
+          url.value[input_name] = URL.createObjectURL(file);
+        }
+
+    }
+
+    return {
+      loading,
+      module,
+      data,
+      motherchange,
+      hasAll,
+      url,
+      fileInputChange,
+    };
   },
   // created(){
   //   alert('created')
