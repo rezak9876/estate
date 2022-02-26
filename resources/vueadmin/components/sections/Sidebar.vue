@@ -47,16 +47,47 @@
           </router-link>
         </li>
 
-        <li>
-          <router-link
-            to="/estates"
-            class="nav-link link-dark"
-            aria-current="page"
-          >
-            <i class="bi bi-house-door"></i>
-            آگهی ها
-          </router-link>
-        </li>
+          <div class="accordion accordion-flush" id="accordionFlushExample2">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne2">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne2"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne2"
+                >
+                  <i class="bi bi-house-door"></i>
+                  آگهی ها
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne2"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingOne2"
+                data-bs-parent="#accordionFlushExample2"
+              >
+                <div class="accordion-body">
+                  <li>
+                    <router-link
+                      to="/estates/create"
+                      class="nav-link link-dark"
+                    >
+                      <i class="bi bi-house-door"></i>
+                      ایجاد آگهی
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link to="/estates" class="nav-link link-dark">
+                      <i class="bi bi-house-door"></i>
+                      لیست آگهی ها
+                    </router-link>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <li>
           <router-link
@@ -98,85 +129,6 @@
           </a>
         </li>
 
-
-        
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne"
-                aria-expanded="false"
-                aria-controls="flush-collapseOne"
-              >
-                <i class="bi bi-house-door"></i>
-                امکانات
-              </button>
-            </h2>
-            <div
-              id="flush-collapseOne"
-              class="accordion-collapse collapse"
-              aria-labelledby="flush-headingOne"
-              data-bs-parent="#accordionFlushExample"
-            >
-              <div class="accordion-body">
-                <li>
-                  <a href="#" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    شرایط
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    شرایط
-                  </a>
-                </li>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion accordion-flush" id="accordionFlushExample2">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne2">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne2"
-                aria-expanded="false"
-                aria-controls="flush-collapseOne2"
-              >
-                <i class="bi bi-house-door"></i>
-                آگهی ها
-              </button>
-            </h2>
-            <div
-              id="flush-collapseOne2"
-              class="accordion-collapse collapse"
-              aria-labelledby="flush-headingOne2"
-              data-bs-parent="#accordionFlushExample2"
-            >
-              <div class="accordion-body">
-                <li>
-                  <router-link to="/estates/create" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    ایجاد آگهی
-                  </router-link>
-                </li>
-                 <li>
-                  <router-link to="/estates" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    لیست آگهی ها
-                  </router-link>
-                </li>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <span class="my-3 ps-3"> نمایش سریع </span>
       </ul>
