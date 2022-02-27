@@ -3,7 +3,6 @@ import * as $ from 'jquery';
 import miDataTable from "./config";
 
 $(document).ready(function() {
-    miDataTable();
 } );
 
 

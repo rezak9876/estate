@@ -77,7 +77,6 @@ export default {
   setup(props) {
     const loading = ref(true);
     onMounted(() => {
-      miDataTable();
     });
     const datas = ref([]);
     const module = props.module;
@@ -93,6 +92,8 @@ export default {
         .catch(function (error) {})
         .then(function () {
           loading.value = false;
+          miDataTable();
+
         });
     }
     getDatas();

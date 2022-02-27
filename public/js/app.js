@@ -20027,9 +20027,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   setup: function setup(props) {
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)(true);
-    (0,vue__WEBPACK_IMPORTED_MODULE_7__.onMounted)(function () {
-      (0,_assets_datatable_config__WEBPACK_IMPORTED_MODULE_5__["default"])();
-    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_7__.onMounted)(function () {});
     var datas = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)([]);
     var module = props.module;
 
@@ -20042,6 +20040,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {}).then(function () {
         loading.value = false;
+        (0,_assets_datatable_config__WEBPACK_IMPORTED_MODULE_5__["default"])();
       });
     }
 
@@ -23355,9 +23354,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config */ "./resources/vueadmin/assets/datatable/config.js");
 
 
-jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
-  (0,_config__WEBPACK_IMPORTED_MODULE_1__["default"])();
-});
+jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {});
 jquery__WEBPACK_IMPORTED_MODULE_0__(".menu-toggle-btn").click(function () {
   //Destroy the old Datatable
   jquery__WEBPACK_IMPORTED_MODULE_0__('#miTabla').DataTable().destroy();
