@@ -30,6 +30,7 @@ export default function  miDataTable(){
         // "lengthMenu":		[[3,5,7, 10, 20, 25, 50, -1], [3,5,7, 10, 20, 25, 50, "Todos"]],
         // "iDisplayLength":	3,
 
+        "aaSorting": []
 
 
 

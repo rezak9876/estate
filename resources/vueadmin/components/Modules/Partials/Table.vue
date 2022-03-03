@@ -1,7 +1,7 @@
 <template>
   <GetLoading v-if="loading"/>
 
-  <table id="miTabla" class="display responsive nowrap" style="width: 100%">
+  <table  id="miTabla" class="display responsive nowrap" style="width: 100%">
     <thead>
       <tr>
         <th v-for="(row, index) in module.tableRows" :key="index">{{ row }}</th>
@@ -60,7 +60,7 @@ import miDataTable from "../../../assets/datatable/config";
 import * as $ from "jquery";
 
 import { onMounted, ref, inject } from "vue";
-import router from "../../../router.js";
+import router from "../../../router/index.js";
 
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -116,6 +116,7 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "بله",
+        reverseButtons:true
       }).then((result) => {
         if (result.isConfirmed) {
           let data = {};

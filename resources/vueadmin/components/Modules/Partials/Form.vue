@@ -8,7 +8,7 @@
     >
       <div
         v-if="row.type == 'input'"
-        class="d-flex justify-content-between align-items-center mt-2"
+        class="d-flex justify-content-between align-items-center"
       >
         <img
           v-if="row.input_type == 'file'"
@@ -23,6 +23,7 @@
             v-on="row.input_type == 'file' ? { change: fileInputChange } : {}"
             :type="row.input_type"
             class="form-control"
+            :data-thousands_group="row.thousands_group"
             :id="index"
             :name="
               index +
@@ -242,6 +243,9 @@ import router from "../../../router";
 
 import GetLoading from "../../sections/GetLoading.vue";
 
+import AutoNumeric from 'autonumeric';
+
+
 export default {
   components: {
     Table,
@@ -384,9 +388,10 @@ export default {
   // created(){
   //   alert('created')
   // },
-  // mounted(){
-  //   alert('mounted')
-  // },
+  mounted(){
+    new AutoNumeric.multiple('input[data-thousands_group="true"]',[AutoNumeric.getPredefinedOptions().integerPos,{unformatOnSubmit: true }]);
+
+  },
   // updated(){
   //   alert('updated')
   // },

@@ -28,7 +28,7 @@
 <script>
 import Header from "../../components/sections/Header.vue";
 import * as $ from "jquery";
-import router from "../../router.js";
+import router from "../../router/index.js";
 import { onMounted, ref, inject } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";

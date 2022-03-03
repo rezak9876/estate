@@ -185,5 +185,8 @@ return [
         "fullname" => "نام کامل",
         "type" => "نوع",
         "role_id" => "نقش",
+        "area" => "متراژ",
+        "year_of_construction" => "سال ساخت",
+        "total_price" => "قیمت",
     ],
 ];

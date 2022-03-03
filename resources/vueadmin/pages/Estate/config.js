@@ -71,21 +71,21 @@ export default module = {
         total_price: {
             type: 'input',
             persianName: 'قیمت',
-            input_type: 'number',
+            thousands_group : true,
             col: 6
         },
 
         mortgage_price: {
             type: 'input',
             persianName: 'قیمت رهن',
-            input_type: 'number',
+            thousands_group : true,
             col: 6
         },
 
         rent_price: {
             type: 'input',
             persianName: 'قیمت اجاره',
-            input_type: 'number',
+            thousands_group : true,
             col: 6
         },
 
