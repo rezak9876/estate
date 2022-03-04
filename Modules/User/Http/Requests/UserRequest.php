@@ -23,9 +23,14 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'role_id' => 'required',
             'phone' => 'nullable|regex:/^0\d{10}$/',
             'mobile' => 'required|regex:/0?9[0-9][0-9]{8}/',
-            // 'email' => 'required|email|unique:users,email,' . request()->user,
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore(request()->user),
+            ],
             'password' => $this->nullable_password().'confirmed|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
             'picture' => 'mimes:jpeg,jpg,png,gif|max:1000',
         ];

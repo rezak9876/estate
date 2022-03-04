@@ -3,6 +3,7 @@
 namespace Modules\Estate\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EstateRequest extends FormRequest
 {
@@ -14,6 +15,7 @@ class EstateRequest extends FormRequest
     public function rules()
     {
         return [
+            'type' => 'required',
             'area' => 'required|regex:/^\d+$/',
             'year_of_construction' => 'required|integer|between:1281,'.verta()->year,
             'total_price' => 'regex:/^\d+([.]\d+)?$/',
@@ -23,7 +25,10 @@ class EstateRequest extends FormRequest
             'use_type_property_id' => 'required',
             'address' => 'required',
             'description' => 'required',
-            'slug' => 'required|unique:estates,slug,' . request()->estate,
+            'slug' => [
+                'required',
+                Rule::unique('estates')->ignore(request()->estate),
+            ],
             'main_picture' => 'mimes:jpeg,jpg,png,gif|max:1000',
             'galleries.*' => 'mimes:jpeg,jpg,png,gif|max:1000',
         ];

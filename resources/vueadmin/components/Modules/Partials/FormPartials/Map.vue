@@ -142,7 +142,7 @@ export default {
           },
           error: function (jqXhr, textStatus, errorMessage) {
             // error callback
-            alert(jqXhr + " " + textStatus);
+            // alert(jqXhr + " " + textStatus);
           },
         });
       });

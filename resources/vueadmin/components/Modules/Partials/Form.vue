@@ -23,7 +23,6 @@
             v-on="row.input_type == 'file' ? { change: fileInputChange } : {}"
             :type="row.input_type"
             class="form-control"
-            :data-thousands_group="row.thousands_group"
             :data-group="row.data_group"
             :id="index"
             :name="
@@ -37,6 +36,9 @@
               typeof row.attributes !== 'undefined' && row.attributes.multiple
             "
           />
+          <span class="mb-1" v-if="row.thousands_group">{{
+            data[index] ? parseInt(data[index]).toLocaleString() : null
+          }}</span>
         </div>
       </div>
 
@@ -251,8 +253,6 @@ import router from "../../../router";
 
 import GetLoading from "../../sections/GetLoading.vue";
 
-import AutoNumeric from "autonumeric";
-
 export default {
   components: {
     Table,
@@ -325,31 +325,26 @@ export default {
     }
 
     function motherchange(event, children, checkbox_name) {
-      // let mother_checkbox_status = event.target.checked;
-      // for (var currentValue in children) {
-      //   let data_checkbox_index = data.value[checkbox_name].indexOf(
-      //     currentValue
-      //   );
-      //   if (mother_checkbox_status === true) {
-      //     if (data_checkbox_index < 0) {
-      //       data.value[checkbox_name].push(currentValue);
-      //     }
-      //   } else {
-      //     if (data_checkbox_index > -1) {
-      //       data.value[checkbox_name].splice(data_checkbox_index);
-      //     }
-      //   }
-      // }
+      let mother_checkbox_status = event.target.checked;
+      for (var currentValue in children) {
+        let data_checkbox_index =
+          data.value[checkbox_name].indexOf(currentValue);
+        if (mother_checkbox_status === true) {
+          if (data_checkbox_index < 0) {
+            data.value[checkbox_name].push(currentValue);
+          }
+        } else {
+          if (data_checkbox_index > -1) {
+            data.value[checkbox_name].splice(data_checkbox_index,1);
+          }
+        }
+      }
     }
 
     function hasAll(children, group_checkbox_name) {
       currentValue = parseInt(currentValue);
       let has_all = true;
       for (var currentValue in children) {
-        console.log(typeof data.value[group_checkbox_name][0]);
-        console.log(typeof currentValue);
-        console.log(data.value[group_checkbox_name].includes(currentValue));
-        alert(data.value[group_checkbox_name]);
         has_all &= data.value[group_checkbox_name].includes(currentValue);
       }
       return has_all;
@@ -386,10 +381,6 @@ export default {
   //   alert('created')
   // },
   mounted() {
-    new AutoNumeric.multiple('input[data-thousands_group="true"]', [
-      AutoNumeric.getPredefinedOptions().integerPos,
-      { unformatOnSubmit: true },
-    ]);
     // alert('mounted')
   },
   // updated(){

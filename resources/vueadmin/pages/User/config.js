@@ -52,7 +52,7 @@ export default module = {
         },
         password_confirmation: {
             type: 'input',
-            persianName: 'رمز عبور',
+            persianName: 'تکرار رمز عبور',
             input_type: 'password',
             col:6
         },

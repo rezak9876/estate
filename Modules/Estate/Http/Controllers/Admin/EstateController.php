@@ -46,15 +46,48 @@ class EstateController extends Controller
      */
     public function create()
     {
+        $types = [
+            0 => 'خرید و فروش',
+            1 => 'رهن و اجاره',
+            2 => 'پیش فروش',
+            3 => 'معاوضه',
+        ];
+        $use_type_properties = [
+            'maskooni' => [
+                'persianName' => 'مسکونی',
+                'options' => [
+                    1 => "آپارتمان / برج",
+                    2 => "ویلایی / باغ و باغچه",
+                    3 => "مستغلات",
+                    4 => "زمین / کلنگی",
+                    5 => "پنت هاوس",
+                    6 => "سایر",
+                ]
+            ],
+            'edaritejari' => [
+                'persianName' => 'اداری تجاری',
+                'options' => [
+                    7 => "دفتر کار, اتاق اداری و مطب",
+                    8 => "مغازه",
+                    9 => "انبار, سوله, کارگاه و کارخانه",
+                    10 => "کشاورزی",
+                    11 => "مستغلات",
+                    12 => "زمین/کلنگی",
+                    13 => "سایر",
+                ]
+            ]
+        ];
         $txt_facilities = Facility::where('type', Facility::Text)->pluck('title', 'id');
         $int_facilities = Facility::where('type', Facility::Integer)->pluck('title', 'id');
         $bool_facilities = Facility::where('type', Facility::Check_box)->pluck('title', 'id');
         $terms = Term::pluck('title', 'id');
         return response()->json([
+            'types' => $types,
             'txt_facilities' => $txt_facilities,
             'int_facilities' => $int_facilities,
             'bool_facilities' => $bool_facilities,
             'terms' => $terms,
+            'use_type_properties' => $use_type_properties,
         ]);
     }
 
@@ -152,7 +185,7 @@ class EstateController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, Estate $estate)
+    public function update(EstateRequest $request, Estate $estate)
     {
         if ($request->delete_galleries != null) {
             foreach ($request->delete_galleries as $delete_gallery_id) {

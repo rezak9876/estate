@@ -152,7 +152,7 @@ return [
     'attributes' => [
         "name" => "نام",
         "username" => "نام کاربری",
-        "email" => "پست الکترونیکی",
+        "email" => "ایمیل",
         "first_name" => "نام",
         "last_name" => "نام خانوادگی",
         "family" => "نام خانوادگی",
@@ -160,7 +160,7 @@ return [
         "password_confirmation" => "تاییدیه ی رمز عبور",
         "city" => "شهر",
         "country" => "کشور",
-        "address" => "نشانی",
+        "address" => "آدرس",
         "phone" => "تلفن",
         "mobile" => "تلفن همراه",
         "age" => "سن",
@@ -189,5 +189,8 @@ return [
         "year_of_construction" => "سال ساخت",
         "total_price" => "قیمت",
         "mortgage_price" => "قیمت رهن",
+        "rent_price" => "قیمت اجاره",
+        "use_type_property_id" => "نوع ملک",
+        "slug" => "اسلاگ",
     ],
 ];

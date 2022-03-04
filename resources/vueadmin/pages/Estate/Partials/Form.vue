@@ -17,6 +17,8 @@ export default {
     axios
       .get("/estates/create")
       .then(function (response) {
+        module.formfields.type.options = response.data.types;
+        module.formfields.use_type_property_id.optgroups = response.data.use_type_properties;
         module.formfields.terms.children = response.data.terms;
         module.formfields.bool_facilities.children =
           response.data.bool_facilities;
