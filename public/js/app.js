@@ -20367,14 +20367,15 @@ __webpack_require__.r(__webpack_exports__);
         _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields["txt_facilities[" + facility_id + "]"].col = 6;
       }
     })["catch"](function (error) {}).then(function () {
-      vd.componentKey++;
+      // setTimeout(()=>{
+      vd.loading = false; // },8000)
     });
   },
   setup: function setup() {
-    var componentKey = (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(3);
+    var loading = (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(true);
     return {
       module: _config__WEBPACK_IMPORTED_MODULE_1__["default"],
-      componentKey: componentKey
+      loading: loading
     };
   },
   mounted: function mounted() {
@@ -20385,7 +20386,14 @@ __webpack_require__.r(__webpack_exports__);
     //   $("select[name=type]").val(1).change();
     // }, 5000);
     waitForElm("select[name='type']").then(function (elm) {
-      change_form(jquery__WEBPACK_IMPORTED_MODULE_4__("select[name='type']").val());
+      var select_type_tag = jquery__WEBPACK_IMPORTED_MODULE_4__("select[name='type']");
+
+      if (select_type_tag.val() === null) {
+        select_type_tag.val(0);
+        change_form(0);
+      }
+
+      change_form(select_type_tag.val());
 
       function hide(type) {
         var buy_sell = jquery__WEBPACK_IMPORTED_MODULE_4__("input[data-group='".concat(type, "']"));
@@ -22539,12 +22547,12 @@ __webpack_require__.r(__webpack_exports__);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Form", true);
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Form, {
-    module: $setup.module,
-    key: $setup.componentKey
+  return !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Form, {
+    key: 0,
+    module: $setup.module
   }, null, 8
   /* PROPS */
-  , ["module"]);
+  , ["module"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),

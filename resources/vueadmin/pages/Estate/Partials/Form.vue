@@ -1,5 +1,5 @@
 <template>
-  <Form :module="module" :key="componentKey" />
+  <Form :module="module" v-if="!loading" />
 </template>
 
 <script>
@@ -44,14 +44,16 @@ export default {
       })
       .catch(function (error) {})
       .then(function () {
-        vd.componentKey++;
+        // setTimeout(()=>{
+          vd.loading = false;
+        // },8000)
       });
   },
 
   setup() {
-    const componentKey = ref(3);
+    const loading = ref(true);
 
-    return { module, componentKey };
+    return { module , loading };
   },
   mounted() {
     // first_components_update = false;
@@ -62,7 +64,12 @@ export default {
     // }, 5000);
 
     waitForElm("select[name='type']").then((elm) => {
-      change_form($("select[name='type']").val());
+      const select_type_tag = $("select[name='type']");
+      if (select_type_tag.val() === null) {
+        select_type_tag.val(0);
+        change_form(0);
+      }
+      change_form(select_type_tag.val());
 
       function hide(type) {
         var buy_sell = $(`input[data-group='${type}']`);
