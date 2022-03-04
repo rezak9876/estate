@@ -19,8 +19,8 @@ export default module = {
                 3: 'معاوضه',
             },
             events: {
-                click : function () {
-                    alert('hi');
+                change : function () {
+                    console.log('ji')
                 }
             }
         },
@@ -72,6 +72,7 @@ export default module = {
             type: 'input',
             persianName: 'قیمت',
             thousands_group : true,
+            data_group : 0,
             col: 6
         },
 
@@ -79,6 +80,7 @@ export default module = {
             type: 'input',
             persianName: 'قیمت رهن',
             thousands_group : true,
+            data_group : 1,
             col: 6
         },
 
@@ -86,6 +88,7 @@ export default module = {
             type: 'input',
             persianName: 'قیمت اجاره',
             thousands_group : true,
+            data_group : 1,
             col: 6
         },
 

@@ -24,6 +24,7 @@
             :type="row.input_type"
             class="form-control"
             :data-thousands_group="row.thousands_group"
+            :data-group="row.data_group"
             :id="index"
             :name="
               index +
@@ -40,14 +41,20 @@
       </div>
 
       <div v-if="row.type == 'radio'">
-          <label class="form-label d-block">{{ row.persianName }}</label>
-        <div v-for="(persianName, value) in row.options" :key="value" class="d-inline-block mx-1">
-          <label :for="index+value" class="form-label">{{ persianName }}</label>
+        <label class="form-label d-block">{{ row.persianName }}</label>
+        <div
+          v-for="(persianName, value) in row.options"
+          :key="value"
+          class="d-inline-block mx-1"
+        >
+          <label :for="index + value" class="form-label">{{
+            persianName
+          }}</label>
           <input
             v-model.lazy="data[index]"
             type="radio"
             :value="value"
-            :id="index+value"
+            :id="index + value"
             :name="index"
           />
         </div>
@@ -69,6 +76,7 @@
           :id="index"
           :name="index"
           aria-describedby="emailHelp"
+          @change="row.events.change"
         >
           <optgroup
             v-for="(optgroup, optgroup_index) in row.optgroups"
@@ -243,8 +251,7 @@ import router from "../../../router";
 
 import GetLoading from "../../sections/GetLoading.vue";
 
-import AutoNumeric from 'autonumeric';
-
+import AutoNumeric from "autonumeric";
 
 export default {
   components: {
@@ -388,15 +395,18 @@ export default {
   // created(){
   //   alert('created')
   // },
-  mounted(){
-    new AutoNumeric.multiple('input[data-thousands_group="true"]',[AutoNumeric.getPredefinedOptions().integerPos,{unformatOnSubmit: true }]);
-
+  mounted() {
+    new AutoNumeric.multiple('input[data-thousands_group="true"]', [
+      AutoNumeric.getPredefinedOptions().integerPos,
+      { unformatOnSubmit: true },
+    ]);
+    // alert('mounted')
   },
   // updated(){
   //   alert('updated')
   // },
   // renderTracked(){
-  //   // alert('renderTracked')
+  //   alert('renderTracked')
   // },
   // renderTriggered(){
   //   alert('renderTriggered')

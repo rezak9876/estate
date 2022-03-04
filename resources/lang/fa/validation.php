@@ -188,5 +188,6 @@ return [
         "area" => "متراژ",
         "year_of_construction" => "سال ساخت",
         "total_price" => "قیمت",
+        "mortgage_price" => "قیمت رهن",
     ],
 ];

@@ -17,6 +17,9 @@ export default {
   setup() {
     return { module };
   },
+  mounted() {
+   
+  },
 };
 </script>
 
