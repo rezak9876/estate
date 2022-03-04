@@ -1,5 +1,5 @@
 <template>
-  <Form :module="module" :key="componentKey" @data="data_changed($event)" />
+  <Form :module="module" :key="componentKey" />
 </template>
 
 <script>
@@ -51,48 +51,64 @@ export default {
   setup() {
     const componentKey = ref(3);
 
-    function  data_changed(event){
-      console.clear()
-      console.log(event)
-    }
-
-    return { module, componentKey , data_changed };
+    return { module, componentKey };
   },
   mounted() {
     // first_components_update = false;
-    function hide(type) {
-      var buy_sell = $(`input[data-group='${type}']`);
-      buy_sell.prop("disabled", true);
-      buy_sell.parent().parent().parent().addClass("d-none");
-    }
+    // setTimeout(function () {
+    //   alert('now')
+    //   console.log(this.$refs)
+    //   $("select[name=type]").val(1).change();
+    // }, 5000);
 
-    function show(type) {
-      var buy_sell = $(`input[data-group='${type}']`);
-      buy_sell.prop("disabled", false);
-      buy_sell.parent().parent().parent().removeClass("d-none");
-    }
+    waitForElm("select[name='type']").then((elm) => {
+      change_form($("select[name='type']").val());
 
-    function change_form(type) {
-      if (type == 1) {
-        show(1);
-        hide(0);
-      } else {
-        show(0);
-        hide(1);
+      function hide(type) {
+        var buy_sell = $(`input[data-group='${type}']`);
+        buy_sell.prop("disabled", true);
+        buy_sell.parent().parent().parent().addClass("d-none");
       }
-    }
 
-    $("select[name=type]").change(function (e) {
-      change_form(e.target.value);
+      function show(type) {
+        var buy_sell = $(`input[data-group='${type}']`);
+        buy_sell.prop("disabled", false);
+        buy_sell.parent().parent().parent().removeClass("d-none");
+      }
+
+      function change_form(type) {
+        if (type == 1) {
+          show(1);
+          hide(0);
+        } else {
+          show(0);
+          hide(1);
+        }
+      }
     });
+    function waitForElm(selector) {
+      return new Promise((resolve) => {
+        if (document.querySelector(selector)) {
+          return resolve(document.querySelector(selector));
+        }
 
-    setTimeout(function () {
-      $("select[name=type]").change(function (e) {
-        change_form(e.target.value);
+        const observer = new MutationObserver((mutations) => {
+          if (document.querySelector(selector)) {
+            resolve(document.querySelector(selector));
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
       });
-      $("select[name=type]").trigger("change");
-    }, 1000);
+    }
   },
+  // updated(){
+  //   alert('hiup')
+  // }
 };
 </script>
 

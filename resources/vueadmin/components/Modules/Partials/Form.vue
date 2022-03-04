@@ -76,7 +76,7 @@
           :id="index"
           :name="index"
           aria-describedby="emailHelp"
-          @change="row.events.change"
+          v-on="row.events"
         >
           <optgroup
             v-for="(optgroup, optgroup_index) in row.optgroups"
@@ -243,7 +243,7 @@
 <script>
 import Table from "../../../components/Modules/Partials/Table.vue";
 import Map from "./FormPartials/Map.vue";
-import { ref, onUpdated } from "vue";
+import { ref, onUpdated, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import * as $ from "jquery";
@@ -263,22 +263,12 @@ export default {
     module: Object,
   },
   setup(props) {
-    // onUpdated(() => {
-    //   $("input[type='file']").change(function (e) {
-    //     console.log($(this)[0])
-    //     if ($(this)[0].multiple) {
-    //       // gallery
-    //       let input_name = $(this)[0].name.slice(0, -2);
-    //       const file = e.target.files[0];
-    //       url.value[input_name] = URL.createObjectURL(file);
-    //     } else {
-    //       // picture
-    //       let input_name = $(this)[0].name;
-    //       const file = e.target.files[0];
-    //       url.value[input_name] = URL.createObjectURL(file);
-    //     }
-    //   });
-    // });
+    onMounted(() => {
+      // for (var event_index in module.events) {
+      //   const f = module.events[event_index];
+      //   f();
+      // }
+    });
     const loading = ref(true);
     const data = ref({});
 

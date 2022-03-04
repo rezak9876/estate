@@ -1,3 +1,4 @@
+import * as $ from "jquery";
 export default module = {
     singularName: 'estate',
     pluralName: 'estates',
@@ -19,8 +20,30 @@ export default module = {
                 3: 'معاوضه',
             },
             events: {
-                change : function () {
-                    console.log('ji')
+                change: function (e) {
+                    change_form(e.target.value)
+
+                    function hide(type) {
+                        var buy_sell = $(`input[data-group='${type}']`);
+                        buy_sell.prop("disabled", true);
+                        buy_sell.parent().parent().parent().addClass("d-none");
+                    }
+
+                    function show(type) {
+                        var buy_sell = $(`input[data-group='${type}']`);
+                        buy_sell.prop("disabled", false);
+                        buy_sell.parent().parent().parent().removeClass("d-none");
+                    }
+
+                    function change_form(type) {
+                        if (type == 1) {
+                            show(1);
+                            hide(0);
+                        } else {
+                            show(0);
+                            hide(1);
+                        }
+                    }
                 }
             }
         },
@@ -71,24 +94,24 @@ export default module = {
         total_price: {
             type: 'input',
             persianName: 'قیمت',
-            thousands_group : true,
-            data_group : 0,
+            thousands_group: true,
+            data_group: 0,
             col: 6
         },
 
         mortgage_price: {
             type: 'input',
             persianName: 'قیمت رهن',
-            thousands_group : true,
-            data_group : 1,
+            thousands_group: true,
+            data_group: 1,
             col: 6
         },
 
         rent_price: {
             type: 'input',
             persianName: 'قیمت اجاره',
-            thousands_group : true,
-            data_group : 1,
+            thousands_group: true,
+            data_group: 1,
             col: 6
         },
 
@@ -128,7 +151,7 @@ export default module = {
             persianName: 'تصویر اصلی',
             col: 12
         },
-        
+
 
         galleries: {
             type: 'input',
@@ -140,7 +163,7 @@ export default module = {
             }
         },
 
-        
+
         delete_galleries: {
             type: 'galleries',
             persianName: 'گالری',
@@ -151,17 +174,17 @@ export default module = {
             type: 'multiple_checkboxes',
             persianName: 'شرایط',
             col: 6,
-            children : {}
+            children: {}
         },
 
         bool_facilities: {
             type: 'multiple_checkboxes',
             persianName: 'امکانات',
             col: 6,
-            children : {}
+            children: {}
         },
 
-        
+
         map: {
             type: 'map',
             persianName: 'نقشه',
@@ -169,5 +192,12 @@ export default module = {
         },
 
 
-    }
+    },
+    // events: {
+    //     mounted:
+    //         function () {
+    //             alert('jijisf')
+    //         }
+
+    // }
 }
