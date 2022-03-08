@@ -1,34 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('frontend::layouts.master')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
 
-<body>
-    <form id="myform" method="POST" class="frmAjax form-vertical"  enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="email" class="form-label">email</label>
-            <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp" />
+
+
+
+    <!-- Contact
+    ================================================== -->
+
+    <!-- Container -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                 <!--Tab -->
+                <div class="my-account style-1 margin-top-5 margin-bottom-40">
+
+                    <ul class="tabs-nav">
+                        <li class=""><a href="#tab1">ورود</a></li>
+                    </ul>
+
+                    <div class="tabs-container alt">
+
+                        <!-- Login -->
+                        <div class="tab-content" id="tab1" style="display: none;">
+                            <form id="myform" method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <p class="form-row form-row-wide">
+                                    <label for="username">ایمیل:
+                                        <i class="im im-icon-Male"></i>
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    </label>
+                                </p>
+
+                                <p class="form-row form-row-wide">
+                                    <label for="password">رمز عبور:
+                                        <i class="im im-icon-Lock-2"></i>
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    </label>
+                                </p>
+
+                                <p class="form-row">
+                                    <input type="submit" class="button border margin-top-10" name="login" value="ورود" />
+
+                                    <label for="rememberme" class="rememberme">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    مرا به خاطر بسپار
+                                    </label>
+                                </p>
+
+                                <p class="lost_password">
+                                    <a href="#" >رمز خود را فراموش کرده اید؟</a>
+                                </p>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">password</label>
-            <input type="text" class="form-control" id="password" name="password" aria-describedby="emailHelp" />
-        </div>
 
-        <button type="submit" class="btn btn-primary">
-            <span>ثبت</span>
-        </button>
-    </form>
+    </div>
+    <!-- Container / End -->
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script>
-        $("form#myform").submit(function(e) {
+    <!-- Footer
+    ================================================== -->
+    <div class="margin-top-55"></div>
+
+@endsection
+@section('style')
+    <link rel="stylesheet" href="/findeo/css/mystyle.css">
+@endsection
+@section('script')
+<script>
+       $("form#myform").submit(function(e) {
             e.preventDefault();
 
             var formdata = new FormData(this);
@@ -42,11 +94,10 @@
                     location.replace("{{route('admin')}}")
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR, textStatus, errorThrown)
+                    if(jqXHR.status == 422)
+                        alert('اطلاعات وارد شده صحیح نمی باشد')
                 }
             });
         });
-    </script>
-</body>
-
-</html>
+</script>
+@endsection

@@ -1,0 +1,38 @@
+.pt-5 {
+	padding-top: 1.5rem;
+}
+
+.justify-content-between {
+	justify-content: space-between;
+}
+.mb-5 {
+	margin-bottom: 5rem;
+}
+/*.d-none {*/
+	/*display: none !important;*/
+/*}*/
+.disabled-result {
+	display: none !important;
+}
+li .search-field {
+	width: 95%;
+	float: right;
+}
+@media only screen and (max-width: 720px) {
+	.w-md-90 {
+		width: 90%;
+	}
+}
+
+.float-left {
+	float: left;
+}
+
+
+
+.listing-img-content {
+    display:flex;
+    align-items: center;
+    height: 60px!important;
+}
+

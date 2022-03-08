@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Modules\Setting\Entities\Setting;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,9 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot()
     {
         Fortify::loginView(function () {
-            return view('auth.login');
+            $setting = Setting::first();
+            $pages = [];
+            return view('auth.login',compact('setting','pages'));
         });
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);

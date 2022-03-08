@@ -11,5 +11,8 @@
     "Region": true,
     "Neighborhood": true,
     "Estate": true,
-    "Setting": true
+    "Setting": true,
+    "Frontend": true,
+    "Contactus": true,
+    "Aboutus": true
 }
