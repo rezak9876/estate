@@ -52,7 +52,7 @@ class EstateController extends Controller
             2 => 'پیش فروش',
             3 => 'معاوضه',
         ];
-        $use_type_properties = [
+        $use_type_property_id = [
             'maskooni' => [
                 'persianName' => 'مسکونی',
                 'options' => [
@@ -87,7 +87,7 @@ class EstateController extends Controller
             'int_facilities' => $int_facilities,
             'bool_facilities' => $bool_facilities,
             'terms' => $terms,
-            'use_type_properties' => $use_type_properties,
+            'use_type_property_id' => $use_type_property_id,
         ]);
     }
 
@@ -264,6 +264,9 @@ class EstateController extends Controller
         try {
             foreach ($estate->galleries as $gallery) {
                 $this->delete_picture($gallery->path, false);
+            }
+            if ($estate->main_picture) {
+                $this->delete_picture($estate->main_picture);
             }
         } finally {
             $estate->delete();

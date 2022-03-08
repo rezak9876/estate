@@ -135,6 +135,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if ($user->picture) {
+            $this->delete_picture($user->picture);
+        }
         $user->delete();
         return response()->json([
             'message' => 'کاربر با موفقیت حذف شد.'

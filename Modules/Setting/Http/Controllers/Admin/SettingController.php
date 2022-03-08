@@ -10,6 +10,8 @@ use Modules\Setting\Transformers\SettingResource;
 
 class SettingController extends Controller
 {
+    public static $prefix_images = 'images/setting';
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -68,32 +70,27 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        if ($request->delete_main_picture != null) {
-            $this->delete_picture($setting->main_picture);
-            $request->merge([
-                'main_picture' => null,
-            ]);
+        $pictures = ['logo', 'faIco', 'watermark', 'main_page_pic', 'search_page_pic'];
+        foreach ($pictures as $picture) {
+            $x = 'delete_' . $picture;
+            if ($request->$x != null) {
+                $this->delete_picture($setting->$picture);
+                $setting->$picture = null;
+            }
+            if (!empty($request->file($picture))) {
+                if ($setting->$picture) {
+                    $this->delete_picture($setting->$picture);
+                }
+            }
         }
         $setting->update($request->all());
 
-        if (!empty($request->file('logo'))   ) {
-            $setting->logo = $this->UploadPictre($request->file('logo'));
+        foreach ($pictures as $picture) {
+            if (!empty($request->file($picture))) {
+                $setting->$picture = $this->UploadPictre($request->file($picture));
+            }
         }
-        if (!empty($request->file('watermark'))   ) {
-            $setting->watermark = $this->UploadPictre($request->file('watermark'));
-        }
-        if (!empty($request->file('faIco'))   ) {
-            $setting->faIco = $this->UploadPictre($request->file('faIco'));
-        }
-        if (!empty($request->file('noticeBannerTopImage'))   ) {
-            $setting->noticeBannerTopImage = $this->UploadPictre($request->file('noticeBannerTopImage'));
-        }
-        if (!empty($request->file('main_page_pic'))   ) {
-            $setting->main_page_pic = $this->UploadPictre($request->file('main_page_pic'));
-        }
-        if (!empty($request->file('search_page_pic'))   ) {
-            $setting->search_page_pic = $this->UploadPictre($request->file('search_page_pic'));
-        }
+
 
         $setting->save();
         return response()->json([
@@ -117,5 +114,13 @@ class SettingController extends Controller
         $filename =    time() . rand(1000, 10000000) . "." . $fileRequest->getClientOriginalExtension();
         $fileRequest->move(Setting::PATH_UPLOAD, $filename);
         return $filename;
+    }
+
+    // has_thumbnail was true
+    protected function delete_picture($picture_name)
+    {
+        if (file_exists(self::$prefix_images . '/' . $picture_name)) {
+            unlink(self::$prefix_images . '/' . $picture_name);
+        }
     }
 }
