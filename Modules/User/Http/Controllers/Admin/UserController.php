@@ -8,9 +8,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Estate\Entities\Gallery;
+use Modules\Role\Entities\Role;
 use Modules\User\Http\Requests\UserRequest;
 use Modules\User\Transformers\UserCollection;
 use Modules\User\Transformers\UserResource;
+
 
 class UserController extends Controller
 {
@@ -56,6 +58,20 @@ class UserController extends Controller
         return response()->json([
             'message' => 'کاربر با موفقیت ساخته شد.'
         ], 201);
+    }
+
+       /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function create()
+    {
+        $roles = Role::pluck('title', 'id');
+        return response()->json([
+            'data' =>  [
+               'roles' => $roles
+            ]
+        ]);
     }
 
 

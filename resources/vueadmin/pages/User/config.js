@@ -38,11 +38,7 @@ export default module = {
             type: 'select',
             persianName: 'نقش',
             col: 6,
-            options: {
-                0: 'مدیر',
-                1: 'نویسنده',
-                2: 'مشاور املاک',
-            }            
+            options: {}            
         },
         password: {
             type: 'input',
