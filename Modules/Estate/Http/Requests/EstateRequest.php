@@ -29,8 +29,8 @@ class EstateRequest extends FormRequest
                 'required',
                 Rule::unique('estates')->ignore(request()->estate),
             ],
-            'main_picture' => 'mimes:jpeg,jpg,png,gif|max:1000',
-            'galleries.*' => 'mimes:jpeg,jpg,png,gif|max:1000',
+            'main_picture' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
+            'galleries.*' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
         ];
     }
 

@@ -35,10 +35,14 @@
             :multiple="
               typeof row.attributes !== 'undefined' && row.attributes.multiple
             "
+            :placeholder="row.placeholder"
+            :accept="row.accept"
           />
           <span class="mb-1" v-if="row.thousands_group">{{
             data[index] ? parseInt(data[index]).toLocaleString() : null
           }}</span>
+
+          <span v-if="row.span">{{row.span.text}}</span>
         </div>
       </div>
 

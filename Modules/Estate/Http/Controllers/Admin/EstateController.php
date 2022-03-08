@@ -20,6 +20,8 @@ use Modules\Province\Entities\Province;
 use Modules\Region\Entities\Region;
 use Modules\Term\Entities\Term;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Intervention\Image\Facades\Image;
+use Modules\Setting\Entities\Setting;
 
 class EstateController extends Controller
 {
@@ -112,7 +114,7 @@ class EstateController extends Controller
             $image_path = $this->image_path($name);
             $this->save_picture($file, $name);
             // resize image instance
-            // $this->create_thumbnail_picture($image_path, $name);
+            $this->create_thumbnail_picture($image_path, $name);
             $request->merge([
                 'main_picture' => $name,
             ]);
@@ -190,12 +192,12 @@ class EstateController extends Controller
         if ($request->delete_galleries != null) {
             foreach ($request->delete_galleries as $delete_gallery_id) {
                 $gallery = Gallery::find($delete_gallery_id);
-                $this->delete_picture($gallery->path, false);
+                $this->delete_picture($gallery->path);
                 $gallery->delete();
             }
         }
         if ($request->delete_main_picture != null) {
-            $this->delete_picture($estate->main_picture);
+            $this->delete_picture($estate->main_picture , true);
             $request->merge([
                 'main_picture' => null,
             ]);
@@ -209,14 +211,14 @@ class EstateController extends Controller
         ]);
         if ($request->hasfile('main_pic')) {
             if ($estate->main_picture) {
-                $this->delete_picture($estate->main_picture);
+                $this->delete_picture($estate->main_picture,true);
             }
             $file = $request->file('main_pic');
             $name = $this->image_name($request->slug, $file->extension());
             $image_path = $this->image_path($name);
             $this->save_picture($file, $name);
             // resize image instance
-            // $this->create_thumbnail_picture($image_path, $name);
+            $this->create_thumbnail_picture($image_path, $name);
             $request->merge([
                 'main_picture' => $name,
             ]);
@@ -263,10 +265,10 @@ class EstateController extends Controller
     {
         try {
             foreach ($estate->galleries as $gallery) {
-                $this->delete_picture($gallery->path, false);
+                $this->delete_picture($gallery->path);
             }
             if ($estate->main_picture) {
-                $this->delete_picture($estate->main_picture);
+                $this->delete_picture($estate->main_picture,true);
             }
         } finally {
             $estate->delete();
@@ -335,8 +337,8 @@ class EstateController extends Controller
 
     protected function save_picture($file, $name)
     {
-        // $setting = Setting::first();
-        if (false) {
+        $setting = Setting::first();
+        if ($setting->watermarkActive) {
             // open an image file
             $img = Image::make($file);
             // insert a watermark

@@ -60,6 +60,7 @@ export default module = {
             type: 'input',
             persianName: 'سال ساخت',
             input_type: 'number',
+            placeholder: '1399',
             col: 6
         },
         total_price: {
@@ -117,6 +118,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر اصلی',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
 
@@ -131,6 +133,7 @@ export default module = {
             type: 'input',
             persianName: 'گالری تصاویر',
             input_type: 'file',
+            accept:"image/*",
             col: 6,
             attributes: {
                 multiple: true

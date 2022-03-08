@@ -36,6 +36,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر لوگو',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
         
@@ -49,6 +50,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر آیکون',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
 
@@ -63,6 +65,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر واترمارک',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
 
@@ -155,6 +158,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر صفحه اصلی',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
            
@@ -168,6 +172,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر صفحه جست و جو',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
            

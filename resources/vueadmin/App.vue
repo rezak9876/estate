@@ -65,6 +65,7 @@
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
+          style="z-index: 1;"
         >
           <div class="d-flex">
             <div class="toast-body">{{ message }}</div>

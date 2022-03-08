@@ -54,10 +54,12 @@ export default {
             router.push({ name: props.module.pluralName });
           })
           .catch(function (error) {
-            const response = error.response
-            if(response.status == 403)
+            const response = error.response;
+            if (response.status == 403)
               toastShow("error", response.data.message);
-            else{
+            else if (response.status == 500) {
+              loading.value = false;
+            } else {
               const obj = response.data.errors;
               const firstmessage = obj[Object.keys(obj)[0]][0];
               toastShow("error", firstmessage);

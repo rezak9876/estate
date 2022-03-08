@@ -15,18 +15,21 @@ export default module = {
         phone: {
             type: 'input',
             persianName: 'تلفن ثابت',
+            placeholder: '02144444444',
             col:6
         },
         
         mobile: {
             type: 'input',
             persianName: 'موبایل',
+            placeholder: '09121111111',
             col:6
         },
         email: {
             type: 'input',
             persianName: 'ایمیل',
             input_type: 'email',
+            placeholder: 'email@gmail.com',
             col:6
         },
         description: {
@@ -44,6 +47,9 @@ export default module = {
             type: 'input',
             persianName: 'رمز عبور',
             input_type: 'password',
+            span: {
+                text : 'رمز عبور باید شامل حداقل یک عدد و یک حرف انگلیسی باشد.'
+            },
             col:6
         },
         password_confirmation: {
@@ -56,6 +62,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر پروفایل',
             input_type: 'file',
+            accept:"image/*",
             col: 6
         },
         delete_picture: {

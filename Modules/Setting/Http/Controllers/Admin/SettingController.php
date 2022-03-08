@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Setting\Entities\Setting;
+use Modules\Setting\Http\Requests\SettingRequest;
 use Modules\Setting\Transformers\SettingResource;
 
 class SettingController extends Controller
@@ -35,7 +36,7 @@ class SettingController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
         //
     }
@@ -68,7 +69,7 @@ class SettingController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, Setting $setting)
+    public function update(SettingRequest $request, Setting $setting)
     {
         $pictures = ['logo', 'faIco', 'watermark', 'main_page_pic', 'search_page_pic'];
         foreach ($pictures as $picture) {

@@ -24,15 +24,15 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'role_id' => 'required',
-            'phone' => 'nullable|regex:/^0\d{10}$/',
-            'mobile' => 'required|regex:/0?9[0-9][0-9]{8}/',
+            'phone' => 'nullable|numeric',
+            'mobile' => 'required|regex:/(?:0)?(9\d{9})$/',
             'email' => [
                 'required',
                 'email',
                 Rule::unique('users')->ignore(request()->user),
             ],
             'password' => $this->nullable_password().'confirmed|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
-            'picture' => 'mimes:jpeg,jpg,png,gif|max:1000',
+            'picture' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
         ];
     }
 
