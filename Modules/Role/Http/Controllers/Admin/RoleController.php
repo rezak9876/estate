@@ -39,8 +39,7 @@ class RoleController extends Controller
     {
         //        $this->validateRole($request);
         $role = new Role();
-        $role->create($request->all());
-        dd($role->id);
+        $role = $role->create($request->all());
         $role->permissions()->attach($request->permissions);
         return response()->json([
             'message' => 'نقش با موفقیت ساخته شد.'
