@@ -126,7 +126,7 @@
           </a>
         </li>
 
-        <span class="my-3 ps-3"> نمایش سریع </span>
+        <!-- <span class="my-3 ps-3"> نمایش سریع </span> -->
       </ul>
     </div>
   </div>

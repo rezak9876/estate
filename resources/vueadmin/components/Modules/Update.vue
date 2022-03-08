@@ -42,6 +42,7 @@ export default {
     const loading = ref(false);
     const route = useRoute();
     const id = route.params.id;
+    const vd = this;
 
     const toastShow = inject("toastShow");
 
@@ -57,8 +58,9 @@ export default {
           .then(function (response) {
             toastShow("success", response.data.message);
             loading.value = false;
-            if(props.module.redirect != false)
-            router.push({ name: props.module.pluralName });
+            if (props.module.redirect != false)
+              router.push({ name: props.module.pluralName });
+            else location.reload();
           })
           .catch(function (error) {
             loading.value = false;

@@ -20124,6 +20124,7 @@ __webpack_require__.r(__webpack_exports__);
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(false);
     var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRoute)();
     var id = route.params.id;
+    var vd = this;
     var toastShow = (0,vue__WEBPACK_IMPORTED_MODULE_3__.inject)("toastShow");
     (0,vue__WEBPACK_IMPORTED_MODULE_3__.onMounted)(function () {
       jquery__WEBPACK_IMPORTED_MODULE_1__("form#myform").submit(function (e) {
@@ -20136,7 +20137,7 @@ __webpack_require__.r(__webpack_exports__);
           loading.value = false;
           if (props.module.redirect != false) _router_index_js__WEBPACK_IMPORTED_MODULE_2__["default"].push({
             name: props.module.pluralName
-          });
+          });else location.reload();
         })["catch"](function (error) {
           loading.value = false;
           var obj = error.response.data.errors;
@@ -21169,15 +21170,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_Modules_Partials_Form_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../components/Modules/Partials/Form.vue */ "./resources/vueadmin/components/Modules/Partials/Form.vue");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config */ "./resources/vueadmin/pages/User/config.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Form: _components_Modules_Partials_Form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  beforeCreate: function beforeCreate() {
+    var vd = this;
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/users/create").then(function (response) {
+      console.log(response.data.data.roles);
+      _config__WEBPACK_IMPORTED_MODULE_1__["default"].formfields.role_id.options = response.data.data.roles;
+    })["catch"](function (error) {}).then(function () {
+      vd.loading = false;
+    });
+  },
   setup: function setup() {
+    var loading = (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(true);
     return {
-      module: _config__WEBPACK_IMPORTED_MODULE_1__["default"]
+      module: _config__WEBPACK_IMPORTED_MODULE_1__["default"],
+      loading: loading
     };
   }
 });
@@ -22353,12 +22370,6 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "my-3 ps-3"
-}, " نمایش سریع ", -1
-/* HOISTED */
-);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -22437,7 +22448,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })]), _hoisted_26, _hoisted_27])])]);
+  })]), _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <span class=\"my-3 ps-3\"> نمایش سریع </span> ")])])]);
 }
 
 /***/ }),
@@ -23288,11 +23299,12 @@ __webpack_require__.r(__webpack_exports__);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Form", true);
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Form, {
+  return !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Form, {
+    key: 0,
     module: $setup.module
   }, null, 8
   /* PROPS */
-  , ["module"]);
+  , ["module"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -24062,11 +24074,7 @@ __webpack_require__.r(__webpack_exports__);
       type: 'select',
       persianName: 'نقش',
       col: 6,
-      options: {
-        0: 'مدیر',
-        1: 'نویسنده',
-        2: 'مشاور املاک'
-      }
+      options: {}
     },
     password: {
       type: 'input',
