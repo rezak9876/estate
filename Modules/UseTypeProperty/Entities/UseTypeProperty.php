@@ -4,6 +4,7 @@ namespace Modules\UseTypeProperty\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\UseType\Entities\UseType;
 
 class UseTypeProperty extends Model
 {
@@ -15,4 +16,10 @@ class UseTypeProperty extends Model
     {
         return \Modules\UseTypeProperty\Database\factories\UseTypePropertyFactory::new();
     }
+
+    public function use_type()
+    {
+        return $this->belongsTo(UseType::class);
+    }
+    
 }

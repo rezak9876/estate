@@ -11,7 +11,7 @@
 
             <div class="listing-img-content d-flex align-items-center" style="background-color: rgba(74,74,76,0.7);">
 
-            @if($estate->type == \App\Estate::Mortgage_Rent)
+            @if($estate->type == \Modules\Estate\Entities\Estate::Mortgage_Rent)
                     <span class="listing-price">
                         {{number_format($estate->rent_price)}}
                         اجاره</span>

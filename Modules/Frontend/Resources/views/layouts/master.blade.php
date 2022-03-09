@@ -1,3 +1,6 @@
+@php
+$pages = [];
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 

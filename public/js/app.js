@@ -19478,7 +19478,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   beforeCreate: function beforeCreate() {
     // const token = "Bearer " + getCookie("token");
-    var base_url = window.location.origin + '/api/v1/admin'; // axios.defaults.headers.common["Authorization"] = token;
+    var base_url = window.location.origin + "/api/v1/admin"; // axios.defaults.headers.common["Authorization"] = token;
 
     (axios__WEBPACK_IMPORTED_MODULE_3___default().defaults.headers["Content-Type"]) = "application/json";
     (axios__WEBPACK_IMPORTED_MODULE_3___default().defaults.headers.responseType) = "json";
@@ -19543,11 +19543,18 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
+    function sign_out() {
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post(location.origin + "/logout").then(function (response) {
+        location.replace('/login');
+      })["catch"](function (error) {});
+    }
+
     return {
       message: message,
       classObject: classObject,
       toastShow: toastShow,
-      token: token
+      token: token,
+      sign_out: sign_out
     };
   },
   provide: function provide() {
@@ -20127,6 +20134,7 @@ __webpack_require__.r(__webpack_exports__);
     var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRoute)();
     var id = route.params.id;
     var vd = this;
+    var slotkey = (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(0);
     var toastShow = (0,vue__WEBPACK_IMPORTED_MODULE_3__.inject)("toastShow");
     (0,vue__WEBPACK_IMPORTED_MODULE_3__.onMounted)(function () {
       jquery__WEBPACK_IMPORTED_MODULE_1__("form#myform").submit(function (e) {
@@ -20139,7 +20147,7 @@ __webpack_require__.r(__webpack_exports__);
           loading.value = false;
           if (props.module.redirect != false) _router_index_js__WEBPACK_IMPORTED_MODULE_2__["default"].push({
             name: props.module.pluralName
-          });else location.reload();
+          });else slotkey.value++;
         })["catch"](function (error) {
           loading.value = false;
           var obj = error.response.data.errors;
@@ -20162,7 +20170,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: loading,
       id: id,
-      headerInfo: headerInfo
+      headerInfo: headerInfo,
+      slotkey: slotkey
     };
   },
   components: {
@@ -21286,17 +21295,56 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "container-fluid"
 };
+var _hoisted_4 = {
+  "class": "d-flex justify-content-between my-3 w-100"
+};
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"d-flex justify-content-between my-3 w-100\"><div><i class=\"bi bi-justify menu-toggle-btn d-none ms-2\" id=\"hamburger-icon\"></i></div><div class=\"dropdown float-end\"><a href=\"#\" class=\"d-flex align-items-center link-dark text-decoration-none dropdown-toggle\" id=\"dropdownUser2\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"><strong class=\"me-3\">مدیر</strong><img src=\"" + _assets_images_noimage_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\" class=\"rounded-circle me-2\" width=\"32\" height=\"32\"></a><ul class=\"dropdown-menu text-small shadow\" aria-labelledby=\"dropdownUser2\"><li><a class=\"dropdown-item\" href=\"#\">ویرایش پروفایل</a></li><li><hr class=\"dropdown-divider\"></li><li><a class=\"dropdown-item\" href=\"#\">خروج</a></li></ul></div></div><hr>", 2);
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "bi bi-justify menu-toggle-btn d-none ms-2",
+  id: "hamburger-icon"
+})], -1
+/* HOISTED */
+);
 
 var _hoisted_6 = {
+  "class": "dropdown float-end"
+};
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "#",
+  "class": "d-flex align-items-center link-dark text-decoration-none dropdown-toggle",
+  id: "dropdownUser2",
+  "data-bs-toggle": "dropdown",
+  "aria-expanded": "false"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", {
+  "class": "me-3"
+}, "مدیر"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: _assets_images_noimage_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+  alt: "",
+  "class": "rounded-circle me-2",
+  width: "32",
+  height: "32"
+})], -1
+/* HOISTED */
+);
+
+var _hoisted_8 = {
+  "class": "dropdown-menu text-small shadow",
+  "aria-labelledby": "dropdownUser2"
+};
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_10 = {
   "class": "d-flex"
 };
-var _hoisted_7 = {
+var _hoisted_11 = {
   "class": "toast-body"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "btn-close btn-close-white me-2 m-auto",
   "data-bs-dismiss": "toast",
@@ -21310,7 +21358,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li><a class=\"dropdown-item\" href=\"#\">ویرایش پروفایل</a></li>\r\n              <li>\r\n                <hr class=\"dropdown-divider\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "dropdown-item",
+    href: "#",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $setup.sign_out && $setup.sign_out.apply($setup, arguments);
+    })
+  }, "خروج")])])])]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     id: "toast-background",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["toast align-items-center text-white border-0 position-fixed top-0 start-0 m-3", $setup.classObject]),
     role: "alert",
@@ -21319,9 +21373,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     style: {
       "z-index": "1"
     }
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.message), 1
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.message), 1
   /* TEXT */
-  ), _hoisted_8])], 2
+  ), _hoisted_12])], 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])])]);
 }
@@ -22131,7 +22185,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "header-info": $setup.headerInfo
   }, null, 8
   /* PROPS */
-  , ["header-info"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , ["header-info"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {
+    key: $setup.slotkey
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
     "class": "btn btn-primary",
     disabled: $setup.loading

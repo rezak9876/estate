@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from emadrajabi.com/templates/html/findeo/listings-list-with-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Nov 2021 07:46:29 GMT -->
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>فایندئو</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/findeo/css/style.css">
+    <style>
+        :root {
+            --maincolor: {{$setting->themColor}};
+        }
+    </style>
+    <link rel="stylesheet" href="/findeo/css/color.css">
+    <link rel="stylesheet" href="/findeo/css/mystyle.css">
+
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+
+    <!-- Compare Properties Widget
+    ================================================== -->
+    <div class="compare-slide-menu">
+
+        <div class="csm-trigger"></div>
+
+        <div class="csm-content">
+            <h4>مقایسه کنید  <div class="csm-mobile-trigger"></div></h4>
+
+            <div class="csm-properties">
+
+                <!-- Property -->
+                <div class="listing-item compact">
+                    <a href="single-property-page-2.html" class="listing-img-container">
+                        <div class="remove-from-compare"><i class="fa fa-close"></i></div>
+                        <div class="listing-badges">
+                            <span>فروشی</span>
+                        </div>
+                        <div class="listing-img-content">
+                            <span class="listing-compact-title">آپارتمان عقاب طلایی <i>420,000 تومان</i></span>
+                        </div>
+                        <img src="/findeo/images/listing-01.jpg" alt="">
+                    </a>
+                </div>
+
+                <!-- Property -->
+                <div class="listing-item compact">
+                    <a href="single-property-page-2.html" class="listing-img-container">
+                        <div class="remove-from-compare"><i class="fa fa-close"></i></div>
+                        <div class="listing-badges">
+                            <span>فروشی</span>
+                        </div>
+                        <div class="listing-img-content">
+                            <span class="listing-compact-title">آپارتمان ویلایی <i>420,000 تومان</i></span>
+                        </div>
+                        <img src="/findeo/images/listing-03.jpg" alt="">
+                    </a>
+                </div>
+
+                <!-- Property -->
+                <div class="listing-item compact">
+                    <a href="single-property-page-2.html" class="listing-img-container">
+                        <div class="remove-from-compare"><i class="fa fa-close"></i></div>
+                        <div class="listing-badges">
+                            <span>فروشی</span>
+                        </div>
+                        <div class="listing-img-content">
+                            <span class="listing-compact-title">ویلا<i>535,000 تومان</i></span>
+                        </div>
+                        <img src="/findeo/images/listing-05.jpg" alt="">
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="csm-buttons">
+                <a href="compare-properties.html" class="button">مقایسه</a>
+                <a href="#" class="button reset">انصراف</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- Compare Properties Widget / End -->
+
+
+    <!-- Header Container
+    ================================================== -->
+    <header id="header-container">
+
+        <!-- Topbar -->
+        <div id="top-bar">
+            <div class="container">
+
+                <!-- Left Side Content -->
+                <div class="left-side">
+
+                    <!-- Top bar -->
+                    <ul class="top-bar-menu">
+                        <li><i class="fa fa-phone"></i> (123) 123-456 </li>
+                        <li><i class="fa fa-envelope"></i> <a href="#">office@example.com</a></li>
+                        <li>
+                            <div class="top-bar-dropdown">
+                                <span>منو کشویی</span>
+                                <ul class="options">
+                                    <li><div class="arrow"></div></li>
+                                    <li><a href="#">لینک اول</a></li>
+                                    <li><a href="#">لینک دوم با عنوان طولانی</a></li>
+                                    <li><a href="#">لینک سوم</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Left Side Content / End -->
+
+
+                <!-- Left Side Content -->
+                <div class="right-side">
+
+                    <!-- Social Icons -->
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="pinterest" href="#"><i class="icon-pinterest"></i></a></li>
+                    </ul>
+
+                </div>
+                <!-- Left Side Content / End -->
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Topbar / End -->
+
+
+        <!-- Header -->
+        <div id="header">
+            <div class="container">
+
+                <!-- Left Side Content -->
+                <div class="left-side">
+
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="index-2.html"><img src="/findeo/images/logo.png" alt=""></a>
+                    </div>
+
+
+                    <!-- Mobile Navigation -->
+                    <div class="mmenu-trigger">
+                        <button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+                        </button>
+                    </div>
+
+
+                    <!-- Main Navigation -->
+                    <nav id="navigation" class="style-1">
+                        <ul id="responsive">
+
+                            <li><a href="#">خانه</a>
+                                <ul>
+                                    <li><a href="index-2.html">خانه 1</a></li>
+                                    <li><a href="index-3.html">خانه 2</a></li>
+                                    <li><a href="index-4.html">خانه 3</a></li>
+                                    <li><a href="index-5.html">خانه 4</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a class="current" href="#">آگهی ها</a>
+                                <ul>
+                                    <li><a href="#">طرح فهرستی</a>
+                                        <ul>
+                                            <li><a href="listings-list-with-sidebar.html">با ستون کناری</a></li>
+                                            <li><a href="listings-list-with-map.html">با نقشه</a></li>
+                                            <li><a href="listings-list-full-width.html">تمام عرض</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">طرح گرید</a>
+                                        <ul>
+                                            <li><a href="listings-grid-standard-with-sidebar.html">استاندارد با ستون
+                                                    کناری</a></li>
+                                            <li><a href="listings-grid-compact-with-sidebar.html">جمع و جور با ستون
+                                                    کناری</a></li>
+                                            <li><a href="listings-grid-with-map.html">با نقشه</a></li>
+                                            <li><a href="listings-grid-full-width.html">تمام عرض</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">با نقشه</a>
+                                        <ul>
+                                            <li><a href="listings-half-map-list.html">فهرستی</a></li>
+                                            <li><a href="listings-half-map-grid-standard.html">گرید استاندارد</a></li>
+                                            <li><a href="listings-half-map-grid-compact.html">گرید جمع و جور</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><a href="#">ویژگی ها</a>
+                                <ul>
+                                    <li><a href="#">توضیحات ملک</a>
+                                        <ul>
+                                            <li><a href="single-property-page-1.html">سبک 1</a></li>
+                                            <li><a href="single-property-page-2.html">سبک 2</a></li>
+                                            <li><a href="single-property-page-3.html">سبک 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">سبک های جست و جو</a>
+                                        <ul>
+                                            <li><a href="index-2.html">جست و جو در صفحه اصلی 1</a></li>
+                                            <li><a href="index-3.html">جست و جو در صفحه اصلی 2</a></li>
+                                            <li><a href="index-4.html">جست و جو در صفحه اصلی 3</a></li>
+                                            <li><a href="listings-list-full-width.html">سبک پیشرفته</a></li>
+                                            <li><a href="listings-list-with-sidebar.html">جست و جو در ستون کناری</a>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">حساب کاربری من</a>
+                                        <ul>
+                                            <li><a href="my-profile.html">پروفایل من</a></li>
+                                            <li><a href="my-bookmarks.html">آگهی های مورد علاقه</a></li>
+                                            <li><a href="my-properties.html">املاک من</a></li>
+                                            <li><a href="change-password.html">تغییر رمز عبور</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">مشاوران و آژانس ها</a>
+                                        <ul>
+                                            <li><a href="agencies-list.html">لیست آژانس ها</a></li>
+                                            <li><a href="agency-page.html">برگه آژانس</a></li>
+                                            <li><a href="agents-list.html">لیست مشاوران</a></li>
+                                            <li><a href="agent-page.html">برگه مشاور</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li><a href="compare-properties.html">مقایسه ویژگی ها</a></li>
+                                    <li><a href="submit-property.html">ثبت ملک</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="#">برگه ها</a>
+                                <ul>
+                                    <li><a href="blog.html">وبلاگ</a>
+                                        <ul>
+                                            <li><a href="blog.html">وبلاگ</a></li>
+                                            <li><a href="blog-post.html">نوشته وبلاگ</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact.html">تماس</a></li>
+                                    <li><a href="elements.html">عناصر</a></li>
+                                    <li><a href="pricing-tables.html">جداول قیمت گذاری</a></li>
+                                    <li><a href="typography.html">تایپوگرافی</a></li>
+                                    <li><a href="icons.html">آیکون ها</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <div class="clearfix"></div>
+                    <!-- Main Navigation / End -->
+
+                </div>
+                <!-- Left Side Content / End -->
+
+                <!-- Right Side Content / End -->
+                <div class="right-side">
+                    <!-- Header Widget -->
+                    <div class="header-widget">
+                        <a href="login-register.html" class="sign-in"><i class="fa fa-user"></i> ورود / ثبت نام</a>
+                        <a href="submit-property.html" class="button border">ثبت ملک</a>
+                    </div>
+                    <!-- Header Widget / End -->
+                </div>
+                <!-- Right Side Content / End -->
+
+            </div>
+        </div>
+        <!-- Header / End -->
+
+    </header>
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
+
+
+
+    <!-- Titlebar
+    ================================================== -->
+    <div class="parallax titlebar"
+         data-background="/findeo/images/listings-parallax.jpg"
+         data-color="#333333"
+         data-color-opacity="0.7"
+         data-img-width="800"
+         data-img-height="505">
+
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <h2>آگهی ها</h2>
+                        <span>طرح گرید با ستون کناری</span>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="#">خانه</a></li>
+                                <li>آگهی ها</li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+    <div class="container">
+        <div class="row sticky-wrapper">
+
+
+            <!-- Sidebar
+            ================================================== -->
+            <div class="col-md-4">
+                <div class="sidebar sticky right">
+
+                    <!-- Widget -->
+                    <div class="widget margin-bottom-40">
+                        <h3 class="margin-top-0 margin-bottom-35">یافتن خانه جدید</h3>
+
+                        <!-- Row -->
+                        <div class="row with-forms">
+                            <!-- Status -->
+                            <div class="col-md-12">
+                                <select data-placeholder="وضعیت" class="chosen-select-no-single" >
+                                    <option>وضعیت</option>
+                                    <option>فروش</option>
+                                    <option>اجاره</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Row / End -->
+
+
+                        <!-- Row -->
+                        <div class="row with-forms">
+                            <!-- Type -->
+                            <div class="col-md-12">
+                                <select data-placeholder="نوع" class="chosen-select-no-single" >
+                                    <option>نوع</option>
+                                    <option>آپارتمان</option>
+                                    <option>خانه</option>
+                                    <option>تجاری</option>
+                                    <option>گاراژ</option>
+                                    <option>ویلا</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Row / End -->
+
+
+                        <!-- Row -->
+                        <div class="row with-forms">
+                            <!-- States -->
+                            <div class="col-md-12">
+                                <select data-placeholder="همه" class="chosen-select" >
+                                    <option>استان</option>
+                                    <option value="1">تهران</option>
+                                    <option value="2">گیلان</option>
+                                    <option value="3">آذربایجان شرقی</option>
+                                    <option value="4">خوزستان</option>
+                                    <option value="5">فارس</option>
+                                    <option value="6">اصفهان</option>
+                                    <option value="7">خراسان رضوی</option>
+                                    <option value="8">قزوین</option>
+                                    <option value="9">سمنان</option>
+                                    <option value="10">قم</option>
+                                    <option value="11">مرکزی</option>
+                                    <option value="12">زنجان</option>
+                                    <option value="13">مازندران</option>
+                                    <option value="14">گلستان</option>
+                                    <option value="15">اردبیل</option>
+                                    <option value="16">آذربایجان غربی</option>
+                                    <option value="17">همدان</option>
+                                    <option value="18">کردستان</option>
+                                    <option value="19">کرمانشاه</option>
+                                    <option value="20">لرستان</option>
+                                    <option value="21">بوشهر</option>
+                                    <option value="22">کرمان</option>
+                                    <option value="23">هرمزگان</option>
+                                    <option value="24">چهارمحال و بختیاری</option>
+                                    <option value="25">یزد</option>
+                                    <option value="26">سیستان و بلوچستان</option>
+                                    <option value="27">ایلام</option>
+                                    <option value="28">کهگلویه و بویراحمد</option>
+                                    <option value="29">خراسان شمالی</option>
+                                    <option value="30">خراسان جنوبی</option>
+                                    <option value="31">البرز</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Row / End -->
+
+
+                        <!-- Row -->
+                        <div class="row with-forms">
+                            <!-- Cities -->
+                            <div class="col-md-12">
+                                <select data-placeholder="شهر" class="chosen-select" >
+                                    <option>شهر</option>
+                                    <option>تهران</option>
+                                    <option>اسلامشهر</option>
+                                    <option>شهریار</option>
+                                    <option>قدس</option>
+                                    <option>ملارد</option>
+                                    <option>پاکدشت</option>
+                                    <option>ورامین</option>
+                                    <option>شهر ری</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Row / End -->
+
+
+                        <!-- Row -->
+                        <div class="row with-forms">
+
+                            <!-- Min Area -->
+                            <div class="col-md-6">
+                                <select data-placeholder="اتاق خواب" class="chosen-select-no-single" >
+                                    <option label="blank"></option>
+                                    <option>همه</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                            <!-- Max Area -->
+                            <div class="col-md-6">
+                                <select data-placeholder="حمام" class="chosen-select-no-single" >
+                                    <option label="blank"></option>
+                                    <option>همه</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <!-- Row / End -->
+
+                        <br>
+
+                        <!-- Area Range -->
+                        <div class="range-slider">
+                            <label>مساحت</label>
+                            <div id="area-range" data-min="0" data-max="1500" data-unit="مترمربع"></div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <br>
+
+                        <!-- Price Range -->
+                        <div class="range-slider">
+                            <label>قیمت</label>
+                            <div id="price-range" data-min="0" data-max="400000" data-unit="تومان"></div>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+
+                        <!-- More Search Options -->
+                        <a href="#" class="more-search-options-trigger margin-bottom-10 margin-top-30" data-open-title="گزینه های بیشتر" data-close-title="بستن"></a>
+
+                        <div class="more-search-options relative">
+
+                            <!-- Checkboxes -->
+                            <div class="checkboxes one-in-row margin-bottom-10">
+
+                                <input id="check-2" type="checkbox" name="check">
+                                <label for="check-2">تهویه مطبوع</label>
+
+                                <input id="check-3" type="checkbox" name="check">
+                                <label for="check-3">استخر</label>
+
+                                <input id="check-4" type="checkbox" name="check" >
+                                <label for="check-4">گرمایش مرکزی</label>
+
+                                <input id="check-5" type="checkbox" name="check">
+                                <label for="check-5">اتاق لباسشویی</label>
+
+
+                                <input id="check-6" type="checkbox" name="check">
+                                <label for="check-6">باشگاه بدنسازی</label>
+
+                                <input id="check-7" type="checkbox" name="check">
+                                <label for="check-7">زنگ خطر</label>
+
+                                <input id="check-8" type="checkbox" name="check">
+                                <label for="check-8">پوشش پنجره</label>
+
+                            </div>
+                            <!-- Checkboxes / End -->
+
+                        </div>
+                        <!-- More Search Options / End -->
+
+                        <button class="button fullwidth margin-top-30">جستجو</button>
+
+
+                    </div>
+                    <!-- Widget / End -->
+
+                </div>
+            </div>
+            <!-- Sidebar / End -->
+
+            <div class="col-md-8">
+
+                <!-- Main Search Input -->
+                <div class="main-search-input margin-bottom-35">
+                    <input type="text" class="ico-01" placeholder="آدرس را وارد کنید" value=""/>
+                    <button class="button">جست و جو</button>
+                </div>
+
+                <!-- Sorting / Layout Switcher -->
+                <div class="row margin-bottom-15">
+
+                    <div class="col-md-6">
+                        <!-- Sort by -->
+                        <div class="sort-by">
+                            <label>مرتب سازی:</label>
+
+                            <div class="sort-by-select">
+                                <select data-placeholder="ترتیب پیش فرض" class="chosen-select-no-single" >
+                                    <option>ترتیب پیش فرض</option>
+                                    <option>قیمت (از کم به زیاد)</option>
+                                    <option>قیمت (از زیاد به کم)</option>
+                                    <option>جدیدترین ملک</option>
+                                    <option>قدیمی ترین ملک</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Layout Switcher -->
+                        <div class="layout-switcher">
+                            <a href="#" class="list"><i class="fa fa-th-list"></i></a>
+                            <a href="#" class="grid"><i class="fa fa-th-large"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Listings -->
+                <div class="listings-container list-layout">
+
+                    <!-- Listing Item -->
+                    <div class="listing-item">
+
+                        <a href="single-property-page-1.html" class="listing-img-container">
+
+                            <div class="listing-badges">
+                                <span class="featured">ویژه</span>
+                                <span>فروشی</span>
+                            </div>
+
+                            <div class="listing-img-content">
+                                <span class="listing-price">275,000 تومان <i>520 تومان / متر مربع</i></span>
+                                <span class="like-icon tooltip"></span>
+                            </div>
+
+                            <div class="listing-carousel">
+                                <div><img src="/findeo/images/listing-01.jpg" alt=""></div>
+                                <div><img src="/findeo/images/listing-01b.jpg" alt=""></div>
+                                <div><img src="/findeo/images/listing-01c.jpg" alt=""></div>
+                            </div>
+                        </a>
+
+                        <div class="listing-content">
+
+                            <div class="listing-title">
+                                <h4><a href="#">مجتمع آپارتمانی عقاب</a></h4>
+                                <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <i class="fa fa-map-marker"></i>
+                                    مشهد، خیابان امام رضا (ع)
+                                </a>
+
+                                <a href="single-property-page-1.html" class="details button border">جزئیات</a>
+                            </div>
+
+                            <ul class="listing-details">
+                                <li>530 متر مربع</li>
+                                <li>1 اتاق خواب</li>
+                                <li>3 اتاق</li>
+                                <li>1 حمام</li>
+                            </ul>
+
+                            <div class="listing-footer">
+                                <a href="#"><i class="fa fa-user"></i> لورم ایپسوم 1</a>
+                                <span><i class="fa fa-calendar-o"></i> 1 روز پیش</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- Listing Item / End -->
+
+
+                    <!-- Listing Item -->
+                    <div class="listing-item">
+
+                        <a href="single-property-page-1.html" class="listing-img-container">
+
+                            <div class="listing-badges">
+                                <span>اجاره ای</span>
+                            </div>
+
+                            <div class="listing-img-content">
+                                <span class="listing-price">900 تومان <i>ماهیانه</i></span>
+                                <span class="like-icon"></span>
+                            </div>
+
+                            <img src="/findeo/images/listing-02.jpg" alt="">
+
+                        </a>
+
+                        <div class="listing-content">
+
+                            <div class="listing-title">
+                                <h4><a href="single-property-page-1.html">آپارتمان</a></h4>
+                                <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <i class="fa fa-map-marker"></i>
+                                    تهران، خیابان ارم
+                                </a>
+
+                                <a href="single-property-page-1.html" class="details button border">جزئیات</a>
+                            </div>
+
+                            <ul class="listing-details">
+                                <li>440 متر مربع</li>
+                                <li>1 اتاق خواب</li>
+                                <li>1 اتاق</li>
+                                <li>1 حمام</li>
+                            </ul>
+
+                            <div class="listing-footer">
+                                <a href="#"><i class="fa fa-user"></i> لورم ایپسوم 2</a>
+                                <span><i class="fa fa-calendar-o"></i> 2 روز پیش</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- Listing Item / End -->
+
+
+                    <!-- Listing Item -->
+                    <div class="listing-item">
+
+                        <a href="single-property-page-1.html" class="listing-img-container">
+
+                            <div class="listing-badges">
+                                <span class="featured">ویژه</span>
+                                <span>اجاره ای</span>
+                            </div>
+
+                            <div class="listing-img-content">
+                                <span class="listing-price">1700 تومان <i>ماهیانه</i></span>
+                                <span class="like-icon"></span>
+                            </div>
+
+                            <img src="/findeo/images/listing-03.jpg" alt="">
+
+                        </a>
+
+                        <div class="listing-content">
+
+                            <div class="listing-title">
+                                <h4><a href="#">خانه ویلایی</a></h4>
+                                <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <i class="fa fa-map-marker"></i>
+                                    تهران، خیابان ونک
+                                </a>
+
+                                <a href="single-property-page-1.html" class="details button border">جزئیات</a>
+                            </div>
+
+                            <ul class="listing-details">
+                                <li>1450 متر مربع</li>
+                                <li>1 اتاق خواب</li>
+                                <li>2 اتاق</li>
+                                <li>2 اتاق</li>
+                            </ul>
+
+                            <div class="listing-footer">
+                                <a href="#"><i class="fa fa-user"></i> لورم ایپسوم 3</a>
+                                <span><i class="fa fa-calendar-o"></i> 4 روز پیش</span>
+                            </div>
+
+                        </div>
+                        <!-- Listing Item / End -->
+
+                    </div>
+                    <!-- Listing Item / End -->
+
+
+                    <!-- Listing Item -->
+                    <div class="listing-item">
+
+                        <a href="single-property-page-1.html" class="listing-img-container">
+
+                            <div class="listing-badges">
+                                <span>فروشی</span>
+                            </div>
+
+                            <div class="listing-img-content">
+                                <span class="listing-price">420,000 تومان <i>770 تومان / متر مربع</i></span>
+                                <span class="like-icon"></span>
+                            </div>
+
+                            <div class="listing-carousel">
+                                <div><img src="/findeo/images/listing-04.jpg" alt=""></div>
+                                <div><img src="/findeo/images/listing-04b.jpg" alt=""></div>
+                            </div>
+
+                        </a>
+
+                        <div class="listing-content">
+
+                            <div class="listing-title">
+                                <h4><a href="#">آپارتمان</a></h4>
+                                <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <i class="fa fa-map-marker"></i>
+                                    تهران، خیابان ونک
+                                </a>
+
+                                <a href="single-property-page-1.html" class="details button border">جزئیات</a>
+                            </div>
+
+                            <ul class="listing-details">
+                                <li>540 متر مربع</li>
+                                <li>1 اتاق خواب</li>
+                                <li>3 اتاق</li>
+                                <li>2 حمام</li>
+                            </ul>
+
+                            <div class="listing-footer">
+                                <a href="#"><i class="fa fa-user"></i> لورم ایپسوم 4</a>
+                                <span><i class="fa fa-calendar-o"></i> 3 روز پیش</span>
+                            </div>
+
+                        </div>
+                        <!-- Listing Item / End -->
+
+                    </div>
+                    <!-- Listing Item / End -->
+
+
+                    <!-- Listing Item -->
+                    <div class="listing-item">
+
+                        <a href="single-property-page-1.html" class="listing-img-container">
+                            <div class="listing-badges">
+                                <span>فروشی</span>
+                            </div>
+
+                            <div class="listing-img-content">
+                                <span class="listing-price">535,000 تومان <i>640 تومان / متر مربع</i></span>
+                                <span class="like-icon"></span>
+                            </div>
+
+                            <img src="/findeo/images/listing-05.jpg" alt="">
+                        </a>
+
+                        <div class="listing-content">
+
+                            <div class="listing-title">
+                                <h4><a href="#">یک طبقه</a></h4>
+                                <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <i class="fa fa-map-marker"></i>
+                                    شیراز، خیابان زند
+                                </a>
+
+                                <a href="single-property-page-1.html" class="details button border">جزئیات</a>
+                            </div>
+
+                            <ul class="listing-details">
+                                <li>350 متر مربع</li>
+                                <li>1 اتاق خواب</li>
+                                <li>2 اتاق</li>
+                                <li>1 حمام</li>
+                            </ul>
+
+                            <div class="listing-footer">
+                                <a href="#"><i class="fa fa-user"></i> لورم ایپسوم 5</a>
+                                <span><i class="fa fa-calendar-o"></i> 4 روز پیش</span>
+                            </div>
+
+                        </div>
+                        <!-- Listing Item / End -->
+
+                    </div>
+                    <!-- Listing Item / End -->
+
+
+                    <!-- Listing Item -->
+                    <div class="listing-item">
+
+                        <a href="single-property-page-1.html" class="listing-img-container">
+                            <div class="listing-badges">
+                                <span>اجاره ای</span>
+                            </div>
+
+                            <div class="listing-img-content">
+                                <span class="listing-price">500 تومان <i>ماهیانه</i></span>
+                                <span class="like-icon"></span>
+                            </div>
+
+                            <img src="/findeo/images/listing-06.jpg" alt="">
+                        </a>
+
+                        <div class="listing-content">
+
+                            <div class="listing-title">
+                                <h4><a href="#">مجتمع آپارتمانی</a></h4>
+                                <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <i class="fa fa-map-marker"></i>
+                                    شهرکرد، خیابان سعدی
+                                </a>
+
+                                <a href="single-property-page-1.html" class="details button border">جزئیات</a>
+                            </div>
+
+                            <ul class="listing-details">
+                                <li>850 متر مربع</li>
+                                <li>2 اتاق خواب</li>
+                                <li>3 اتاق</li>
+                                <li>1 حمام</li>
+                            </ul>
+
+                            <div class="listing-footer">
+                                <a href="#"><i class="fa fa-user"></i> لورم ایپسوم 6</a>
+                                <span><i class="fa fa-calendar-o"></i> 3 روز پیش</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- Listing Item / End -->
+
+                </div>
+                <!-- Listings Container / End -->
+
+
+                <!-- Pagination -->
+                <div class="pagination-container margin-top-20">
+                    <nav class="pagination">
+                        <ul>
+                            <li><a href="#" class="current-page">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li class="blank">...</li>
+                            <li><a href="#">22</a></li>
+                        </ul>
+                    </nav>
+
+                    <nav class="pagination-next-prev">
+                        <ul>
+                            <li><a href="#" class="prev">قبلی</a></li>
+                            <li><a href="#" class="next">بعدی</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Pagination / End -->
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================== -->
+    <div class="margin-top-55"></div>
+
+    <div id="footer" class="sticky-footer">
+        <!-- Main -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-6">
+                    <img class="footer-logo" src="/findeo/images/logo.png" alt="">
+                    <br><br>
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 ">
+                    <h4>پیوندهای مفید</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">ورود</a></li>
+                        <li><a href="#">ثبت نام</a></li>
+                        <li><a href="#">حساب کاربری من</a></li>
+                        <li><a href="#">ثبت ملک</a></li>
+                        <li><a href="#">تعرفه</a></li>
+                        <li><a href="#">حریم خصوصی</a></li>
+                    </ul>
+
+                    <ul class="footer-links">
+                        <li><a href="#">پرسش های متداول</a></li>
+                        <li><a href="#">وبلاگ</a></li>
+                        <li><a href="#">مشاوران ما</a></li>
+                        <li><a href="#">نحوه ی کار</a></li>
+                        <li><a href="#">تماس</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="col-md-3  col-sm-12">
+                    <h4>تماس با ما</h4>
+                    <div class="text-widget">
+                        <span>تهران، میدان آزادی</span> <br>
+                        تلفن: <span>0210000 </span><br>
+                        ایمیل:<span> <a href="#">office@example.com</a> </span><br>
+                    </div>
+
+                    <ul class="social-icons margin-top-20">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyrights">کپی رایت 1399 © تمامی حقوق برای Findeo محفوظ است.</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Footer / End -->
+
+
+    <!-- Back To Top Button -->
+    <div id="backtotop"><a href="#"></a></div>
+
+
+    <!-- Scripts
+    ================================================== -->
+    <script type="text/javascript" src="/findeo/scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/jquery-migrate-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/chosen.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/rangeSlider.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/sticky-kit.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/slick.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/mmenu.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/tooltips.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/masonry.min.js"></script>
+    <script type="text/javascript" src="/findeo/scripts/custom.js"></script>
+
+
+
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+</body>
+
+<!-- Mirrored from emadrajabi.com/templates/html/findeo/listings-list-with-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Nov 2021 07:46:29 GMT -->
+</html>

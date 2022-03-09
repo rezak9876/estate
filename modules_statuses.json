@@ -14,5 +14,8 @@
     "Setting": true,
     "Frontend": true,
     "Contactus": true,
-    "Aboutus": true
+    "Aboutus": true,
+    "Index": true,
+    "Search": true,
+    "Single": true
 }

@@ -2,19 +2,18 @@
 
 namespace Modules\Frontend\Http\Controllers;
 
-use App\City;
-use App\Estate;
-use App\Facility;
 use App\Http\Controllers\BaseController;
-use App\Neighborhood;
-use App\Province;
-use App\Term;
-use App\UseType;
-use App\UseTypeProperty;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\Estate\Entities\Estate;
+use Modules\Facility\Entities\Facility;
+use Modules\Neighborhood\Entities\Neighborhood;
+use Modules\Province\Entities\Province;
+use Modules\Term\Entities\Term;
+use Modules\UseType\Entities\UseType;
+use Modules\UseTypeProperty\Entities\UseTypeProperty;
 
 class FrontendController extends BaseController
 {

@@ -38,11 +38,13 @@
               class="dropdown-menu text-small shadow"
               aria-labelledby="dropdownUser2"
             >
-              <li><a class="dropdown-item" href="#">ویرایش پروفایل</a></li>
+              <!-- <li><a class="dropdown-item" href="#">ویرایش پروفایل</a></li>
               <li>
-                <hr class="dropdown-divider" />
+                <hr class="dropdown-divider" /> -->
+              <!-- </li> -->
+              <li>
+                <a class="dropdown-item" href="#" @click="sign_out">خروج</a>
               </li>
-              <li><a class="dropdown-item" href="#">خروج</a></li>
             </ul>
           </div>
         </div>
@@ -65,7 +67,7 @@
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
-          style="z-index: 1;"
+          style="z-index: 1"
         >
           <div class="d-flex">
             <div class="toast-body">{{ message }}</div>
@@ -87,22 +89,19 @@
 import Sidebar from "./components/sections/Sidebar.vue";
 import { ref } from "vue";
 import * as $ from "jquery";
-    import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "App",
   beforeCreate() {
-    
     // const token = "Bearer " + getCookie("token");
 
-    const base_url = window.location.origin+'/api/v1/admin';
+    const base_url = window.location.origin + "/api/v1/admin";
     // axios.defaults.headers.common["Authorization"] = token;
     axios.defaults.headers["Content-Type"] = "application/json";
     axios.defaults.headers["responseType"] = "json";
     axios.defaults.headers["Accept"] = "application/json";
     axios.defaults.baseURL = base_url;
-
-    
   },
   components: {
     Sidebar,
@@ -150,7 +149,17 @@ export default {
         toastList.forEach((toast) => toast.show());
       });
     }
-    return { message, classObject, toastShow, token };
+
+    function sign_out() {
+      axios
+        .post(location.origin+"/logout")
+        .then(function (response) {
+          location.replace('/login')
+        })
+        .catch(function (error) {
+        });
+    }
+    return { message, classObject, toastShow, token, sign_out };
   },
   provide() {
     return {

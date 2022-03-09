@@ -9,7 +9,7 @@
       enctype="multipart/form-data"
     >
       <input type="hidden" name="_method" value="patch" />
-      <slot></slot>
+      <slot :key="slotkey" ></slot>
       <button type="submit" class="btn btn-primary" :disabled="loading">
         <div v-if="loading">
           <span
@@ -44,6 +44,9 @@ export default {
     const id = route.params.id;
     const vd = this;
 
+    const slotkey = ref(0);
+
+
     const toastShow = inject("toastShow");
 
     onMounted(() => {
@@ -60,7 +63,7 @@ export default {
             loading.value = false;
             if (props.module.redirect != false)
               router.push({ name: props.module.pluralName });
-            else location.reload();
+            else slotkey.value ++;
           })
           .catch(function (error) {
             loading.value = false;
@@ -81,7 +84,8 @@ export default {
       title: "ویرایش " + props.module.singularPersianName,
     };
 
-    return { loading, id, headerInfo };
+
+    return { loading, id, headerInfo , slotkey };
   },
   components: {
     Header,

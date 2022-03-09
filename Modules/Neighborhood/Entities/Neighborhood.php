@@ -37,4 +37,10 @@ class Neighborhood extends Model
     {
         return $this->region->city();
     }
+    public function is_disabled($province_id)
+    {
+        if ($province_id != $this->province->id)
+            return 'disabled';
+        return null;
+    }
 }

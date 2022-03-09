@@ -1,0 +1,13 @@
+{
+    "name": "Single",
+    "alias": "single",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Single\\Providers\\SingleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

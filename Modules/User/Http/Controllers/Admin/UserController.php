@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use Modules\Estate\Entities\Gallery;
 use Modules\Role\Entities\Role;
 use Modules\User\Http\Requests\UserRequest;
@@ -121,7 +122,10 @@ class UserController extends Controller
 
         if ($request_data['password'] == null) {
             unset($request_data['password']);
+        }else{
+            $request_data['password'] = Hash::make($request->password);
         }
+
         $user->update($request_data);
         return response()->json([
             'message' => 'کاربر با موفقیت آپدیت شد.'

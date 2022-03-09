@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Facility\Entities\Facility;
 use Modules\Neighborhood\Entities\Neighborhood;
 use Modules\Term\Entities\Term;
+use Modules\UseTypeProperty\Entities\UseTypeProperty;
 
 class Estate extends Model
 {
@@ -124,5 +125,8 @@ class Estate extends Model
     {
         return $this->hasMany(Gallery::class);
     }
-    
+    public function thumbnail_picture()
+    {
+        return Gallery::$prefix_images . 'thumbnail_' . $this->main_picture;
+    }
 }
