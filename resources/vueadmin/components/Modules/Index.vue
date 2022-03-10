@@ -25,6 +25,7 @@ export default {
         icon: "bi bi-plus-lg",
       },
       title: props.module.pluralPersianName,
+      permission: props.module.singularName,
     };
     return { headerInfo };
   },
