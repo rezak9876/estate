@@ -18,7 +18,7 @@ class RoleResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'title' => $this->title,
-            'permissions' => $this->permissions()->pluck('id')->map(function ($item, $key) {
+            'permissions' => $this->permissions->pluck('id')->map(function ($item, $key) {
                 return strval($item);
             }),
         ];

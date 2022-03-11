@@ -5,8 +5,8 @@
     <thead>
       <tr>
         <th v-for="(row, index) in module.tableRows" :key="index">{{ row }}</th>
-        <th width="10px">ویرایش</th>
-        <th width="10px">حذف</th>
+        <th v-can:edit="module.pluralName" width="10px">ویرایش</th>
+        <th v-can:delete="module.pluralName" width="10px">حذف</th>
       </tr>
     </thead>
     <tbody>
@@ -14,12 +14,12 @@
         <td v-for="(row, index) in module.tableRows" :key="index">
           {{ data[index] }}
         </td>
-        <td>
+        <td v-can:edit="module.pluralName">
           <button @click="edit(data.id)" type="button" class="btn btn-success">
             <i class="bi bi-pen"></i>
           </button>
         </td>
-        <td>
+        <td v-can:delete="module.pluralName">
           <button
             @click="destroy(data.id)"
             type="button"
@@ -100,7 +100,7 @@ export default {
 
     function edit(id) {
       router.push({
-        name: module.pluralName + "Update",
+        name: module.pluralName + "-update",
         params: { id: id },
       });
     }

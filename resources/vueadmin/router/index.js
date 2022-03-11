@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory  } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import TermIndex from '../pages/Term/Index.vue'
 import TermCreate from '../pages/Term/Create'
@@ -25,35 +25,47 @@ import SettingCreate from '../pages/Setting/Create'
 import SettingUpdate from '../pages/Setting/Update'
 const routes = [
 
-    { path: "/terms", name: 'terms', component: TermIndex },
-    { path: "/terms/create", name: 'termsCreate', component: TermCreate },
-    { path: "/terms/:id", name: 'termsUpdate', component: TermUpdate },
+    { path: "/terms", name: 'terms-index', component: TermIndex },
+    { path: "/terms/create", name: 'terms-create', component: TermCreate },
+    { path: "/terms/:id", name: 'terms-edit', component: TermUpdate },
 
-    { path: "/facilities", name: 'facilities', component: FacilityIndex },
-    { path: "/facilities/create", name: 'facilitiesCreate', component: FacilityCreate },
-    { path: "/facilities/:id", name: 'facilitiesUpdate', component: FacilityUpdate },
+    { path: "/facilities", name: 'facilities-index', component: FacilityIndex },
+    { path: "/facilities/create", name: 'facilities-create', component: FacilityCreate },
+    { path: "/facilities/:id", name: 'facilities-edit', component: FacilityUpdate },
 
-    { path: "/roles", name: 'roles', component: RoleIndex },
-    { path: "/roles/create", name: 'rolesCreate', component: RoleCreate },
-    { path: "/roles/:id", name: 'rolesUpdate', component: RoleUpdate },
+    { path: "/roles", name: 'roles-index', component: RoleIndex },
+    { path: "/roles/create", name: 'roles-create', component: RoleCreate },
+    { path: "/roles/:id", name: 'roles-edit', component: RoleUpdate },
 
-    { path: "/estates", name: 'estates', component: EstateIndex },
-    { path: "/estates/create", name: 'estatesCreate', component: EstateCreate },
-    { path: "/estates/:id", name: 'estatesUpdate', component: EstateUpdate },
+    { path: "/estates", name: 'estates-index', component: EstateIndex },
+    { path: "/estates/create", name: 'estates-create', component: EstateCreate },
+    { path: "/estates/:id", name: 'estates-edit', component: EstateUpdate },
 
-    { path: "/users", name: 'users', component: UserIndex },
-    { path: "/users/create", name: 'usersCreate', component: UserCreate },
-    { path: "/users/:id", name: 'usersUpdate', component: UserUpdate },
+    { path: "/users", name: 'users-index', component: UserIndex },
+    { path: "/users/create", name: 'users-create', component: UserCreate },
+    { path: "/users/:id", name: 'users-edit', component: UserUpdate },
 
-    
-    { path: "/settings", name: 'settings', component: SettingIndex },
-    { path: "/settings/create", name: 'settingsCreate', component: SettingCreate },
-    { path: "/settings/:id", name: 'settingsUpdate', component: SettingUpdate },
+
+    { path: "/settings", name: 'settings-index', component: SettingIndex },
+    { path: "/settings/create", name: 'settings-create', component: SettingCreate },
+    { path: "/settings/:id", name: 'settings-edit', component: SettingUpdate },
 ];
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes
 });
+
+
+router.beforeEach((to, from, next) => {
+    // ...
+    // explicitly return false to cancel the navigation
+    const url_array = to.name.split("-", 2);
+    console.log(url_array[0]);
+    console.log(url_array[1]);
+
+    return next()
+})
+
 
 export default router;

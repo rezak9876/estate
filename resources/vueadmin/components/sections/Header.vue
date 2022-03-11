@@ -22,8 +22,6 @@ export default {
     headerInfo: Object,
   },
   setup(props) {
-    console.clear();
-    console.log(props.headerInfo);
   },
 };
 </script>

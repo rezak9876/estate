@@ -17,7 +17,6 @@ export default {
     axios
       .get("/roles/create")
       .then(function (response) {
-        console.log(response.data.data);
         module.formfields.permissions.categories = response.data.data;
       })
       .catch(function (error) {})

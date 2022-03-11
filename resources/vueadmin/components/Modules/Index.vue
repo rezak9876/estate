@@ -20,12 +20,12 @@ export default {
     const headerInfo = {
       button: {
         title: "افزودن",
-        link: { name: props.module.pluralName + "Create" },
+        link: { name: props.module.pluralName + "-create" },
         color: "btn btn-second-color",
         icon: "bi bi-plus-lg",
       },
       title: props.module.pluralPersianName,
-      permission: props.module.singularName,
+      permission: props.module.pluralName,
     };
     return { headerInfo };
   },

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Modules\Estate\Entities\Gallery;
 use Modules\Role\Entities\Role;
@@ -185,5 +186,24 @@ class UserController extends Controller
     protected function image_path($name)
     {
         return self::$prefix_images . '/' . $name;
+    }
+
+    public function login_user()
+    {
+        $user = Auth::user();
+        $permissions = $user->permissions;
+        $response = [];
+        foreach($user->permissions as $permission)
+        {
+            $slug = explode(".",$permission->slug);
+            if( array_key_exists($slug[0],$response))
+            {
+                array_push($response[$slug[0]],$slug[1]);
+
+            }else{
+                $response[$slug[0]]=[$slug[1]];
+            }
+        }
+        return response()->json(['permissions' => $response]);
     }
 }

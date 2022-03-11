@@ -16,7 +16,7 @@ class RolePolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'role.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'roles.%')->count() > 0);
     }
 
      /**
@@ -27,7 +27,7 @@ class RolePolicy
      */
     public function view(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'role.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'roles.%')->count() > 0);
     }
 
 
@@ -40,28 +40,28 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        return ($user->permissions()->where('slug', 'role.create')->exists());
+        return ($user->permissions()->where('slug', 'roles.create')->exists());
     }
 
     /**
-     * Determine whether the user can update the role.
+     * Determine whether the user can update the roles.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function update(User $user)
     {
-        return ($user->permissions()->where('slug', 'role.update')->exists());
+        return ($user->permissions()->where('slug', 'roles.edit')->exists());
     }
 
     /**
-     * Determine whether the user can delete the role.
+     * Determine whether the user can delete the roles.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
-        return ($user->permissions()->where('slug', 'role.delete')->exists());
+        return ($user->permissions()->where('slug', 'roles.delete')->exists());
     }
 }

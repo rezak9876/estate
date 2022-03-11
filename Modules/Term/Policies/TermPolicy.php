@@ -16,7 +16,7 @@ class TermPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'term.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'terms.%')->count() > 0);
     }
 
      /**
@@ -27,7 +27,7 @@ class TermPolicy
      */
     public function view(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'term.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'terms.%')->count() > 0);
     }
 
 
@@ -40,28 +40,28 @@ class TermPolicy
      */
     public function create(User $user)
     {
-        return ($user->permissions()->where('slug', 'term.create')->exists());
+        return ($user->permissions()->where('slug', 'terms.create')->exists());
     }
 
     /**
-     * Determine whether the user can update the term.
+     * Determine whether the user can update the terms.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function update(User $user)
     {
-        return ($user->permissions()->where('slug', 'term.update')->exists());
+        return ($user->permissions()->where('slug', 'terms.edit')->exists());
     }
 
     /**
-     * Determine whether the user can delete the term.
+     * Determine whether the user can delete the terms.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
-        return ($user->permissions()->where('slug', 'term.delete')->exists());
+        return ($user->permissions()->where('slug', 'terms.delete')->exists());
     }
 }

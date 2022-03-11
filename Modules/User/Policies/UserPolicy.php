@@ -17,7 +17,7 @@ class UserPolicy
     public function viewAny(User $user)
     {
         return true;
-        return ($user->permissions()->where('slug', 'like', 'user.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'users.%')->count() > 0);
     }
 
      /**
@@ -28,7 +28,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'user.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'users.%')->count() > 0);
     }
 
 
@@ -41,28 +41,28 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return ($user->permissions()->where('slug', 'user.create')->exists());
+        return ($user->permissions()->where('slug', 'users.create')->exists());
     }
 
     /**
-     * Deuserine whether the user can update the user.
+     * Deuserine whether the user can update the users.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function update(User $user)
     {
-        return ($user->permissions()->where('slug', 'user.update')->exists());
+        return ($user->permissions()->where('slug', 'users.edit')->exists());
     }
 
     /**
-     * Deuserine whether the user can delete the user.
+     * Deuserine whether the user can delete the users.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
-        return ($user->permissions()->where('slug', 'user.delete')->exists());
+        return ($user->permissions()->where('slug', 'users.delete')->exists());
     }
 }

@@ -18,26 +18,30 @@ class PermissionTableSeeder extends Seeder
     {
         Model::unguard();
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('permission_role')->truncate();
+        DB::table('permissions')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $permissions = [
-            ['title' => 'ویرایش کاربر' , 'slug' => 'user.update'],
-            ['title' => 'حذف کاربر' , 'slug' => 'user.delete'],
-            ['title' => 'ایجاد کاربر' , 'slug' => 'user.create'],
-            ['title' => 'آپدیت شرایط' , 'slug' => 'term.update'],
-            ['title' => 'پاک کردن شرایط' , 'slug' => 'term.delete'],
-            ['title' => 'ایجاد شرایط' , 'slug' => 'term.create'],
-            ['title' => 'ویرایش تنظیمات' , 'slug' => 'setting.update'],
-            ['title' => 'ویرایش نقش' , 'slug' => 'role.update'],
-            ['title' => 'حذف نقش' , 'slug' => 'role.delete'],
-            ['title' => 'ایجاد نقش' , 'slug' => 'role.create'],
-            ['title' => 'ویرایش صفحات' , 'slug' => 'page.update'],
-            ['title' => 'پاک کردن صفحات' , 'slug' => 'page.delete'],
-            ['title' => 'ایجاد صفحات' , 'slug' => 'page.create'],
-            ['title' => 'ویرایش امکانات' , 'slug' => 'facility.update'],
-            ['title' => 'حذف امکانات' , 'slug' => 'facility.delete'],
-            ['title' => 'ایجاد امکانات' , 'slug' => 'facility.create'],
-            ['title' => 'ویرایش آگهی' , 'slug' => 'estate.update'],
-            ['title' => 'حذف آگهی' , 'slug' => 'estate.delete'],
-            ['title' => 'ایجاد آگهی' , 'slug' => 'estate.create'],
+            ['title' => 'ویرایش کاربر' , 'slug' => 'users.edit'],
+            ['title' => 'حذف کاربر' , 'slug' => 'users.delete'],
+            ['title' => 'ایجاد کاربر' , 'slug' => 'users.create'],
+            ['title' => 'آپدیت شرایط' , 'slug' => 'terms.edit'],
+            ['title' => 'پاک کردن شرایط' , 'slug' => 'terms.delete'],
+            ['title' => 'ایجاد شرایط' , 'slug' => 'terms.create'],
+            ['title' => 'ویرایش تنظیمات' , 'slug' => 'settings.edit'],
+            ['title' => 'ویرایش نقش' , 'slug' => 'roles.edit'],
+            ['title' => 'حذف نقش' , 'slug' => 'roles.delete'],
+            ['title' => 'ایجاد نقش' , 'slug' => 'roles.create'],
+            ['title' => 'ویرایش صفحات' , 'slug' => 'pages.edit'],
+            ['title' => 'پاک کردن صفحات' , 'slug' => 'pages.delete'],
+            ['title' => 'ایجاد صفحات' , 'slug' => 'pages.create'],
+            ['title' => 'ویرایش امکانات' , 'slug' => 'facilities.edit'],
+            ['title' => 'حذف امکانات' , 'slug' => 'facilities.delete'],
+            ['title' => 'ایجاد امکانات' , 'slug' => 'facilities.create'],
+            ['title' => 'ویرایش آگهی' , 'slug' => 'estates.edit'],
+            ['title' => 'حذف آگهی' , 'slug' => 'estates.delete'],
+            ['title' => 'ایجاد آگهی' , 'slug' => 'estates.create'],
         ];
         foreach ($permissions as $permission) {
             DB::table('permissions')->insert(

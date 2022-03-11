@@ -18,7 +18,6 @@ export default {
     axios
       .get("/users/create")
       .then(function (response) {
-        console.log(response.data.data.roles);
         module.formfields.role_id.options = response.data.data.roles;
       })
       .catch(function (error) {})

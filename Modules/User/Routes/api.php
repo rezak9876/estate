@@ -17,5 +17,6 @@ Route::group(['prefix' => 'v1'],function(){
         Route::resource('users','Admin\UserController')->only([
             'index', 'store', 'edit','create', 'update', 'destroy'
         ]);
+        Route::get('users/login_user','Admin\UserController@login_user');
     });
 });

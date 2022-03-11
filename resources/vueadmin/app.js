@@ -37,43 +37,44 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+import axios from "axios";
 
-setCookie('user', JSON.stringify({
-    id: 1,
-    name: 'Victory Osayi',
-    is_editor: true,
-    is_admin: false,
-    // you can have role based permission list or access control list possibly from database
-    permissions: {
-        estate: ['create']
-    }
-}), 1)
+axios
+    .get("api/v1/admin/users/login_user")
+    .then(function (response) {
 
-const app = createApp(App)
-app.directive('can', (el, binding, vnode, prevVnode) => {
-    // this will be called for both `mounted` and `updated`
+        const user = response.data;
+        console.log(user)
+        setCookie('user', JSON.stringify(user), 1)
 
-    console.clear()
-    console.log(el, binding, vnode, prevVnode)
-    function getCookie(cname) {
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
+        const app = createApp(App)
+        app.directive('can', (el, binding, vnode, prevVnode) => {
+            // this will be called for both `mounted` and `updated`
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
             }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
 
-    const user = JSON.parse(getCookie('user'))
+            const user = JSON.parse(getCookie('user'))
 
-    if (!user.permissions[binding.value].includes(binding.arg))
-        el.outerHTML = null
-})
-app.use(router)
-app.mount('#app')
+            if (typeof binding.value !== 'undefined')
+                if (!user.permissions[binding.value].includes(binding.arg))
+                    el.outerHTML = null
+        })
+        app.use(router)
+        app.mount('#app')
+    })
+    .catch(function (error) {
+    });
+

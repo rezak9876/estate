@@ -16,7 +16,7 @@ class FacilityPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'facility.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'facilities.%')->count() > 0);
     }
 
      /**
@@ -27,7 +27,7 @@ class FacilityPolicy
      */
     public function view(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'facility.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'facilities.%')->count() > 0);
     }
 
 
@@ -40,28 +40,28 @@ class FacilityPolicy
      */
     public function create(User $user)
     {
-        return ($user->permissions()->where('slug', 'facility.create')->exists());
+        return ($user->permissions()->where('slug', 'facilities.create')->exists());
     }
 
     /**
-     * Determine whether the user can update the facility.
+     * Determine whether the user can update the facilities.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function update(User $user)
     {
-        return ($user->permissions()->where('slug', 'facility.update')->exists());
+        return ($user->permissions()->where('slug', 'facilities.edit')->exists());
     }
 
     /**
-     * Determine whether the user can delete the facility.
+     * Determine whether the user can delete the facilities.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
-        return ($user->permissions()->where('slug', 'facility.delete')->exists());
+        return ($user->permissions()->where('slug', 'facilities.delete')->exists());
     }
 }

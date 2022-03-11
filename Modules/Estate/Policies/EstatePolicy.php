@@ -17,7 +17,7 @@ class EstatePolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'estate.%')->count() > 0);
+        return ($user->permissions()->where('slug', 'like', 'estates.%')->count() > 0);
     }
 
     /**
@@ -28,7 +28,7 @@ class EstatePolicy
      */
     public function view(User $user)
     {
-        return ($user->permissions()->where('slug', 'estate.update')->exists());
+        return ($user->permissions()->where('slug', 'estates.edit')->exists());
     }
 
 
@@ -41,29 +41,29 @@ class EstatePolicy
      */
     public function create(User $user)
     {
-        return ($user->permissions()->where('slug', 'estate.create')->exists());
+        return ($user->permissions()->where('slug', 'estates.create')->exists());
     }
 
     /**
-     * Determine whether the user can update the estate.
+     * Determine whether the user can update the estates.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function update(User $user)
     {
-        return ($user->permissions()->where('slug', 'estate.update')->exists());
+        return ($user->permissions()->where('slug', 'estates.edit')->exists());
     }
 
 
     /**
-     * Determine whether the user can delete the estate.
+     * Determine whether the user can delete the estates.
      *
      * @param \App\Models\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
-        return ($user->permissions()->where('slug', 'estate.delete')->exists());
+        return ($user->permissions()->where('slug', 'estates.delete')->exists());
     }
 }

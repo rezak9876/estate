@@ -43,7 +43,6 @@ export default {
     onMounted(() => {
       $("form#myform").submit(function (e) {
         e.preventDefault();
-        console.clear();
         loading.value = true;
         var formdata = new FormData(this);
 

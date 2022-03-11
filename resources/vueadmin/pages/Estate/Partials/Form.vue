@@ -58,12 +58,6 @@ export default {
     return { module , loading };
   },
   mounted() {
-    // first_components_update = false;
-    // setTimeout(function () {
-    //   alert('now')
-    //   console.log(this.$refs)
-    //   $("select[name=type]").val(1).change();
-    // }, 5000);
 
     waitForElm("select[name='type']").then((elm) => {
       const select_type_tag = $("select[name='type']");
