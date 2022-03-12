@@ -5,7 +5,17 @@
       {{ headerInfo.title }}
     </div>
     <router-link
-      v-can:create="headerInfo.permission"
+      v-if="headerInfo.permission.arg != 'create'"
+      :to="headerInfo.button.link"
+      :class="headerInfo.button.color"
+    >
+      <i :class="headerInfo.button.icon"></i>
+      {{ headerInfo.button.title }}
+    </router-link>
+
+    <router-link
+      v-else
+      v-can:create="headerInfo.permission.value"
       :to="headerInfo.button.link"
       :class="headerInfo.button.color"
     >
@@ -21,8 +31,7 @@ export default {
   props: {
     headerInfo: Object,
   },
-  setup(props) {
-  },
+  setup(props) {},
 };
 </script>
 

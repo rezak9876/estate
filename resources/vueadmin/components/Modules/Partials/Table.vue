@@ -100,7 +100,7 @@ export default {
 
     function edit(id) {
       router.push({
-        name: module.pluralName + "-update",
+        name: module.pluralName + "-edit",
         params: { id: id },
       });
     }

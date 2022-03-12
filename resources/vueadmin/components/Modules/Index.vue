@@ -25,7 +25,10 @@ export default {
         icon: "bi bi-plus-lg",
       },
       title: props.module.pluralPersianName,
-      permission: props.module.pluralName,
+      permission: {
+        value: props.module.pluralName,
+        arg: "create",
+      },
     };
     return { headerInfo };
   },

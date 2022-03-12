@@ -50,7 +50,7 @@ export default {
           .post("/" + props.module.pluralName, formdata)
           .then(function (response) {
             toastShow("success", response.data.message);
-            router.push({ name: props.module.pluralName });
+            router.push({ name: props.module.pluralName + "-index" });
           })
           .catch(function (error) {
             const response = error.response;
@@ -73,11 +73,14 @@ export default {
     const headerInfo = {
       button: {
         title: "بازگشت",
-        link: { name: props.module.pluralName },
+        link: { name: props.module.pluralName + "-index" },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left",
       },
       title: "افزودن " + props.module.singularPersianName,
+      permission: {
+        value: props.module.pluralName,
+      },
     };
     return { loading, headerInfo };
   },

@@ -204,6 +204,11 @@ class UserController extends Controller
                 $response[$slug[0]]=[$slug[1]];
             }
         }
-        return response()->json(['permissions' => $response]);
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'picture' => $user->picture ? '/images/users/' . $user->picture : '/images/noimage.png',
+            'permissions' => $response,
+        ]);
     }
 }

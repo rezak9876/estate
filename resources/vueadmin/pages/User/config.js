@@ -70,5 +70,8 @@ export default module = {
             persianName: 'تصویر اصلی',
             col: 12
         },
+    },
+    onUpdatedForm: function(){
+      location.reload()
     }
 }

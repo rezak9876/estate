@@ -35,42 +35,27 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    document.cookie = "AC-C=ac-c;expires=Fri, 31 Dec 9999 23:59:59 GMT;path=/;SameSite=lax";
 }
 
 import axios from "axios";
+import { check_permission } from "./permissions/index.js";
 
 axios
     .get("api/v1/admin/users/login_user")
     .then(function (response) {
 
         const user = response.data;
-        console.log(user)
         setCookie('user', JSON.stringify(user), 1)
 
         const app = createApp(App)
         app.directive('can', (el, binding, vnode, prevVnode) => {
             // this will be called for both `mounted` and `updated`
 
-            function getCookie(cname) {
-                let name = cname + "=";
-                let ca = document.cookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) == ' ') {
-                        c = c.substring(1);
-                    }
-                    if (c.indexOf(name) == 0) {
-                        return c.substring(name.length, c.length);
-                    }
-                }
-                return "";
-            }
+            const condition = check_permission(binding.arg, binding.value)
 
-            const user = JSON.parse(getCookie('user'))
-
-            if (typeof binding.value !== 'undefined')
-                if (!user.permissions[binding.value].includes(binding.arg))
-                    el.outerHTML = null
+            if (!condition)
+                el.outerHTML = null
         })
         app.use(router)
         app.mount('#app')
