@@ -20,7 +20,7 @@
           <i class="bi bi-cart-check-fill"></i>
           پنل مدیریت
           <small>
-            <i class="bi bi-x-lg menu-toggle-btn ms-5"></i>
+            <i class="bi bi-x-lg menu-toggle-btn ms-5" @click="menu-toggle"></i>
           </small>
         </span>
       </div>
@@ -28,6 +28,7 @@
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
           <router-link
+            v-can:index="'terms'"
             to="/terms"
             class="nav-link link-dark"
             aria-current="page"
@@ -134,10 +135,21 @@
 
 <script>
 //Sidebar
-import "../../assets/main/sidebar";
+import * as $ from 'jquery';
+import { onMounted} from "vue";
+
 
 export default {
   name: "Sidebar",
+  setup() {
+    onMounted(() => {
+      $(".menu-toggle-btn").click(function () {
+        $("#wrapper").toggleClass("menuDisplayed");
+        $("#sidebar-wrapper").toggleClass("d-none");
+        $("#hamburger-icon").toggleClass("d-none");
+      });
+    });
+  },
 };
 </script>
 

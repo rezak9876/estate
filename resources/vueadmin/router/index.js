@@ -23,6 +23,7 @@ import UserUpdate from '../pages/User/Update'
 import SettingIndex from '../pages/Setting/Index.vue'
 import SettingCreate from '../pages/Setting/Create'
 import SettingUpdate from '../pages/Setting/Update'
+import { check_permission } from '../permissions'
 const routes = [
 
     { path: "/terms", name: 'terms-index', component: TermIndex },
@@ -61,10 +62,11 @@ router.beforeEach((to, from, next) => {
     // ...
     // explicitly return false to cancel the navigation
     const url_array = to.name.split("-", 2);
-    console.log(url_array[0]);
-    console.log(url_array[1]);
 
-    return next()
+
+    const condition = check_permission(url_array[1], url_array[0])
+
+    return next(condition)
 })
 
 
