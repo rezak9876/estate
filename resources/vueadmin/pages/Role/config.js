@@ -5,7 +5,7 @@ export default module = {
     pluralPersianName: 'نقش ها',
     tableRows: {
         title: 'عنوان',
-        slug: 'انام مستعار',
+        slug: 'نام مستعار',
     },
     formfields: {
         title: {

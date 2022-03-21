@@ -50,7 +50,7 @@ export default {
           .post("/" + props.module.pluralName, formdata)
           .then(function (response) {
             toastShow("success", response.data.message);
-            router.push({ name: props.module.pluralName });
+            router.push({ name: props.module.pluralName + "-index" });
           })
           .catch(function (error) {
             const response = error.response;
@@ -78,6 +78,9 @@ export default {
         icon: "bi bi-arrow-left",
       },
       title: "افزودن " + props.module.singularPersianName,
+      permission: {
+        value: props.module.pluralName,
+      },
     };
     return { loading, headerInfo };
   },

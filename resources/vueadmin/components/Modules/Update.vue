@@ -9,7 +9,7 @@
       enctype="multipart/form-data"
     >
       <input type="hidden" name="_method" value="patch" />
-      <slot :key="slotkey" ></slot>
+      <slot :key="slotkey"></slot>
       <button type="submit" class="btn btn-primary" :disabled="loading">
         <div v-if="loading">
           <span
@@ -46,7 +46,6 @@ export default {
 
     const slotkey = ref(0);
 
-
     const toastShow = inject("toastShow");
 
     onMounted(() => {
@@ -61,14 +60,18 @@ export default {
             toastShow("success", response.data.message);
             loading.value = false;
             if (props.module.redirect != false)
-              router.push({ name: props.module.pluralName });
-            else slotkey.value ++;
+              router.push({ name: props.module.pluralName + "-index" });
+            else slotkey.value++;
           })
           .catch(function (error) {
             loading.value = false;
             const obj = error.response.data.errors;
             const firstmessage = obj[Object.keys(obj)[0]][0];
             toastShow("error", firstmessage);
+          })
+          .then(function () {
+            const updated_function = props.module.onUpdatedForm;
+            if (updated_function) updated_function();
           });
       });
     });
@@ -81,10 +84,12 @@ export default {
         icon: "bi bi-arrow-left",
       },
       title: "ویرایش " + props.module.singularPersianName,
+      permission: {
+        value: props.module.pluralName,
+      },
     };
 
-
-    return { loading, id, headerInfo , slotkey };
+    return { loading, id, headerInfo, slotkey };
   },
   components: {
     Header,
