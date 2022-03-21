@@ -42,7 +42,7 @@
             data[index] ? parseInt(data[index]).toLocaleString() : null
           }}</span>
 
-          <span v-if="row.span">{{row.span.text}}</span>
+          <span v-if="row.span">{{ row.span.text }}</span>
         </div>
       </div>
 
@@ -82,7 +82,7 @@
           :id="index"
           :name="index"
           aria-describedby="emailHelp"
-          v-on="row.events"
+          v-on="typeof row.events != 'undefined' ? row.events : {}"
         >
           <optgroup
             v-for="(optgroup, optgroup_index) in row.optgroups"
@@ -339,7 +339,7 @@ export default {
           }
         } else {
           if (data_checkbox_index > -1) {
-            data.value[checkbox_name].splice(data_checkbox_index,1);
+            data.value[checkbox_name].splice(data_checkbox_index, 1);
           }
         }
       }

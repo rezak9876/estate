@@ -1,5 +1,5 @@
 <template>
-  <Form v-if="!loading" :module="module" :key="componentKey" />
+  <Form v-if="!loading" :module="module" />
 </template>
 
 <script>
@@ -20,9 +20,7 @@ export default {
         module.formfields.permissions.categories = response.data.data;
       })
       .catch(function (error) {})
-      .then(function () {
-        vd.componentKey++;
-      });
+      .then(function () {});
   },
   setup() {
     const loading = ref(true);
@@ -33,8 +31,7 @@ export default {
       })
       .catch(function (error) {});
 
-    const componentKey = ref(3);
-    return { module, componentKey };
+    return { loading, module };
   },
 };
 </script>

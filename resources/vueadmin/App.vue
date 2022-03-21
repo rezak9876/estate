@@ -25,9 +25,9 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <strong class="me-3">مدیر</strong>
+              <strong class="me-3">{{user.name}}</strong>
               <img
-                src="./assets/images/noimage.png"
+                :src="user.picture"
                 alt=""
                 class="rounded-circle me-2"
                 width="32"
@@ -94,10 +94,8 @@ import axios from "axios";
 export default {
   name: "App",
   beforeCreate() {
-    // const token = "Bearer " + getCookie("token");
 
     const base_url = window.location.origin + "/api/v1/admin";
-    // axios.defaults.headers.common["Authorization"] = token;
     axios.defaults.headers["Content-Type"] = "application/json";
     axios.defaults.headers["responseType"] = "json";
     axios.defaults.headers["Accept"] = "application/json";
@@ -111,22 +109,26 @@ export default {
     const message = ref("سلام");
 
     function getCookie(cname) {
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(";");
-      for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == " ") {
-          c = c.substring(1);
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
+        return "";
     }
-    let token = "Bearer " + getCookie("token");
 
+    const user_response = JSON.parse(getCookie('user'))
+
+    const user = ref({
+      name : user_response.name,
+      picture : user_response.picture,
+    })
     function toastShow(status, fmessage) {
       message.value = fmessage;
       function allll() {
@@ -159,7 +161,7 @@ export default {
         .catch(function (error) {
         });
     }
-    return { message, classObject, toastShow, token, sign_out };
+    return { message, classObject, toastShow, sign_out,user };
   },
   provide() {
     return {
