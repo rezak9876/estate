@@ -76,7 +76,7 @@ export default {
     const headerInfo = {
       button: {
         title: "بازگشت",
-        link: { name: props.module.pluralName },
+        link: { name: props.module.pluralName + "-index" },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left",
       },

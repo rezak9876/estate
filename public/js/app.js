@@ -19625,7 +19625,7 @@ __webpack_require__.r(__webpack_exports__);
       button: {
         title: "بازگشت",
         link: {
-          name: props.module.pluralName
+          name: props.module.pluralName + "-index"
         },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left"
@@ -20159,7 +20159,7 @@ __webpack_require__.r(__webpack_exports__);
       button: {
         title: "بازگشت",
         link: {
-          name: props.module.pluralName
+          name: props.module.pluralName + "-index"
         },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left"
