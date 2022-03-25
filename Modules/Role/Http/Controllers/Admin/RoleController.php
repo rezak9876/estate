@@ -83,7 +83,7 @@ class RoleController extends Controller
                 ],
                 [
                     'persianName' => 'تنظیمات',
-                    'children' =>Permission::where('slug', 'like', 'setting.%')->pluck('title', 'id')
+                    'children' =>Permission::where('slug', 'like', 'settings.%')->pluck('title', 'id')
                 ]
             ]
         ]);

@@ -1261,7 +1261,7 @@ $pages = [];
                                                     class="fa fa-user"></i></a>
                                         <ul>
                                             <li><a rel="nofollow"
-                                                   href="{{route('admin.estates.index')}}">پنل کاربری</a></li>
+                                                   href="{{route('admin')}}">پنل کاربری</a></li>
                                             <li><a rel="nofollow" href="{{route('logout')}}"
                                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">خروج</a></li>
@@ -1380,7 +1380,7 @@ $pages = [];
                                                     class="fa fa-user"></i></a>
                                         <ul>
                                             <li><a rel="nofollow"
-                                                   href="{{route('admin.estates.index')}}">پنل کاربری</a></li>
+                                                   href="{{route('admin')}}">پنل کاربری</a></li>
                                             <li><a rel="nofollow" href="{{route('logout')}}"
                                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">خروج</a></li>

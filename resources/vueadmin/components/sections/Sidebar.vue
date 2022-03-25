@@ -26,9 +26,8 @@
       </div>
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
+        <li v-can:index="'terms'" class="nav-item">
           <router-link
-            v-can:index="'terms'"
             to="/terms"
             class="nav-link link-dark"
             aria-current="page"
@@ -37,7 +36,7 @@
             شرایط
           </router-link>
         </li>
-        <li>
+        <li v-can:index="'facilities'">
           <router-link
             to="/facilities"
             class="nav-link link-dark"
@@ -48,7 +47,7 @@
           </router-link>
         </li>
 
-        <div class="accordion accordion-flush" id="accordionFlushExample2">
+        <div v-can:index="'estates'" class="accordion accordion-flush" id="accordionFlushExample2">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne2">
               <button
@@ -70,7 +69,7 @@
               data-bs-parent="#accordionFlushExample2"
             >
               <div class="border-bottom">
-                <li>
+                <li v-can:create="'estates'">
                   <router-link to="/estates/create" class="nav-link link-dark">
                     <i class="bi bi-house-door"></i>
                     ایجاد آگهی
@@ -87,7 +86,7 @@
           </div>
         </div>
 
-        <li>
+        <li v-can:index="'roles'">
           <router-link
             to="/roles"
             class="nav-link link-dark"
@@ -98,7 +97,7 @@
           </router-link>
         </li>
 
-        <li>
+        <li v-can:index="'users'">
           <router-link
             to="/users"
             class="nav-link link-dark"
@@ -109,7 +108,7 @@
           </router-link>
         </li>
 
-        <li>
+        <li v-can:index="'settings'">
           <router-link
             to="/settings/1"
             class="nav-link link-dark"

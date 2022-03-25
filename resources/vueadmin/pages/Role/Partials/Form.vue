@@ -14,22 +14,19 @@ export default {
   },
   beforeCreate() {
     const vd = this;
+  },
+  setup() {
+    const loading = ref(true);
+
     axios
       .get("/roles/create")
       .then(function (response) {
         module.formfields.permissions.categories = response.data.data;
       })
       .catch(function (error) {})
-      .then(function () {});
-  },
-  setup() {
-    const loading = ref(true);
-    axios
-      .get("/permissions")
-      .then(function (response) {
+      .then(function () {
         loading.value = false;
-      })
-      .catch(function (error) {});
+      });
 
     return { loading, module };
   },
