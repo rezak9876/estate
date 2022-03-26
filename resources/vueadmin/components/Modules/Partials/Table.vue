@@ -1,7 +1,7 @@
 <template>
   <GetLoading v-if="loading"/>
 
-  <table  id="miTabla" class="display responsive nowrap" style="width: 100%">
+  <table  id="miTabla" class="display responsive" style="width: 100%">
     <thead>
       <tr>
         <th v-for="(row, index) in module.tableRows" :key="index">{{ row }}</th>

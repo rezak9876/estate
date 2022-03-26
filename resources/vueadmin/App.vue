@@ -3,7 +3,7 @@
     <Sidebar />
     <div id="page-content-wrapper">
       <div class="container-fluid">
-        <div class="d-flex justify-content-between my-3 w-100">
+        <div class="d-flex justify-content-between my-3 w-100 position-sticky top-0 bg-white p-3" style="z-index:1;">
           <div>
             <i
               class="bi bi-justify menu-toggle-btn d-none ms-2"
