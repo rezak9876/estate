@@ -4,7 +4,7 @@ namespace Modules\Role\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Permission\Entities\permission;
+use Modules\Permission\Entities\Permission;
 
 class Role extends Model
 {

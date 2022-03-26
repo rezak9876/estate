@@ -20,7 +20,10 @@
           <i class="bi bi-cart-check-fill"></i>
           پنل مدیریت
           <small>
-            <i class="bi bi-x-lg menu-toggle-btn ms-5" @click="menu-toggle"></i>
+            <i
+              class="bi bi-x-lg menu-toggle-btn ms-5"
+              @click="menu - toggle"
+            ></i>
           </small>
         </span>
       </div>
@@ -47,7 +50,11 @@
           </router-link>
         </li>
 
-        <div v-can:index="'estates'" class="accordion accordion-flush" id="accordionFlushExample2">
+        <div
+          v-can:index="'estates'"
+          class="accordion accordion-flush"
+          id="accordionFlushExample2"
+        >
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne2">
               <button
@@ -134,18 +141,30 @@
 
 <script>
 //Sidebar
-import * as $ from 'jquery';
-import { onMounted} from "vue";
-
+import * as $ from "jquery";
+import { onMounted } from "vue";
 
 export default {
   name: "Sidebar",
   setup() {
     onMounted(() => {
-      $(".menu-toggle-btn").click(function () {
+      $("body").click(function (e) {
+        if ($("#hamburger-icon").hasClass("d-none")) {
+          $("#wrapper").addClass("menuDisplayed");
+          $("#sidebar-wrapper").addClass("d-none");
+          $("#hamburger-icon").removeClass("d-none");
+        }
+      });
+
+      $(".menu-toggle-btn").click(function (e) {
         $("#wrapper").toggleClass("menuDisplayed");
         $("#sidebar-wrapper").toggleClass("d-none");
         $("#hamburger-icon").toggleClass("d-none");
+        e.stopPropagation();
+      });
+
+      $("#sidebar-wrapper").click(function (e) {
+        e.stopPropagation();
       });
     });
   },

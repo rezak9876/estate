@@ -22,10 +22,10 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'رضا کریمی',
-            'email' => 'rezakarimi376@gmail.com',
+            'name' => 'اکانت دمو',
+            'email' => 'info@demo.com',
             'mobile' => '09363389294',
-            'password' => Hash::make('reza201276'),
+            'password' => Hash::make('1'),
             'role_id' => 1,
         ];
     }

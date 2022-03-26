@@ -1,7 +1,7 @@
 export default module = {
     singularName: 'setting',
     pluralName: 'settings',
-    singularPersianName: 'تنظیم',
+    singularPersianName: 'تنظیمات',
     pluralPersianName: 'تنظیمات',
     formfields: {
         
@@ -191,14 +191,14 @@ export default module = {
         
         email2: {
             type: 'input',
-            persianName: '2ایمیل',
+            persianName: 'ایمیل دوم',
             input_type: 'email',
             col:4
         },
         
         email3: {
             type: 'input',
-            persianName: '3ایمیل',
+            persianName: 'ایمیل سوم',
             input_type: 'email',
             col:4
         },
@@ -211,13 +211,13 @@ export default module = {
         
         mobile2: {
             type: 'input',
-            persianName: '2موبایل',
+            persianName: 'موبایل دوم',
             col:4
         },
         
         mobile3: {
             type: 'input',
-            persianName: '3موبایل',
+            persianName: 'موبایل سوم',
             col:4
         },
 
@@ -229,13 +229,13 @@ export default module = {
         
         phone2: {
             type: 'input',
-            persianName: '2تلفن',
+            persianName: 'تلفن دوم',
             col:4
         },
         
         phone3: {
             type: 'input',
-            persianName: '3تلفن',
+            persianName: 'تلفن سوم',
             col:4
         },
 
@@ -247,13 +247,13 @@ export default module = {
         
         fax2: {
             type: 'input',
-            persianName: '2فکس',
+            persianName: 'فکس دوم',
             col:4
         },
         
         fax3: {
             type: 'input',
-            persianName: '3فکس',
+            persianName: 'فکس سوم',
             col:4
         },
 
@@ -265,13 +265,13 @@ export default module = {
         
         address2: {
             type: 'textarea',
-            persianName: '2آدرس',
+            persianName: 'آدرس دوم',
             col:4
         },
         
         address3: {
             type: 'textarea',
-            persianName: '3آدرس',
+            persianName: 'آدرس سوم',
             col:4
         },
 

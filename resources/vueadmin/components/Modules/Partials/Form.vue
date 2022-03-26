@@ -4,7 +4,7 @@
     <div
       v-for="(row, index) in module.formfields"
       :key="index"
-      :class="'col-' + row.col"
+      :class="'col-md-' + row.col"
     >
       <div
         v-if="row.type == 'input'"

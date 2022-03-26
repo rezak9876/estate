@@ -100,15 +100,15 @@ export default {
       ).addTo(mymap);
 
       var myIcon = L.icon({
-        iconUrl: "https://myhouserealestate.ir/images/map/marker-icon.png",
+        iconUrl: "/images/map/marker-icon.png",
         iconRetinaUrl:
-          "https://myhouserealestate.ir/images/map/marker-icon.png",
+          "/images/map/marker-icon.png",
         iconSize: [30, 40],
         iconAnchor: [10, 40],
         popupAnchor: [0, 0],
-        shadowUrl: "https://myhouserealestate.ir/images/map/marker-icon.png",
+        shadowUrl: "/images/map/marker-icon.png",
         shadowRetinaUrl:
-          "https://myhouserealestate.ir/images/map/marker-icon.png",
+          "/images/map/marker-icon.png",
         shadowSize: [0, 0],
         shadowAnchor: [0, 0],
       });
