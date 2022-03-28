@@ -210,5 +210,6 @@ return [
         'socialTwitter' => 'توییتر',
         'socialYoutube' => 'یوتیوب',
         'socialWhatsapp' => 'واتساپ',
+        'province' => 'استان',
     ],
 ];

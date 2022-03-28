@@ -18,5 +18,7 @@ Route::group(['prefix' => 'v1'],function(){
         Route::resource('estates','Admin\EstateController')->only([
             'index','create', 'store', 'edit', 'update', 'destroy'
         ]);
+
+        Route::post('estates/uploadexcel','Admin\EstateController@uploadexcel');
     });
 });

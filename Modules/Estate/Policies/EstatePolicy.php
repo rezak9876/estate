@@ -66,4 +66,9 @@ class EstatePolicy
     {
         return ($user->permissions()->where('slug', 'estates.delete')->exists());
     }
+
+    public function excel(User $user)
+    {
+        return ($user->permissions()->where('slug', 'estates.excel')->exists());
+    }
 }

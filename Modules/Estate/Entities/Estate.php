@@ -46,6 +46,12 @@ class Estate extends Model
         return self::$text[$type];
     }
 
+
+    public static function get_type_id_by_title($title)
+    {
+        return array_search($title, self::$text);
+    }
+
     public function type()
     {
         return self::$text[$this->type];
@@ -111,15 +117,15 @@ class Estate extends Model
 
     public function intfacilities()
     {
-        return $this->belongsToMany(Facility::class,'int_estate_facility')->withPivot('value');
+        return $this->belongsToMany(Facility::class, 'int_estate_facility')->withPivot('value');
     }
     public function txtfacilities()
     {
-        return $this->belongsToMany(Facility::class,'txt_estate_facility')->withPivot('value');
+        return $this->belongsToMany(Facility::class, 'txt_estate_facility')->withPivot('value');
     }
     public function boolfacilities()
     {
-        return $this->belongsToMany(Facility::class,'bool_estate_facility');
+        return $this->belongsToMany(Facility::class, 'bool_estate_facility');
     }
     public function galleries()
     {

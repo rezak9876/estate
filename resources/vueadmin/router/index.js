@@ -16,6 +16,8 @@ import EstateIndex from '../pages/Estate/Index.vue'
 import EstateCreate from '../pages/Estate/Create'
 import EstateUpdate from '../pages/Estate/Update'
 
+import EstateExcel from '../pages/Estate/Excel'
+
 import UserIndex from '../pages/User/Index.vue'
 import UserCreate from '../pages/User/Create'
 import UserUpdate from '../pages/User/Update'
@@ -42,6 +44,8 @@ const routes = [
     { path: "/estates/create", name: 'estates-create', component: EstateCreate },
     { path: "/estates/:id", name: 'estates-edit', component: EstateUpdate },
 
+    { path: "/estates/excel", name: 'estates-excel', component: EstateExcel },
+
     { path: "/users", name: 'users-index', component: UserIndex },
     { path: "/users/create", name: 'users-create', component: UserCreate },
     { path: "/users/:id", name: 'users-edit', component: UserUpdate },
@@ -50,6 +54,8 @@ const routes = [
     { path: "/settings", name: 'settings-index', component: SettingIndex },
     { path: "/settings/create", name: 'settings-create', component: SettingCreate },
     { path: "/settings/:id", name: 'settings-edit', component: SettingUpdate },
+
+
 ];
 
 const router = createRouter({
@@ -61,12 +67,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     // ...
     // explicitly return false to cancel the navigation
-    const url_array = to.name.split("-", 2);
+    if (typeof to.name !== 'undefined') {
+        const url_array = to.name.split("-", 2);
 
+        const condition = check_permission(url_array[1], url_array[0])
 
-    const condition = check_permission(url_array[1], url_array[0])
-
-    return next(condition)
+        return next(condition)
+    }
 })
 
 

@@ -2,6 +2,8 @@
 
 namespace Modules\Estate\Http\Controllers\Admin;
 
+use App\Imports\EstateImport;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -20,8 +22,11 @@ use Modules\Province\Entities\Province;
 use Modules\Region\Entities\Region;
 use Modules\Term\Entities\Term;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Intervention\Image\Facades\Image;
 use Modules\Setting\Entities\Setting;
+use Modules\UseTypeProperty\Entities\UseTypeProperty;
 
 class EstateController extends Controller
 {
@@ -197,7 +202,7 @@ class EstateController extends Controller
             }
         }
         if ($request->delete_main_picture != null) {
-            $this->delete_picture($estate->main_picture , true);
+            $this->delete_picture($estate->main_picture, true);
             $request->merge([
                 'main_picture' => null,
             ]);
@@ -211,7 +216,7 @@ class EstateController extends Controller
         ]);
         if ($request->hasfile('main_pic')) {
             if ($estate->main_picture) {
-                $this->delete_picture($estate->main_picture,true);
+                $this->delete_picture($estate->main_picture, true);
             }
             $file = $request->file('main_pic');
             $name = $this->image_name($request->slug, $file->extension());
@@ -268,7 +273,7 @@ class EstateController extends Controller
                 $this->delete_picture($gallery->path);
             }
             if ($estate->main_picture) {
-                $this->delete_picture($estate->main_picture,true);
+                $this->delete_picture($estate->main_picture, true);
             }
         } finally {
             $estate->delete();
@@ -370,5 +375,118 @@ class EstateController extends Controller
     protected function image_path($name)
     {
         return self::$prefix_images . '/' . $name;
+    }
+
+
+
+    public function uploadexcel(Request $request)
+    {
+        // check permission
+        $this->authorize('excel', Estate::class);
+        // validation
+        $validator = Validator::validate($request->all(), [
+            //use this
+            'excelfile' => 'required|max:50000|mimes:xlsx,doc,docx,ppt,pptx,ods,odt,odp'
+        ], [
+            'mimes' => 'فرمت فایل اکسل نامعتبر است',
+        ]);
+
+        // excel to collection
+        $excel_collection = \Excel::toCollection(new EstateImport, $request->file('excelfile'));
+
+        // check required keys in first row of table
+        $required_keys = ['taadad_atak', 'amkanat', 'shrayt', 'noaa', 'noaa_mlk', 'mtrazh', 'sal_sakht', 'kymt_khryd', 'aanoan', 'aslag', 'todyhat', 'aard_gghrafyayy', 'tol_gghrafyayy', 'astan', 'shhr', 'mntkh', 'mhlh', 'adrs'];
+        if (count(array_intersect(array_keys($excel_collection[0][0]->toArray()), $required_keys)) != count($required_keys)) {
+            throw ValidationException::withMessages(['excelfile' => 'فایل اکسل فیلد های الزامی را ندارد']);
+        }
+
+        $results_array = [];
+        foreach ($excel_collection[0] as $row) {
+
+            // generate int facilities array
+            $int_facilities = Facility::whereType(Facility::Integer)->pluck('title', 'id')->toArray();
+            foreach ($int_facilities as $key => $value) {
+                switch ($value) {
+                    case 'تعداد اتاق':
+                        $int_facilities[$key] = $row['taadad_atak'];
+                        break;
+                }
+            }
+
+            // generate bool facilities array
+            if ($row['amkanat']) {
+                $facility_array = explode('،', $row['amkanat']);
+                $facility_array = array_map(function ($title) {
+                    $title = trim($title);
+                    return Facility::whereTitle($title)->first()->id;
+                }, $facility_array);
+            } else
+                $facility_array = null;
+
+
+            // generate terms array
+
+            if ($row['shrayt']) {
+                $terms_array = explode('،', $row['shrayt']);
+                $terms_array = array_map(function ($title) {
+                    $title = trim($title);
+                    return Term::whereTitle($title)->first()->id;
+                }, $terms_array);
+            } else
+                $terms_array = null;
+
+
+            $params = [
+                "type" => Estate::get_type_id_by_title($row['noaa']),
+                "use_type_property_id" => UseTypeProperty::whereTitle($row['noaa_mlk'])->first()->id,
+                "area" => $row['mtrazh'],
+                "year_of_construction" => $row['sal_sakht'],
+                "total_price" => $row['kymt_khryd'],
+                "title" => $row['aanoan'],
+                "slug" => $row['aslag'],
+                "description" => $row['todyhat'],
+                "latitude" => $row['aard_gghrafyayy'],
+                "longitude" => $row['tol_gghrafyayy'],
+                "province" => $row['astan'],
+                "city" => $row['shhr'],
+                "region" => $row['mntkh'],
+                "neighborhood" => $row['mhlh'],
+                "address" => $row['adrs'],
+                "int_facilities" =>  $int_facilities,
+                "bool_facilities" => $facility_array,
+                "terms" => $terms_array,
+            ];
+
+            // validate params
+            $objetoRequest = new EstateRequest($params);
+            try {
+                $objetoRequest->validate($objetoRequest->rules());
+            } catch (Exception $e) {
+                $error_messages_array = $e->validator->getMessageBag()->getMessages();
+                $error_messages = reset($error_messages_array)[0];
+                $result = [
+                    'title' => $row['aanoan'],
+                    'status' => 'failed',
+                    'message' => $error_messages
+                ];
+                array_push($results_array, $result);
+                continue;
+            }
+
+            // store estate
+            $y = (new EstateController())->store($objetoRequest);
+
+            // generate result array for show in table
+            $result = [
+                'title' => $row['aanoan'],
+                'status' => 'success',
+                'message' => $y->original['message']
+            ];
+            array_push($results_array, $result);
+        }
+        return response()->json([
+            'message' => 'اکسل با موفقیت ثبت شد.',
+            'data' => $results_array,
+        ], 200);
     }
 }

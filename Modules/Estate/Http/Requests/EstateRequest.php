@@ -31,6 +31,9 @@ class EstateRequest extends FormRequest
             ],
             'main_picture' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
             'galleries.*' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
+            'province' => 'required',
+            'city' => 'required',
+            'latitude' => 'required',
         ];
     }
 
