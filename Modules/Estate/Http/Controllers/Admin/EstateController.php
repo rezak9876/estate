@@ -2,6 +2,7 @@
 
 namespace Modules\Estate\Http\Controllers\Admin;
 
+use App\Exports\EstatesExport;
 use App\Imports\EstateImport;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
@@ -392,6 +393,8 @@ class EstateController extends Controller
         ]);
 
         // excel to collection
+        ob_end_clean();
+        ob_start();
         $excel_collection = \Excel::toCollection(new EstateImport, $request->file('excelfile'));
 
         // check required keys in first row of table
@@ -487,6 +490,28 @@ class EstateController extends Controller
         return response()->json([
             'message' => 'اکسل با موفقیت ثبت شد.',
             'data' => $results_array,
+        ], 200);
+    }
+
+
+
+    public function downloadexcel(Request $request)
+    {
+        // check permission
+        $this->authorize('excel', Estate::class);
+
+        try {
+            // delete previous file for prevent error
+            unlink('files/estaet-export.xlsx');
+            \Excel::store(new EstatesExport(), 'files/estaet-export.xlsx', 'real_public');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'در حال حاضر قادر امکان ایجاد اکسل وجود ندارد',
+            ], 500);
+        }
+        return response()->json([
+            'message' => 'اکسل با موفقیت ایجاد شد.',
+            'url' => 'files/estaet-export.xlsx'
         ], 200);
     }
 }

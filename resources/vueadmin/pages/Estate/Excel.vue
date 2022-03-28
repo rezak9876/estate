@@ -1,4 +1,23 @@
 <template>
+  <h2>خروجی اکسل آگهی ها</h2>
+  <button
+    @click="getEstateExcel"
+    class="btn btn-primary"
+    :disabled="expotExcelUrl.loading"
+  >
+    <div v-if="expotExcelUrl.loading">
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      پردازش...
+    </div>
+    <span v-else>دریافت</span>
+  </button>
+  <a class="mx-5" v-if="expotExcelUrl.url" :href="expotExcelUrl.url">دانلود فایل اکسل</a>
+  <hr />
+  <h2>آپلود اکسل آگهی ها</h2>
   <form @submit="formSubmitted">
     <div class="mb-3">
       <label class="form-label"
@@ -14,11 +33,11 @@
       />
     </div>
     <small class="bg-warning"
-      >سطر اول باید شامل نوع ،نوع ملک، متراژ، سال ساخت، قیمت خرید، قیمت رهن، قیمت
-      اجاره، عنوان، اسلاگ، توضیحات، عرض جغرافیایی، طول جغرافیایی، استان، شهر، منطقه، محله،
-      آدرس، امکانات، شرایط، تعداد اتاق، جنس کف  باشد</small
+      >سطر اول باید شامل نوع ،نوع ملک، متراژ، سال ساخت، قیمت خرید، قیمت رهن،
+      قیمت اجاره، عنوان، اسلاگ، توضیحات، عرض جغرافیایی، طول جغرافیایی، استان،
+      شهر، منطقه، محله، آدرس، امکانات، شرایط، تعداد اتاق، جنس کف باشد</small
     >
-    <br>
+    <br />
     <button type="submit" class="btn btn-primary float-end" :disabled="loading">
       <div v-if="loading">
         <span
@@ -92,10 +111,44 @@ export default {
     function excelfilechanges(event) {
       formData.value.excelfile = event.target.files[0];
     }
-    return { loading, formSubmitted, excelfilechanges, table };
+
+    const expotExcelUrl = ref({
+      loading: false,
+      url: null,
+    });
+
+    function getEstateExcel() {
+      expotExcelUrl.value.loading = true;
+
+      axios
+        .get("/estates/downloadexcel")
+        .then(function (response) {
+          toastShow("success", response.data.message);
+          expotExcelUrl.value.url = response.data.url;
+        })
+        .catch(function (error) {
+          expotExcelUrl.value.loading = false;
+          const firstmessage = error.response.data.message;
+          toastShow("error", firstmessage);
+        })
+        .then(function () {
+          expotExcelUrl.value.loading = false;
+        });
+    }
+    return {
+      loading,
+      formSubmitted,
+      excelfilechanges,
+      table,
+      getEstateExcel,
+      expotExcelUrl,
+    };
   },
 };
 </script>
 
 <style>
+body {
+  min-height: 100vh;
+}
 </style>

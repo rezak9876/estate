@@ -20,5 +20,6 @@ Route::group(['prefix' => 'v1'],function(){
         ]);
 
         Route::post('estates/uploadexcel','Admin\EstateController@uploadexcel');
+        Route::get('estates/downloadexcel','Admin\EstateController@downloadexcel');
     });
 });

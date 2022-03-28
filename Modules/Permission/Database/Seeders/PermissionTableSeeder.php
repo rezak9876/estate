@@ -42,6 +42,7 @@ class PermissionTableSeeder extends Seeder
             ['title' => 'ویرایش آگهی' , 'slug' => 'estates.edit'],
             ['title' => 'حذف آگهی' , 'slug' => 'estates.delete'],
             ['title' => 'ایجاد آگهی' , 'slug' => 'estates.create'],
+            ['title' => 'اکسل آگهی' , 'slug' => 'estates.excel'],
         ];
         foreach ($permissions as $permission) {
             DB::table('permissions')->insert(
