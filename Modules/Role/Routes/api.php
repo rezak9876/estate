@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1'],function(){
-    Route::prefix('admin')->as('admin.')->middleware('auth:sanctum')->group(function () {
+    Route::prefix('admin')->as('admin.')->middleware(['auth:sanctum', 'admin'])->group(function () {
         Route::resource('roles','Admin\RoleController')->only([
             'index', 'create','store', 'edit', 'update', 'destroy'
         ]);

@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/admin', function () {
-    return view('welcome');
+Route::middleware(['auth:sanctum', 'admin'])->get('/admin', function () {
+    return view('admin');
 })->name('admin');
 
+
+Route::middleware('auth:sanctum')->get('/user', function () {
+    return view('admin');
+})->name('user');

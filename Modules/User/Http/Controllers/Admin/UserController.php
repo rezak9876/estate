@@ -191,7 +191,6 @@ class UserController extends Controller
     public function login_user()
     {
         $user = Auth::user();
-        $permissions = $user->permissions;
         $response = [];
         foreach($user->permissions as $permission)
         {
@@ -209,6 +208,7 @@ class UserController extends Controller
             'name' => $user->name,
             'picture' => $user->picture ? '/images/users/' . $user->picture : '/images/noimage.png',
             'permissions' => $response,
+            'is_admin' => Auth::user()->role->slug != 'general_user',
         ]);
     }
 }

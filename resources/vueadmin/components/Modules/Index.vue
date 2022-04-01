@@ -29,6 +29,7 @@ export default {
         value: props.module.pluralName,
         arg: "create",
       },
+      module: props.module.pluralName,
     };
     return { headerInfo };
   },

@@ -14,6 +14,15 @@
     </router-link>
 
     <router-link
+      v-else-if="headerInfo.module == 'estates'"
+      :to="headerInfo.button.link"
+      :class="headerInfo.button.color"
+    >
+      <i :class="headerInfo.button.icon"></i>
+      {{ headerInfo.button.title }}
+    </router-link>
+
+    <router-link
       v-else
       v-can:create="headerInfo.permission.value"
       :to="headerInfo.button.link"

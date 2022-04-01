@@ -22,6 +22,10 @@ class RoleTableSeeder extends Seeder
             [
                 'title' => 'مدیر',
                 'slug' => 'admin',
+            ],
+            [
+                'title' => 'کاربر عادی',
+                'slug' => 'general_user',
             ]
         );
     }

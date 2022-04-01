@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Modules\Role\Entities\Role;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -22,6 +23,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'mobile' => ['required', 'regex:/(?:0)?(9\d{9})$/'],
             'email' => [
                 'required',
                 'string',
@@ -35,6 +37,8 @@ class CreateNewUser implements CreatesNewUsers
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'mobile' => $input['mobile'],
+            'role_id' => Role::whereSlug('general_user')->first()->id,
             'password' => Hash::make($input['password']),
         ]);
     }

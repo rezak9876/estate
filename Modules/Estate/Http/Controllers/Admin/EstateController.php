@@ -28,6 +28,7 @@ use Illuminate\Validation\ValidationException;
 use Intervention\Image\Facades\Image;
 use Modules\Setting\Entities\Setting;
 use Modules\UseTypeProperty\Entities\UseTypeProperty;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class EstateController extends Controller
 {
@@ -44,7 +45,10 @@ class EstateController extends Controller
      */
     public function index()
     {
-        $estates = Estate::orderBy('created_at', 'desc')->get();
+        $login_user = Auth::user();
+        $estates = Estate::orderBy('created_at', 'desc')->get()->filter(function ($estate) use ($login_user) {
+            return $login_user->can('view', $estate);
+        });
         return response()->json(new EstateCollection($estates), 200);
     }
 

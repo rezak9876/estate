@@ -1,12 +1,14 @@
 <template>
-  <GetLoading v-if="loading"/>
+  <GetLoading v-if="loading" />
 
-  <table  id="miTabla" class="display responsive" style="width: 100%">
+  <table id="miTabla" class="display responsive" style="width: 100%">
     <thead>
       <tr>
         <th v-for="(row, index) in module.tableRows" :key="index">{{ row }}</th>
-        <th v-can:edit="module.pluralName" width="10px">ویرایش</th>
-        <th v-can:delete="module.pluralName" width="10px">حذف</th>
+        <th v-if="module.pluralName == 'estates'" width="10px">ویرایش</th>
+        <th v-else v-can:edit="module.pluralName" width="10px">ویرایش</th>
+        <th v-if="module.pluralName == 'estates'" width="10px">حذف</th>
+        <th v-else v-can:delete="module.pluralName" width="10px">حذف</th>
       </tr>
     </thead>
     <tbody>
@@ -14,12 +16,41 @@
         <td v-for="(row, index) in module.tableRows" :key="index">
           {{ data[index] }}
         </td>
-        <td v-can:edit="module.pluralName">
+        <td v-if="module.pluralName == 'estates'">
+          <button
+            @click="edit(data.id)"
+            type="button"
+            :class="data.editable ? 'btn btn-success' : 'btn btn-secondary'"
+            :disabled="!data.editable"
+          >
+            <i class="bi bi-pen"></i>
+          </button>
+        </td>
+        <td v-else v-can:edit="module.pluralName">
           <button @click="edit(data.id)" type="button" class="btn btn-success">
             <i class="bi bi-pen"></i>
           </button>
         </td>
-        <td v-can:delete="module.pluralName">
+        <td v-if="module.pluralName == 'estates'">
+          <button
+            @click="destroy(data.id)"
+            type="button"
+            :class="data.deletable ? 'btn btn-danger' : 'btn btn-secondary'"
+            :disabled="!data.deletable || data.loading"
+          >
+            <div v-if="data.loading">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              پردازش...
+            </div>
+            <i v-else class="bi bi-trash"></i>
+          </button>
+        </td>
+
+        <td v-else v-can:delete="module.pluralName">
           <button
             @click="destroy(data.id)"
             type="button"
@@ -65,8 +96,6 @@ import router from "../../../router/index.js";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
-
 import GetLoading from "../../sections/GetLoading.vue";
 export default {
   name: "Table",
@@ -76,8 +105,7 @@ export default {
   },
   setup(props) {
     const loading = ref(true);
-    onMounted(() => {
-    });
+    onMounted(() => {});
     const datas = ref([]);
     const module = props.module;
     function getDatas() {
@@ -93,7 +121,6 @@ export default {
         .then(function () {
           loading.value = false;
           miDataTable();
-
         });
     }
     getDatas();
@@ -116,7 +143,7 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "بله",
-        reverseButtons:true
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           let data = {};

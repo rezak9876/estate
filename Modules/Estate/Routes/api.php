@@ -13,13 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1'],function(){
-    Route::prefix('admin')->as('admin.')->middleware('auth:sanctum')->group(function () {
-        Route::resource('estates','Admin\EstateController')->only([
-            'index','create', 'store', 'edit', 'update', 'destroy'
-        ]);
+Route::group(['prefix' => 'v1'], function () {
+    Route::prefix('admin')->as('admin.')->middleware(['auth:sanctum', 'admin'])->group(function () {
 
-        Route::post('estates/uploadexcel','Admin\EstateController@uploadexcel');
-        Route::get('estates/downloadexcel','Admin\EstateController@downloadexcel');
+        Route::post('estates/uploadexcel', 'Admin\EstateController@uploadexcel');
+        Route::get('estates/downloadexcel', 'Admin\EstateController@downloadexcel');
+    });
+
+
+    Route::prefix('admin')->as('admin.')->middleware(['auth:sanctum'])->group(function () {
+        Route::resource('estates', 'Admin\EstateController')->only([
+            'index', 'create', 'store', 'edit', 'update', 'destroy'
+        ]);
     });
 });

@@ -52,6 +52,8 @@ axios
         app.directive('can', (el, binding, vnode, prevVnode) => {
             // this will be called for both `mounted` and `updated`
 
+            if (binding.arg == null && binding.value == null)
+                return true;
             const condition = check_permission(binding.arg, binding.value)
 
             if (!condition)

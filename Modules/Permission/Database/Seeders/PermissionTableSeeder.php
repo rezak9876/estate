@@ -41,7 +41,6 @@ class PermissionTableSeeder extends Seeder
             ['title' => 'ایجاد امکانات' , 'slug' => 'facilities.create'],
             ['title' => 'ویرایش آگهی' , 'slug' => 'estates.edit'],
             ['title' => 'حذف آگهی' , 'slug' => 'estates.delete'],
-            ['title' => 'ایجاد آگهی' , 'slug' => 'estates.create'],
             ['title' => 'اکسل آگهی' , 'slug' => 'estates.excel'],
         ];
         foreach ($permissions as $permission) {

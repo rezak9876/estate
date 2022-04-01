@@ -26,7 +26,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $facilities = Role::orderBy('created_at', 'desc')->get();
+        $facilities = Role::where('slug','<>','general_user')->orderBy('created_at', 'desc')->get();
         return response()->json(new RoleCollection($facilities), 200);
     }
 

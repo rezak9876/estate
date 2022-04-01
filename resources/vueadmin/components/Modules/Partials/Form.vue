@@ -318,6 +318,7 @@ export default {
           })
           .catch(function (error) {
             if (error.response.status == 403) router.push("/");
+            if (error.response.status == 404) router.push("/");
           })
           .then(function () {
             loading.value = false;

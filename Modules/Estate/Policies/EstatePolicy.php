@@ -17,7 +17,7 @@ class EstatePolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->permissions()->where('slug', 'like', 'estates.%')->count() > 0);
+        return true;
     }
 
     /**
@@ -26,9 +26,9 @@ class EstatePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user, Estate $estate)
     {
-        return ($user->permissions()->where('slug', 'estates.edit')->exists());
+        return $this->update($user, $estate) || $this->delete($user, $estate);
     }
 
 
@@ -41,7 +41,7 @@ class EstatePolicy
      */
     public function create(User $user)
     {
-        return ($user->permissions()->where('slug', 'estates.create')->exists());
+        return true;
     }
 
     /**
@@ -50,9 +50,12 @@ class EstatePolicy
      * @param \App\Models\User $user
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Estate $estate)
     {
-        return ($user->permissions()->where('slug', 'estates.edit')->exists());
+        if ($estate->user_id != $user->id)
+            if ($user->role->slug == 'general_user' || !$user->permissions()->where('slug', 'estates.edit')->exists())
+                return false;
+        return true;
     }
 
 
@@ -62,9 +65,12 @@ class EstatePolicy
      * @param \App\Models\User $user
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Estate $estate)
     {
-        return ($user->permissions()->where('slug', 'estates.delete')->exists());
+        if ($estate->user_id != $user->id)
+            if ($user->role->slug == 'general_user' || !$user->permissions()->where('slug', 'estates.delete')->exists())
+                return false;
+        return true;
     }
 
     public function excel(User $user)

@@ -29,108 +29,67 @@
       </div>
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
-        <li v-can:index="'terms'" class="nav-item">
+        <li v-for="(row, index) in sidebar" :key="index" class="nav-item">
           <router-link
-            to="/terms"
+            v-if="row.type == 'router-link'"
+            v-can:[row.permission?row.permission.arg:null]="
+              row.permission ? row.permission.value : null
+            "
+            :to="row.link"
             class="nav-link link-dark"
             aria-current="page"
           >
             <i class="bi bi-house-door"></i>
-            شرایط
+            {{ row.persianName }}
           </router-link>
-        </li>
-        <li v-can:index="'facilities'">
-          <router-link
-            to="/facilities"
-            class="nav-link link-dark"
-            aria-current="page"
-          >
-            <i class="bi bi-house-door"></i>
-            امکانات
-          </router-link>
-        </li>
 
-        <div
-          v-can:index="'estates'"
-          class="accordion accordion-flush"
-          id="accordionFlushExample2"
-        >
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne2">
-              <button
-                class="accordion-button collapsed shadow-none"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne2"
-                aria-expanded="false"
-                aria-controls="flush-collapseOne2"
+          <div
+            v-if="row.type == 'div'"
+            v-can:[row.permission?row.permission.arg:null]="
+              row.permission ? row.permission.value : null
+            "
+            class="accordion accordion-flush"
+            id="accordionFlushExample2"
+          >
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne2">
+                <button
+                  class="accordion-button collapsed shadow-none"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="'#flush-headingOne-' + row.id"
+                  aria-expanded="false"
+                  :aria-controls="'flush-headingOne-' + row.id"
+                >
+                  <i class="bi bi-house-door"></i>
+                  {{ row.persianName }}
+                </button>
+              </h2>
+              <div
+                :id="'flush-headingOne-' + row.id"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingOne2"
+                data-bs-parent="#accordionFlushExample2"
               >
-                <i class="bi bi-house-door"></i>
-                آگهی ها
-              </button>
-            </h2>
-            <div
-              id="flush-collapseOne2"
-              class="accordion-collapse collapse"
-              aria-labelledby="flush-headingOne2"
-              data-bs-parent="#accordionFlushExample2"
-            >
-              <div class="border-bottom">
-                <li v-can:create="'estates'">
-                  <router-link to="/estates/create" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    ایجاد آگهی
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/estates" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    لیست آگهی ها
-                  </router-link>
-                </li>
-                <li v-can:excel="'estates'">
-                  <router-link to="/estates/excel" class="nav-link link-dark">
-                    <i class="bi bi-house-door"></i>
-                    اکسل آگهی ها
-                  </router-link>
-                </li>
+                <div class="border-bottom">
+                  <li
+                    v-for="(child, child_index) in row.children"
+                    :key="child_index"
+                    v-can:[child.permission?child.permission.arg:null]="
+                      child.permission ? child.permission.value : null
+                    "
+                  >
+                    <router-link :to="child.link" class="nav-link link-dark">
+                      <i class="bi bi-house-door"></i>
+                      {{ child.persianName }}
+                    </router-link>
+                  </li>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <li v-can:index="'roles'">
-          <router-link
-            to="/roles"
-            class="nav-link link-dark"
-            aria-current="page"
-          >
-            <i class="bi bi-house-door"></i>
-            نقش ها
-          </router-link>
         </li>
 
-        <li v-can:index="'users'">
-          <router-link
-            to="/users"
-            class="nav-link link-dark"
-            aria-current="page"
-          >
-            <i class="bi bi-house-door"></i>
-            کاربران
-          </router-link>
-        </li>
-
-        <li v-can:index="'settings'">
-          <router-link
-            to="/settings/1"
-            class="nav-link link-dark"
-            aria-current="page"
-          >
-            <i class="bi bi-house-door"></i>
-            تنظیمات
-          </router-link>
-        </li>
 
         <li>
           <a href="/" class="nav-link link-dark" aria-current="page">
@@ -149,6 +108,7 @@
 //Sidebar
 import * as $ from "jquery";
 import { onMounted } from "vue";
+import sidebar from "../../sidebar/index.js";
 
 export default {
   name: "Sidebar",
@@ -235,6 +195,8 @@ export default {
         e.stopPropagation();
       });
     });
+
+    return { sidebar };
   },
 };
 </script>

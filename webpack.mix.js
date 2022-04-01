@@ -16,6 +16,6 @@ const mix = require('laravel-mix');
 //      //
 //  ]);
 
-mix.js('resources/vueadmin/app.js', 'public/js')
+mix.js('resources/vueadmin/app.js', 'public/js/admin')
     .sourceMaps()
     .vue()
