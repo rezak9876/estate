@@ -13,11 +13,22 @@ function getCookie(cname) {
     return "";
 }
 
-const user = JSON.parse(getCookie('user'))
+// let user = getCookie('user')
 
+// if (user != '')
+//     user = JSON.parse(getCookie('user'))
+
+let user;
+try {
+    user = JSON.parse(getCookie('user'))
+} catch (e) {
+    user = {
+        is_admin : false
+    }
+}
 const is_admin = user.is_admin;
 
-export {is_admin}
+export { is_admin }
 
 export function check_permission(arg, section) {
 

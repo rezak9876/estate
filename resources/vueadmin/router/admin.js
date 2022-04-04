@@ -1,32 +1,32 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import TermIndex from '../pages/Term/Index.vue'
-import TermCreate from '../pages/Term/Create'
-import TermUpdate from '../pages/Term/Update'
+import TermIndex from '../pages/admin/Term/Index.vue'
+import TermCreate from '../pages/admin/Term/Create'
+import TermUpdate from '../pages/admin/Term/Update'
 
-import FacilityIndex from '../pages/Facility/Index.vue'
-import FacilityCreate from '../pages/Facility/Create'
-import FacilityUpdate from '../pages/Facility/Update'
+import FacilityIndex from '../pages/admin/Facility/Index.vue'
+import FacilityCreate from '../pages/admin/Facility/Create'
+import FacilityUpdate from '../pages/admin/Facility/Update'
 
-import RoleIndex from '../pages/Role/Index.vue'
-import RoleCreate from '../pages/Role/Create'
-import RoleUpdate from '../pages/Role/Update'
+import RoleIndex from '../pages/admin/Role/Index.vue'
+import RoleCreate from '../pages/admin/Role/Create'
+import RoleUpdate from '../pages/admin/Role/Update'
 
 import EstateIndex from '../pages/Estate/Index.vue'
 import EstateCreate from '../pages/Estate/Create'
 import EstateUpdate from '../pages/Estate/Update'
 
-import EstateExcel from '../pages/Estate/Excel'
+import EstateExcel from '../pages/admin/Estate/Excel'
 
-import UserIndex from '../pages/User/Index.vue'
-import UserCreate from '../pages/User/Create'
-import UserUpdate from '../pages/User/Update'
+import UserIndex from '../pages/admin/User/Index.vue'
+import UserCreate from '../pages/admin/User/Create'
+import UserUpdate from '../pages/admin/User/Update'
 
-import SettingIndex from '../pages/Setting/Index.vue'
-import SettingCreate from '../pages/Setting/Create'
-import SettingUpdate from '../pages/Setting/Update'
+import SettingIndex from '../pages/admin/Setting/Index.vue'
+import SettingCreate from '../pages/admin/Setting/Create'
+import SettingUpdate from '../pages/admin/Setting/Update'
 
-import HomeIndex from '../pages/Home/Index'
+import HomeIndex from '../pages/admin/Home/Index'
 
 import { check_permission } from '../permissions'
 const routes = [

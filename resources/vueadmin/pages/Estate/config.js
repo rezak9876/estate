@@ -4,10 +4,37 @@ export default module = {
     pluralName: 'estates',
     singularPersianName: 'آگهی',
     pluralPersianName: 'آگهی ها',
-    tableRows: {
-        title: 'عنوان',
-        type: 'نوع',
-    },
+    tableRows:
+        [
+            {
+                type: 'text',
+                title: 'عنوان',
+                slug: 'title',
+            },
+            {
+                type: 'text',
+                title: 'نوع',
+                slug: 'type',
+            },
+            {
+                type: 'button',
+                title: 'ویرایش',
+                slug: 'edit',
+                permission: {
+                    arg: 'edit',
+                    value: 'estates'
+                },
+            },
+            {
+                type: 'button',
+                title: 'حذف',
+                slug: 'delete',
+                permission: {
+                    arg: 'delete',
+                    value: 'estates'
+                },
+            }
+        ],
     formfields: {
         type: {
             type: 'select',
@@ -118,7 +145,7 @@ export default module = {
             type: 'input',
             persianName: 'تصویر اصلی',
             input_type: 'file',
-            accept:"image/*",
+            accept: "image/*",
             col: 6
         },
 
@@ -133,7 +160,7 @@ export default module = {
             type: 'input',
             persianName: 'گالری تصاویر',
             input_type: 'file',
-            accept:"image/*",
+            accept: "image/*",
             col: 6,
             attributes: {
                 multiple: true

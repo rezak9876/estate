@@ -4,19 +4,72 @@
   <table id="miTabla" class="display responsive" style="width: 100%">
     <thead>
       <tr>
-        <th v-for="(row, index) in module.tableRows" :key="index">{{ row }}</th>
-        <th v-if="module.pluralName == 'estates'" width="10px">ویرایش</th>
-        <th v-else v-can:edit="module.pluralName" width="10px">ویرایش</th>
-        <th v-if="module.pluralName == 'estates'" width="10px">حذف</th>
-        <th v-else v-can:delete="module.pluralName" width="10px">حذف</th>
+        <th
+          v-for="(row, th_table_index) in module.tableRows"
+          :key="th_table_index"
+          v-can:[row.permission?row.permission.arg:null]="
+            row.permission ? row.permission.value : null
+          "
+        >
+          {{ row.title }}
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="data in datas" :key="data.id">
-        <td v-for="(row, index) in module.tableRows" :key="index">
-          {{ data[index] }}
+        <td
+          v-for="(row, textTableRows_index) in textTableRows"
+          :key="textTableRows_index"
+        >
+          {{ data[row.slug] }}
         </td>
-        <td v-if="module.pluralName == 'estates'">
+        <td
+          v-for="(row, buttonTableRows_index) in buttonTableRows"
+          :key="buttonTableRows_index"
+          v-can:[row.permission?row.permission.arg:null]="
+            row.permission ? row.permission.value : null
+          "
+        >
+          <button
+            v-if="row.slug == 'edit'"
+            @click="edit(data.id)"
+            type="button"
+            :class="
+              typeof data.editable == 'undefined' || data.editable
+                ? 'btn btn-success'
+                : 'btn btn-secondary'
+            "
+            :disabled="typeof data.editable != 'undefined' && !data.editable"
+          >
+            <i class="bi bi-pen"></i>
+          </button>
+
+          <button
+            v-if="row.slug == 'delete'"
+            @click="destroy(data.id)"
+            type="button"
+            :class="
+              typeof data.deletable == 'undefined' || data.deletable
+                ? 'btn btn-danger'
+                : 'btn btn-secondary'
+            "
+            :disabled="
+              (typeof data.deletable != 'undefined' && !data.deletable) ||
+              data.loading
+            "
+          >
+            <div v-if="data.loading">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              پردازش...
+            </div>
+            <i v-else class="bi bi-trash"></i>
+          </button>
+        </td>
+        <!-- <td v-if="module.pluralName == 'estates'">
           <button
             @click="edit(data.id)"
             type="button"
@@ -25,13 +78,9 @@
           >
             <i class="bi bi-pen"></i>
           </button>
-        </td>
-        <td v-else v-can:edit="module.pluralName">
-          <button @click="edit(data.id)" type="button" class="btn btn-success">
-            <i class="bi bi-pen"></i>
-          </button>
-        </td>
-        <td v-if="module.pluralName == 'estates'">
+        </td> -->
+
+        <!-- <td v-if="module.pluralName == 'estates'">
           <button
             @click="destroy(data.id)"
             type="button"
@@ -48,26 +97,7 @@
             </div>
             <i v-else class="bi bi-trash"></i>
           </button>
-        </td>
-
-        <td v-else v-can:delete="module.pluralName">
-          <button
-            @click="destroy(data.id)"
-            type="button"
-            class="btn btn-danger"
-            :disabled="data.loading"
-          >
-            <div v-if="data.loading">
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              پردازش...
-            </div>
-            <i v-else class="bi bi-trash"></i>
-          </button>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </table>
@@ -102,6 +132,14 @@ export default {
   inject: ["toastShow"],
   props: {
     module: Object,
+  },
+  computed: {
+    textTableRows: function () {
+      return this.module.tableRows.filter((i) => i.type === "text");
+    },
+    buttonTableRows: function () {
+      return this.module.tableRows.filter((i) => i.type === "button");
+    },
   },
   setup(props) {
     const loading = ref(true);
