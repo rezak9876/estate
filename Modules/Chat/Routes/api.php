@@ -19,6 +19,6 @@ Route::group(['prefix' => 'v1'], function () {
             'index', 'show', 'create', 'store', 'edit', 'update', 'destroy'
         ]);
 
-        Route::get('chats/send_chat/{chat_id}', 'Admin\ChatController@send_chat');
+        Route::post('chats/send_chat', 'Admin\ChatLineController@send_chat');
     });
 });

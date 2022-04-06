@@ -48,7 +48,7 @@ class ChatController extends Controller
      */
     public function show($id)
     {
-        $chatLiness = ChatLine::orderBy('created_at', 'desc')->get();
+        $chatLiness = ChatLine::orderBy('created_at', 'asc')->get();
         return response()->json(new ChatLineCollection($chatLiness), 200);
     }
 

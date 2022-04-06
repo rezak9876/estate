@@ -18,5 +18,5 @@ const mix = require('laravel-mix');
 
 mix.js('resources/vueadmin/app.js', 'public/js/admin')
     .sourceMaps()
-    .vue()
-    .browserSync(process.env.APP_URL);
+    .vue();
+    // .browserSync(process.env.APP_URL);

@@ -22,7 +22,10 @@ class RoleTableSeeder extends Seeder
             [
                 'title' => 'مدیر',
                 'slug' => 'admin',
-            ],
+            ]
+        );
+
+        DB::table('roles')->insert(
             [
                 'title' => 'کاربر عادی',
                 'slug' => 'general_user',

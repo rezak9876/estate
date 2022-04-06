@@ -4,10 +4,10 @@
 
     <div v-else class="page-content page-container" id="page-content">
       <div class="padding">
-        <div class="row container d-flex justify-content-center">
-          <div class="card card-bordered">
+        <div class="container d-flex justify-content-center">
+          <div class="card card-bordered w-100">
             <div class="card-header">
-              <h4 class="card-title"><strong>Chat</strong></h4>
+              <h4 class="card-title"><strong>ارسال پیام</strong></h4>
               <img
                 class="avatar"
                 src="https://img.icons8.com/color/36/000000/administrator-male.png"
@@ -19,7 +19,6 @@
               id="chat-content"
               style="overflow-y: scroll !important; height: 400px !important"
             >
-              {{ chatLines }}
               <div
                 v-for="(chatline, chatline_index) in chatLines"
                 :key="chatline_index"
@@ -72,11 +71,6 @@
               </div>
             </div>
             <div class="publisher bt-1 border-light" style="direction: ltr">
-              <img
-                class="avatar avatar-xs"
-                src="https://img.icons8.com/color/36/000000/administrator-male.png"
-                alt="..."
-              />
               <input
                 v-model="chat_line_object.message"
                 class="publisher-input"
@@ -109,9 +103,10 @@
 import Show from "../../components/Modules/Show.vue";
 import module from "./config";
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import GetLoading from "../../components/sections/GetLoading.vue";
+import * as $ from "jquery";
 
 export default {
   components: {
@@ -144,21 +139,34 @@ export default {
       send_status: "send",
     });
 
+    function scroll_to_end_of_chat_content() {
+      var objDiv = document.getElementById("chat-content");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
     function sendMessage() {
-      var today = new Date();
-      var time = today.getHours() + ":" + today.getMinutes();
-      chat_line_object.value.time = time;
-      let new_chat_line = Object.assign({}, chat_line_object.value);
-      let added_index = chatLines.value.push(new_chat_line);
-      chat_line_object.value.message = null;
+      if (chat_line_object.value.message == null) return false;
+
+      let new_chat_line;
+      let added_index;
+      function add_chat_line_to_screen() {
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes();
+        chat_line_object.value.time = time;
+        new_chat_line = Object.assign({}, chat_line_object.value);
+        added_index = chatLines.value.push(new_chat_line) - 1;
+        chat_line_object.value.message = null;
+      }
+
+      $.when(add_chat_line_to_screen()).then(scroll_to_end_of_chat_content);
 
       axios
-        .post(
-          "/" + module.pluralName + "/send_chat/" + id,
-          chat_line_object.value.message
-        )
+        .post("/" + module.pluralName + "/send_chat", {
+          chat_id: id,
+          content: new_chat_line.message,
+        })
         .then(function (response) {
-          console.log(response.data);
+          chatLines.value[added_index].send_status = "received";
         })
         .catch(function (error) {
           if (error.response.status == 403) router.push("/");
@@ -169,9 +177,32 @@ export default {
         });
     }
 
+    function waitForElm(selector) {
+      return new Promise((resolve) => {
+        if (document.querySelector(selector)) {
+          return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver((mutations) => {
+          if (document.querySelector(selector)) {
+            resolve(document.querySelector(selector));
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+      });
+    }
+
+    waitForElm("#chat-content").then((elm) => {
+        scroll_to_end_of_chat_content();
+    });
+
     return { chatLines, module, loading, sendMessage, chat_line_object };
   },
-  mounted() {},
 };
 </script>
 
@@ -188,10 +219,6 @@ export default {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   -webkit-transition: 0.5s;
   transition: 0.5s;
-}
-
-.padding {
-  padding: 3rem !important;
 }
 
 body {
@@ -438,6 +465,7 @@ h4.card-title {
   outline: none !important;
   background-color: transparent;
   direction: rtl;
+  overflow-y: hidden;
 }
 
 button,
