@@ -28,6 +28,13 @@ import SettingUpdate from '../pages/admin/Setting/Update'
 
 import HomeIndex from '../pages/admin/Home/Index'
 
+
+
+import ChatIndex from '../pages/Chat/Index.vue'
+import ChatCreate from '../pages/Chat/Create'
+import ChatShow from '../pages/Chat/Show'
+
+
 import { check_permission } from '../permissions'
 const routes = [
 
@@ -61,6 +68,11 @@ const routes = [
     { path: "/settings/:id", name: 'settings-edit', component: SettingUpdate },
 
 
+    { path: "/chats", name: 'chats-index', component: ChatIndex },
+    { path: "/chats/create", name: 'chats-create', component: ChatCreate },
+    { path: "/chats/:id", name: 'chats-show', component: ChatShow },
+
+
 ];
 
 const router = createRouter({
@@ -73,13 +85,14 @@ router.beforeEach((to, from, next) => {
     // ...
     // explicitly return false to cancel the navigation
     if (typeof to.name !== 'undefined') {
-        if (typeof to.name !== 'undefined')
-            return next(true)
 
         const url_array = to.name.split("-", 2);
 
 
-        if (url_array[1] == 'edit' && url_array[0] == 'estates')
+        const freeModules = ["estates", "chats"];
+
+
+        if (freeModules.includes(url_array[0]))
             return next(true)
 
         const condition = check_permission(url_array[1], url_array[0])

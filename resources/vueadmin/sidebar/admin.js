@@ -60,7 +60,16 @@ const sidebar = [
     },
     {
         type: 'router-link',
+        link: '/chats',
+        persianName: 'پیام ها'
+    },
+    {
+        type: 'router-link',
         link: '/settings/1',
+        permission: {
+            arg: 'edit',
+            value: 'settings'
+        },
         persianName: 'تنظیمات'
     },
 ];

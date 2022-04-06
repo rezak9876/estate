@@ -45,7 +45,7 @@
           </button>
 
           <button
-            v-if="row.slug == 'delete'"
+            v-else-if="row.slug == 'delete'"
             @click="destroy(data.id)"
             type="button"
             :class="
@@ -67,6 +67,16 @@
               پردازش...
             </div>
             <i v-else class="bi bi-trash"></i>
+          </button>
+
+          <button
+            v-else-if="row.slug == 'view'"
+            @click="show(data.id)"
+            type="button"
+            class="btn btn-info"
+            :disabled="typeof data.editable != 'undefined' && !data.editable"
+          >
+            <i class="bi bi-eye"></i>
           </button>
         </td>
         <!-- <td v-if="module.pluralName == 'estates'">
@@ -170,6 +180,13 @@ export default {
       });
     }
 
+    function show(id) {
+      router.push({
+        name: module.pluralName + "-show",
+        params: { id: id },
+      });
+    }
+
     const toastShow = inject("toastShow");
     function destroy(id) {
       Swal.fire({
@@ -207,7 +224,7 @@ export default {
       });
     }
 
-    return { loading, datas, destroy, edit, module };
+    return { loading, datas, destroy, edit, show, module };
   },
   components: {
     GetLoading,

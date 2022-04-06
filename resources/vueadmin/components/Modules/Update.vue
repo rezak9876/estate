@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Header from "../../components/sections/Header.vue";
+import Header from "../sections/Header.vue";
 import * as $ from "jquery";
 import router from "../../router/index.js";
 import { onMounted, ref, inject } from "vue";

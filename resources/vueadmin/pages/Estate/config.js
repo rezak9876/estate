@@ -20,19 +20,11 @@ export default module = {
                 type: 'button',
                 title: 'ویرایش',
                 slug: 'edit',
-                permission: {
-                    arg: 'edit',
-                    value: 'estates'
-                },
             },
             {
                 type: 'button',
                 title: 'حذف',
                 slug: 'delete',
-                permission: {
-                    arg: 'delete',
-                    value: 'estates'
-                },
             }
         ],
     formfields: {

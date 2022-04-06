@@ -17,5 +17,7 @@
     "Aboutus": true,
     "Index": true,
     "Search": true,
-    "Single": true
+    "Single": true,
+    "Ticket": true,
+    "Chat": true
 }
