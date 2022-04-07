@@ -17,7 +17,7 @@
             <div
               class="ps-container ps-theme-default ps-active-y"
               id="chat-content"
-              style="overflow-y: scroll !important; height: 400px !important ;  background-image: url('/images/setting/chat_background.png');"
+              style="overflow-y: scroll !important; height: 400px !important ;  background-image: url('/images/chats/chat_background.png');"
             >
               <div class="position-absolute bottom-0 mh-100 w-100">
                 <div
