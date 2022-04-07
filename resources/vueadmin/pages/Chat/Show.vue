@@ -31,7 +31,11 @@
                     <!-- <p>Hi</p>
                   <p>How are you ...???</p> -->
                     <div class="d-flex align-items-end">
-                      <p>{{ chatline.message }}</p>
+                      <p
+                        v-html="
+                          chatline.message.replace(/(?:\r\n|\r|\n)/g, '<br>')
+                        "
+                      ></p>
                       <i
                         v-if="chatline.send_status == 'send'"
                         class="bi bi-check"
@@ -70,9 +74,17 @@
                 ></div>
               </div>
             </div>
-            <div class="publisher bt-1 border-light" style="direction: ltr">
-              <input
+            <div
+              class="publisher bt-1 border-light d-flex align-items-end"
+              style="direction: ltr"
+            >
+              <textarea
+                @keyup.shift.enter="setRowsTextarea"
+                @keyup.delete="setRowsTextarea"
+                @keyup.enter.exact="sendMessage"
                 v-model="chat_line_object.message"
+                :rows="message_box_row"
+                id="message-box"
                 class="publisher-input"
                 type="text"
                 placeholder="پیام خود را بنویسید ..."
@@ -107,6 +119,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import GetLoading from "../../components/sections/GetLoading.vue";
 import * as $ from "jquery";
+import { waitForElm } from "../../helper/dom";
 
 export default {
   components: {
@@ -115,14 +128,24 @@ export default {
   },
   setup() {
     const loading = ref(true);
-    const chatLines = ref({});
+    const chatLines = ref([]);
     const route = useRoute();
-    const id = route.params.id;
+    let id = route.params.hasOwnProperty("id")
+      ? route.params.id
+      : "general_user";
 
     axios
       .get("/" + module.pluralName + "/" + id)
       .then(function (response) {
-        chatLines.value = response.data.data;
+        switch (response.status) {
+          case 204:
+            break;
+          default:
+            if (response.data.hasOwnProperty("chat_id"))
+              id = response.data.chat_id;
+            chatLines.value = response.data.data;
+            break;
+        }
       })
       .catch(function (error) {
         if (error.response.status == 403) router.push("/");
@@ -166,6 +189,9 @@ export default {
           content: new_chat_line.message,
         })
         .then(function (response) {
+          if (response.data.hasOwnProperty("chat_id"))
+            id = response.data.chat_id;
+
           chatLines.value[added_index].send_status = "received";
         })
         .catch(function (error) {
@@ -177,31 +203,27 @@ export default {
         });
     }
 
-    function waitForElm(selector) {
-      return new Promise((resolve) => {
-        if (document.querySelector(selector)) {
-          return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver((mutations) => {
-          if (document.querySelector(selector)) {
-            resolve(document.querySelector(selector));
-            observer.disconnect();
-          }
-        });
-
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-      });
-    }
 
     waitForElm("#chat-content").then((elm) => {
-        scroll_to_end_of_chat_content();
+      scroll_to_end_of_chat_content();
     });
 
-    return { chatLines, module, loading, sendMessage, chat_line_object };
+    const message_box_row = ref(1);
+
+    function setRowsTextarea() {
+      var lines = chat_line_object.value.message.split(/\r|\r\n|\n/);
+      var count = lines.length;
+      message_box_row.value = count;
+    }
+    return {
+      chatLines,
+      module,
+      loading,
+      sendMessage,
+      chat_line_object,
+      setRowsTextarea,
+      message_box_row,
+    };
   },
 };
 </script>

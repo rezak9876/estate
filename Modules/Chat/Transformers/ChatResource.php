@@ -14,9 +14,14 @@ class ChatResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $user_name = $this->users()->whereHas('role', function ($q) {
+            $q->where('slug', 'general_user');
+        })->first()->name;
+
         return [
             'id' => $this->id,
-            'user_name' => $this->users->where('id','<>',1)->first()->name,
+            'user_name' => $user_name,
         ];
     }
 }

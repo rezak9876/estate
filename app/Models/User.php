@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Chat\Entities\Chat;
 use Modules\Estate\Entities\Estate;
 use Modules\Role\Entities\Role;
 use Modules\User\Database\factories\UserFactory;
@@ -26,7 +27,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name','phone', 'mobile','email', 'password','picture','description','role_id','picture'
+        'name', 'phone', 'mobile', 'email', 'password', 'picture', 'description', 'role_id', 'picture'
     ];
 
     /**
@@ -63,4 +64,8 @@ class User extends Authenticatable
         return $this->hasMany(Estate::class);
     }
 
+    public function chat()
+    {
+        return $this->belongsToMany(Chat::class);
+    }
 }

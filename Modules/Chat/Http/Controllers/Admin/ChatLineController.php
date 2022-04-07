@@ -16,14 +16,25 @@ class ChatLineController extends Controller
      */
     public function send_chat(Request $request)
     {
+        $response = [
+            'message' => 'پیام با موفقیت ارسال شد'
+        ];
+        $chat_id = $request->input('chat_id');
+        if ($chat_id == 'general_user') {
+            $user_chat = Auth::user()->chat->first();
+            if ($user_chat) {
+                $chat_id = $user_chat->id;
+            } else {
+                $chat_id = Auth::user()->chat()->create()->id;
+            }
+            $response['chat_id'] = $chat_id;
+        }
         $chat_line = new ChatLine();
-        $chat_line->chat_id = $request->input('chat_id');
+        $chat_line->chat_id = $chat_id;
         $chat_line->user_id = Auth::id();
         $chat_line->message = $request->input('content');
         $chat_line->send_status = 'received';
         $chat_line->save();
-        return response()->json([
-            'message' => 'پیام با موفقیت ارسال شد'
-        ], 201);
+        return response()->json($response, 201);
     }
 }

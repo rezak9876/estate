@@ -8,6 +8,8 @@ import module from "../config";
 import axios from "axios";
 import { ref } from "vue";
 import * as $ from "jquery";
+import { waitForElm } from "../../../helper/dom";
+
 export default {
   components: {
     Form,
@@ -18,7 +20,8 @@ export default {
       .get("/estates/create")
       .then(function (response) {
         module.formfields.type.options = response.data.types;
-        module.formfields.use_type_property_id.optgroups = response.data.use_type_property_id;
+        module.formfields.use_type_property_id.optgroups =
+          response.data.use_type_property_id;
         module.formfields.terms.children = response.data.terms;
         module.formfields.bool_facilities.children =
           response.data.bool_facilities;
@@ -47,7 +50,7 @@ export default {
       .catch(function (error) {})
       .then(function () {
         // setTimeout(()=>{
-          vd.loading = false;
+        vd.loading = false;
         // },8000)
       });
   },
@@ -55,10 +58,9 @@ export default {
   setup() {
     const loading = ref(true);
 
-    return { module , loading };
+    return { module, loading };
   },
   mounted() {
-
     waitForElm("select[name='type']").then((elm) => {
       const select_type_tag = $("select[name='type']");
       if (select_type_tag.val() === null) {
@@ -89,25 +91,6 @@ export default {
         }
       }
     });
-    function waitForElm(selector) {
-      return new Promise((resolve) => {
-        if (document.querySelector(selector)) {
-          return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver((mutations) => {
-          if (document.querySelector(selector)) {
-            resolve(document.querySelector(selector));
-            observer.disconnect();
-          }
-        });
-
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-      });
-    }
   },
   // updated(){
   //   alert('hiup')

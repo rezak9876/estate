@@ -13,6 +13,11 @@ const sidebar = [
                 persianName: 'لیست آگهی ها'
             }
         ]
+    },
+    {
+        type: 'router-link',
+        link: '/chats',
+        persianName: 'پیام ها'
     }
 ];
 

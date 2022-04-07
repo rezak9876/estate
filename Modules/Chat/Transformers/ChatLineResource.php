@@ -24,7 +24,7 @@ class ChatLineResource extends JsonResource
         return [
             'type' => $type,
             'message' => $this->message,
-            'time' => $this->created_at->format('h:i'),
+            'time' => $this->created_at->format('H:i'),
             'send_status' => $this->send_status,
         ];
     }

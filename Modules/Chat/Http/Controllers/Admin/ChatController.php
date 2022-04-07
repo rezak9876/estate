@@ -5,6 +5,7 @@ namespace Modules\Chat\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatLine;
 use Modules\Chat\Transformers\ChatCollection;
@@ -48,8 +49,22 @@ class ChatController extends Controller
      */
     public function show($id)
     {
-        $chatLiness = ChatLine::orderBy('created_at', 'asc')->get();
-        return response()->json(new ChatLineCollection($chatLiness), 200);
+        if ($id == 'general_user') {
+            $chat = Auth::user()->chat->first();
+            if ($chat == null) {
+                return response()->json([
+                    'message' => 'پیام یافت نشد'
+                ], 204);
+            } else {
+                $chat_id = $chat->id;
+            }
+        } else {
+            $chat =  Chat::where('id', $id)->first();
+            $chat_id = null;
+        }
+
+        $chatLines = $chat->chat_lines->sortBy('created_at');
+        return response()->json((new ChatLineCollection($chatLines))->chat_id($chat_id), 200);
     }
 
     /**

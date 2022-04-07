@@ -24,7 +24,7 @@ export default {
     const route = useRoute();
     const id = route.params.id;
     const vd = this;
-
+    const has_param = typeof id == "undefined" ? false : true;
     const slotkey = ref(0);
 
     const toastShow = inject("toastShow");
@@ -60,7 +60,7 @@ export default {
     const headerInfo = {
       button: {
         title: "بازگشت",
-        link: { name: props.module.pluralName + "-index" },
+        link: { name: props.module.pluralName + "-show" },
         color: "btn btn-danger",
         icon: "bi bi-arrow-left",
       },
@@ -69,6 +69,10 @@ export default {
         value: props.module.pluralName,
       },
     };
+
+    headerInfo.button.link.name = has_param
+      ? props.module.pluralName + "-index"
+      : "home";
 
     return { loading, id, headerInfo, slotkey };
   },
