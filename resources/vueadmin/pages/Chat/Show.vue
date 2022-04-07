@@ -17,41 +17,43 @@
             <div
               class="ps-container ps-theme-default ps-active-y"
               id="chat-content"
-              style="overflow-y: scroll !important; height: 400px !important"
+              style="overflow-y: scroll !important; height: 400px !important ;  background-image: url('/images/setting/chat_background.png');"
             >
-              <div
-                v-for="(chatline, chatline_index) in chatLines"
-                :key="chatline_index"
-              >
+              <div class="position-absolute bottom-0 mh-100 w-100">
                 <div
-                  class="media media-chat"
-                  :class="chatline.type == 'me' ? 'media-chat-reverse' : null"
+                  v-for="(chatline, chatline_index) in chatLines"
+                  :key="chatline_index"
                 >
-                  <div class="media-body">
-                    <!-- <p>Hi</p>
+                  <div
+                    class="media media-chat"
+                    :class="chatline.type == 'me' ? 'media-chat-reverse' : null"
+                  >
+                    <div class="media-body">
+                      <!-- <p>Hi</p>
                   <p>How are you ...???</p> -->
-                    <div class="d-flex align-items-end">
-                      <p
-                        v-html="
-                          chatline.message.replace(/(?:\r\n|\r|\n)/g, '<br>')
-                        "
-                      ></p>
-                      <i
-                        v-if="chatline.send_status == 'send'"
-                        class="bi bi-check"
-                      ></i>
-                      <i
-                        v-else-if="chatline.send_status == 'received'"
-                        class="bi bi-check-all"
-                      ></i>
-                      <i
-                        v-else-if="chatline.send_status == 'seen'"
-                        class="bi bi-check-all text-primary"
-                      ></i>
+                      <div class="d-flex align-items-end">
+                        <p
+                          v-html="
+                            chatline.message.replace(/(?:\r\n|\r|\n)/g, '<br>')
+                          "
+                        ></p>
+                        <i
+                          v-if="chatline.send_status == 'send'"
+                          class="bi bi-check"
+                        ></i>
+                        <i
+                          v-else-if="chatline.send_status == 'received'"
+                          class="bi bi-check-all"
+                        ></i>
+                        <i
+                          v-else-if="chatline.send_status == 'seen'"
+                          class="bi bi-check-all text-primary"
+                        ></i>
+                      </div>
+                      <p class="meta">
+                        <time datetime="2018">{{ chatline.time }}</time>
+                      </p>
                     </div>
-                    <p class="meta">
-                      <time datetime="2018">{{ chatline.time }}</time>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -202,7 +204,6 @@ export default {
           loading.value = false;
         });
     }
-
 
     waitForElm("#chat-content").then((elm) => {
       scroll_to_end_of_chat_content();
