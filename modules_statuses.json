@@ -19,5 +19,6 @@
     "Search": true,
     "Single": true,
     "Ticket": true,
-    "Chat": true
+    "Chat": true,
+    "File": true
 }

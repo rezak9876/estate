@@ -17,7 +17,7 @@ class CreateChatLinesTable extends Migration
             $table->id();
             $table->unsignedTinyInteger('user_id');
             $table->unsignedTinyInteger('chat_id');
-            $table->string('message');
+            $table->string('content');
             $table->enum('send_status', ['send', 'received', 'seen'])->default('send');
 
 

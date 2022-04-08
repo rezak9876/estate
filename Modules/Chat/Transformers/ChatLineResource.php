@@ -17,15 +17,35 @@ class ChatLineResource extends JsonResource
     public function toArray($request)
     {
         if (($this->user->role->slug == 'general_user')  == (Auth::user()->role->slug == 'general_user'))
-            $type = 'me';
+            //role of sender and auth user is same
+            $owntype = 'me';
         else
-            $type = 'not_me';
+            //role of sender and auth user is not same
+            $owntype = 'not_me';
 
-        return [
-            'type' => $type,
-            'message' => $this->message,
+        // declare response
+        $responce = [
+            'owntype' => $owntype,
+            'content_type' => $this->content_type,
             'time' => $this->created_at->format('H:i'),
             'send_status' => $this->send_status,
         ];
+
+        switch ($this->content_type) {
+            case 'file':
+                // declare file of response for file chatline
+                $responce['file'] = [
+                    'title' => $this->file->title,
+                    'link' => $this->full_link(),
+                    'size' => $this->file->size,
+                ];
+                break;
+            default:
+                // declare content of response for text chatline
+                $responce['content'] = $this->content;
+        }
+
+        //return response
+        return $responce;
     }
 }

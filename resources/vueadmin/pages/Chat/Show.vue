@@ -1,5 +1,77 @@
 <template>
   <Show :module="module">
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">ارسال فایل</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div
+              class="
+                Message
+                message-list-item
+                last-in-group last-in-list
+                open
+                shown
+              "
+            >
+              <div class="content-inner" dir="auto">
+                <div class="File interactive">
+                  <div class="file-icon-container">
+                    <div class="file-icon default">
+                      <span class="file-ext" dir="auto"
+                        ><i class="bi bi-download text-white"></i
+                      ></span>
+                    </div>
+                    <i class="action-icon icon-download"></i>
+                  </div>
+                  <div class="file-info me-3">
+                    <div class="file-title" dir="auto">
+                      {{ file_details.title }}
+                    </div>
+                    <div class="file-subtitle" dir="auto">
+                      <span>{{ getSize(file_details.size) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              بستن
+            </button>
+            <button
+              @click="sendFile"
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              ارسال
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <GetLoading v-if="loading" />
 
     <div v-else class="page-content page-container" id="page-content">
@@ -17,7 +89,11 @@
             <div
               class="ps-container ps-theme-default ps-active-y"
               id="chat-content"
-              style="overflow-y: scroll !important; height: 400px !important ;  background-image: url('/images/chats/chat_background.png');"
+              style="
+                overflow-y: scroll !important;
+                height: 400px !important ;
+                background-image: url('/images/chats/chat_background.png');
+              "
             >
               <div class="position-absolute bottom-0 mh-100 w-100">
                 <div
@@ -26,33 +102,145 @@
                 >
                   <div
                     class="media media-chat"
-                    :class="chatline.type == 'me' ? 'media-chat-reverse' : null"
+                    :class="
+                      chatline.owntype == 'me' ? 'media-chat-reverse' : null
+                    "
                   >
                     <div class="media-body">
                       <!-- <p>Hi</p>
                   <p>How are you ...???</p> -->
-                      <div class="d-flex align-items-end">
-                        <p
-                          v-html="
-                            chatline.message.replace(/(?:\r\n|\r|\n)/g, '<br>')
-                          "
-                        ></p>
-                        <i
-                          v-if="chatline.send_status == 'send'"
-                          class="bi bi-check"
-                        ></i>
-                        <i
-                          v-else-if="chatline.send_status == 'received'"
-                          class="bi bi-check-all"
-                        ></i>
-                        <i
-                          v-else-if="chatline.send_status == 'seen'"
-                          class="bi bi-check-all text-primary"
-                        ></i>
+
+                      <div v-if="chatline.content_type == 'text'">
+                        <div>
+                          <div
+                            class="
+                              Message
+                              message-list-item
+                              last-in-group last-in-list
+                              open
+                              shown
+                            "
+                            :class="chatline.owntype == 'me' ? 'own' : null"
+                          >
+                            <div class="content-inner" dir="auto">
+                              <div class="File interactive">
+                                <div
+                                  class="file-info"
+                                  v-html="
+                                    chatline.content.replace(
+                                      /(?:\r\n|\r|\n)/g,
+                                      '<br>'
+                                    )
+                                  "
+                                ></div>
+                              </div>
+                              <p
+                                class="
+                                  text-content
+                                  with-meta with-outgoing-icon
+                                "
+                                dir="auto"
+                              >
+                                <span class="MessageMeta" dir="ltr"
+                                  ><span
+                                    class="message-time"
+                                    title="Apr 8, 2022, 5:58:34 AM"
+                                    >{{ chatline.time }}</span
+                                  >
+                                  <div
+                                    v-if="chatline.owntype == 'me'"
+                                    class="MessageOutgoingStatus"
+                                  >
+                                    <i
+                                      v-if="chatline.send_status == 'send'"
+                                      class="bi bi-check"
+                                    ></i>
+                                    <i
+                                      v-else-if="
+                                        chatline.send_status == 'received'
+                                      "
+                                      class="bi bi-check-all"
+                                    ></i>
+                                    <i
+                                      v-else-if="chatline.send_status == 'seen'"
+                                      class="bi bi-check-all text-primary"
+                                    ></i></div
+                                ></span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <p class="meta">
-                        <time datetime="2018">{{ chatline.time }}</time>
-                      </p>
+                      <div v-if="chatline.content_type == 'file'">
+                        <div
+                          class="
+                            Message
+                            message-list-item
+                            last-in-group last-in-list
+                            open
+                            shown
+                          "
+                          :class="chatline.owntype == 'me' ? 'own' : null"
+                        >
+                          <div class="content-inner" dir="auto">
+                            <div class="File interactive">
+                              <div class="file-icon-container">
+                                <a :href="chatline.file.link" target="_blank">
+                                  <div class="file-icon default">
+                                    <span class="file-ext" dir="auto">
+                                      <i
+                                        v-if="chatline.file.link"
+                                        class="bi bi-download text-white"
+                                      >
+                                      </i>
+                                      <i v-else class="bi bi-three-dots"></i>
+                                    </span>
+                                  </div>
+                                </a>
+                                <i class="action-icon icon-download"></i>
+                              </div>
+                              <div class="file-info">
+                                <div class="file-title" dir="auto">
+                                  {{ chatline.file.title }}
+                                </div>
+                                <div class="file-subtitle" dir="auto">
+                                  <span>{{ getSize(chatline.file.size) }}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <p
+                              class="text-content with-meta with-outgoing-icon"
+                              dir="auto"
+                            >
+                              <span class="MessageMeta" dir="ltr"
+                                ><span
+                                  class="message-time"
+                                  title="Apr 8, 2022, 5:58:34 AM"
+                                  >{{ chatline.time }}</span
+                                >
+                                <div
+                                  v-if="chatline.owntype == 'me'"
+                                  class="MessageOutgoingStatus"
+                                >
+                                  <i
+                                    v-if="chatline.send_status == 'send'"
+                                    class="bi bi-check"
+                                  ></i>
+                                  <i
+                                    v-else-if="
+                                      chatline.send_status == 'received'
+                                    "
+                                    class="bi bi-check-all"
+                                  ></i>
+                                  <i
+                                    v-else-if="chatline.send_status == 'seen'"
+                                    class="bi bi-check-all text-primary"
+                                  ></i></div
+                              ></span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -84,27 +272,35 @@
                 @keyup.shift.enter="setRowsTextarea"
                 @keyup.delete="setRowsTextarea"
                 @keyup.enter.exact="sendMessage"
-                v-model="chat_line_object.message"
+                v-model="chat_line_object.content"
                 :rows="message_box_row"
                 id="message-box"
                 class="publisher-input"
                 type="text"
                 placeholder="پیام خود را بنویسید ..."
               />
-              <span class="publisher-btn file-group">
-                <i class="bi bi-paperclip file-browser"></i>
-                <input type="file" />
-              </span>
-              <!-- <a class="publisher-btn" href="#" data-abc="true"
+              <div class="mb-2">
+                <span class="publisher-btn file-group">
+                  <label for="upload-file" style="cursor: pointer"
+                    ><i class="bi bi-paperclip file-browser"></i
+                  ></label>
+                  <input
+                    type="file"
+                    id="upload-file"
+                    v-on:change="excelfilechanges($event)"
+                  />
+                </span>
+                <!-- <a class="publisher-btn" href="#" data-abc="true"
                 ><i class="fa fa-smile"></i
               ></a> -->
-              <button
-                @click="sendMessage"
-                class="publisher-btn text-info"
-                data-abc="true"
-              >
-                <i class="bi bi-send"></i>
-              </button>
+                <button
+                  @click="sendMessage"
+                  class="publisher-btn text-info"
+                  data-abc="true"
+                >
+                  <i class="bi bi-send"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -158,10 +354,11 @@ export default {
       });
 
     const chat_line_object = ref({
-      type: "me",
-      message: null,
+      owntype: "me",
+      content: null,
       time: null,
       send_status: "send",
+      content_type: "text",
     });
 
     function scroll_to_end_of_chat_content() {
@@ -170,29 +367,107 @@ export default {
     }
 
     function sendMessage() {
-      if (chat_line_object.value.message == null) return false;
+      message_box_row.value = 1;
+      chat_line_object.value.content_type = "text";
+      send();
+    }
 
-      let new_chat_line;
+    waitForElm("#chat-content").then((elm) => {
+      scroll_to_end_of_chat_content();
+    });
+
+    const message_box_row = ref(1);
+
+    function setRowsTextarea() {
+      var lines = chat_line_object.value.content.split(/\r|\r\n|\n/);
+      var count = lines.length;
+      message_box_row.value = count;
+    }
+
+    function excelfilechanges(event) {
+      const target = event.target;
+      const file = target.files[0];
+      chat_line_object.value["link_file"] = event.target.files[0];
+
+      file_details.value.title = file.name;
+      file_details.value.size = file.size;
+
+      let myModal = new bootstrap.Modal(
+        document.getElementById("exampleModal"),
+        {
+          keyboard: false,
+        }
+      );
+      myModal.show();
+    }
+    function sendFile() {
+      chat_line_object.value.content_type = "file";
+      send();
+      // let myModal = new bootstrap.Modal(
+      //   document.getElementById("exampleModal"),
+      //   {
+      //     keyboard: false,
+      //   }
+      // );
+      // myModal.hide();
+    }
+    const file_details = ref({
+      title: null,
+      size: null,
+    });
+
+    function send() {
+      let formDataAxios = new FormData();
+      formDataAxios.append("chat_id", id);
       let added_index;
-      function add_chat_line_to_screen() {
-        var today = new Date();
-        var time = today.getHours() + ":" + today.getMinutes();
-        chat_line_object.value.time = time;
-        new_chat_line = Object.assign({}, chat_line_object.value);
-        added_index = chatLines.value.push(new_chat_line) - 1;
-        chat_line_object.value.message = null;
+
+      if (chat_line_object.value.content_type == "file") {
+        let new_chat_line;
+        function add_file_line_to_screen() {
+          var today = new Date();
+          var time = today.getHours() + ":" + today.getMinutes();
+          chat_line_object.value.time = time;
+
+          let file = file_details.value;
+          chat_line_object.value.file = {
+            title: file.title,
+            link: null,
+            size: file.size,
+          };
+          new_chat_line = Object.assign({}, chat_line_object.value);
+          added_index = chatLines.value.push(new_chat_line) - 1;
+          chat_line_object.value.content = null;
+        }
+
+        $.when(add_file_line_to_screen()).then(scroll_to_end_of_chat_content);
+
+        formDataAxios.append("file", chat_line_object.value["link_file"]);
+        formDataAxios.append("content_type", "file");
+      } else {
+        if (chat_line_object.value.content == null) return false;
+
+        let new_chat_line;
+        function add_chat_line_to_screen() {
+          var today = new Date();
+          var time = today.getHours() + ":" + today.getMinutes();
+          chat_line_object.value.time = time;
+          new_chat_line = Object.assign({}, chat_line_object.value);
+          added_index = chatLines.value.push(new_chat_line) - 1;
+          chat_line_object.value.content = null;
+          formDataAxios.append("content", new_chat_line.content);
+        }
+
+        $.when(add_chat_line_to_screen()).then(scroll_to_end_of_chat_content);
+        formDataAxios.append("content_type", "text");
       }
 
-      $.when(add_chat_line_to_screen()).then(scroll_to_end_of_chat_content);
-
       axios
-        .post("/" + module.pluralName + "/send_chat", {
-          chat_id: id,
-          content: new_chat_line.message,
-        })
+        .post("/" + module.pluralName + "/send_chat", formDataAxios)
         .then(function (response) {
           if (response.data.hasOwnProperty("chat_id"))
             id = response.data.chat_id;
+          if (response.data.hasOwnProperty("link"))
+            chatLines.value[added_index].file.link = response.data.link;
 
           chatLines.value[added_index].send_status = "received";
         })
@@ -205,16 +480,16 @@ export default {
         });
     }
 
-    waitForElm("#chat-content").then((elm) => {
-      scroll_to_end_of_chat_content();
-    });
-
-    const message_box_row = ref(1);
-
-    function setRowsTextarea() {
-      var lines = chat_line_object.value.message.split(/\r|\r\n|\n/);
-      var count = lines.length;
-      message_box_row.value = count;
+    function getSize(size) {
+      if (size > 1000000) {
+        size = size / 1000000 + " MB";
+      } else if (size > 1000) {
+        size = size / 1000 + " kB";
+      } else {
+        size = size + " B";
+      }
+      console.log(size);
+      return size;
     }
     return {
       chatLines,
@@ -224,6 +499,10 @@ export default {
       chat_line_object,
       setRowsTextarea,
       message_box_row,
+      excelfilechanges,
+      file_details,
+      sendFile,
+      getSize,
     };
   },
 };
@@ -357,24 +636,8 @@ h4.card-title {
   min-width: 0;
 }
 
-.media-chat .media-body p {
-  position: relative;
-  padding: 6px 8px;
-  margin: 4px 0;
-  background-color: #f5f6f7;
-  border-radius: 3px;
-  font-weight: 100;
-  color: #9b9b9b;
-}
-
 .media > * {
   margin: 0 8px;
-}
-
-.media-chat .media-body p.meta {
-  background-color: transparent !important;
-  padding: 0;
-  opacity: 0.8;
 }
 
 .media-meta-day {
@@ -434,25 +697,6 @@ h4.card-title {
   padding: 16px 12px;
   -webkit-transition: background-color 0.2s linear;
   transition: background-color 0.2s linear;
-}
-
-.media-chat.media-chat-reverse .media-body p {
-  float: right;
-  clear: right;
-  background-color: #48b0f7;
-  color: #fff;
-}
-
-.media-chat .media-body p.meta {
-  color: #9b9b9b;
-}
-
-.media-chat .media-body p {
-  position: relative;
-  padding: 6px 8px;
-  margin: 4px 0;
-  background-color: #f5f6f7;
-  border-radius: 3px;
 }
 
 .border-light {
@@ -540,5 +784,54 @@ textarea {
 
 .media.media-chat:not(.media-chat-reverse) {
   direction: ltr;
+}
+
+/* file styles */
+.File.interactive {
+  display: flex;
+}
+.file-icon.default {
+  padding: 1rem 0.75rem 0.5rem;
+  background-color: rgb(51, 144, 236);
+  border-radius: 0.375rem;
+}
+
+.Message {
+  background-color: whitesmoke;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+}
+
+.Message.own {
+  background-color: rgb(238, 255, 222);
+}
+
+.MessageMeta {
+  right: 0;
+  display: flex;
+  align-items: center;
+  border-radius: 0.625rem;
+  padding: 0 0.25rem;
+  cursor: pointer;
+  max-width: 100%;
+  user-select: none;
+  position: relative;
+  top: 0.375rem;
+  bottom: auto !important;
+  float: right;
+  line-height: 1.35;
+  height: calc(var(--message-meta-height, 1rem));
+  margin-left: 0.4375rem;
+  margin-right: -0.5rem;
+  color: rgba(79, 174, 78, 1);
+}
+
+.File .file-icon {
+  width: 3.375rem;
+  height: 3.375rem;
+  margin-inline-end: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
