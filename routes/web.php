@@ -35,7 +35,6 @@ Route::get('/pusher/form', function () {
 });
 
 
-Route::post('/pusher/send', function () {
-    $message = request()->message;
-    event(new SendMessage($message));
+Route::get('/pusher/send', function () {
+    event(new SendMessage());
 })->name('sendMessage');

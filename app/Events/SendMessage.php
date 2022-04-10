@@ -15,15 +15,33 @@ class SendMessage implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $content_type;
+    public $file;
+    public $own_type;
+    public $send_status;
+    public $time;
+    public $content;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($body_array)
     {
-        $this->message = $message;
+        switch ($body_array['content_type']) {
+            case 'file':
+                // declare file of response for file chatline
+                $this->file  =  $body_array['file'];
+                break;
+            default:
+                // declare content of response for text chatline
+                $this->content  =  $body_array['content'];
+        }
+
+        $this->content_type =  $body_array['content_type'];
+        $this->own_type =  $body_array['own_type'];
+        $this->send_status =  $body_array['send_status'];
+        $this->time =  $body_array['time'];
     }
 
     /**

@@ -318,6 +318,7 @@ import { useRoute } from "vue-router";
 import GetLoading from "../../components/sections/GetLoading.vue";
 import * as $ from "jquery";
 import { waitForElm } from "../../helper/dom";
+import Pusher from 'pusher-js';
 
 export default {
   components: {
@@ -488,9 +489,24 @@ export default {
       } else {
         size = size + " B";
       }
-      console.log(size);
       return size;
     }
+
+
+    // Enable pusher logging - don't include this in production
+
+    var pusher = new Pusher('8bc4c243b8cabb181f6b', {
+      cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe('message-channel');
+    channel.bind('message-event', function(data) {
+      chatLines.value.push(data)
+    });
+
+
+
+
     return {
       chatLines,
       module,

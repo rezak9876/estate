@@ -2,6 +2,7 @@
 
 namespace Modules\Chat\Http\Controllers\Admin;
 
+use App\Events\SendMessage;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -71,6 +72,24 @@ class ChatLineController extends Controller
         $chat_line->save();
 
         //return response
+        $x = ['content_type' => $request->input('content_type'),  'own_type' => 'not_me', 'send_status' => 'received', 'time' => $chat_line->created_at->format('H:i')];
+
+        switch ($chat_line->content_type) {
+            case 'file':
+                // declare file of response for file chatline
+                $x['file'] = [
+                    'title' => $chat_line->file->title,
+                    'link' => $chat_line->full_link(),
+                    'size' => $chat_line->file->size,
+                ];
+                break;
+            default:
+                // declare content of response for text chatline
+                $x['content'] = $chat_line->content;
+        }
+
+        SendMessage::dispatch($x);
+
         return response()->json($response, 201);
     }
 }
