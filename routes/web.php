@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\SendMessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,20 @@ Route::middleware(['auth:sanctum', 'admin'])->get('/admin', function () {
 Route::middleware('auth:sanctum')->get('/user', function () {
     return view('admin');
 })->name('user');
+
+
+
+Route::get('/pusher/index', function () {
+    return view('messages');
+});
+
+
+Route::get('/pusher/form', function () {
+    return view('form');
+});
+
+
+Route::post('/pusher/send', function () {
+    $message = request()->message;
+    event(new SendMessage($message));
+})->name('sendMessage');
