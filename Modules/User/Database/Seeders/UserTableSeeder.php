@@ -2,10 +2,10 @@
 
 namespace Modules\User\Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -18,7 +18,16 @@ class UserTableSeeder extends Seeder
     {
         Model::unguard();
 
-        User::factory()->create(1);
+
+        DB::table('users')->insert(
+            [
+                'name' => 'اکانت دمو',
+                'email' => 'info@demo.com',
+                'mobile' => '09363389294',
+                'password' => Hash::make('1'),
+                'role_id' => 1,
+            ]
+        );
 
         DB::table('users')->insert(
             [
