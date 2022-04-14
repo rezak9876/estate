@@ -88,7 +88,7 @@ class ChatLineController extends Controller
                 $x['content'] = $chat_line->content;
         }
 
-        SendMessage::dispatch($x);
+        SendMessage::dispatch($x, $chat_id,Auth::id());
 
         return response()->json($response, 201);
     }

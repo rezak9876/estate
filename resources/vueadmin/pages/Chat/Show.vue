@@ -313,12 +313,15 @@
 import Show from "../../components/Modules/Show.vue";
 import module from "./config";
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import GetLoading from "../../components/sections/GetLoading.vue";
 import * as $ from "jquery";
 import { waitForElm } from "../../helper/dom";
-import Pusher from 'pusher-js';
+import Pusher from "pusher-js";
+import { user } from "../../permissions/index";
+
+import Echo from "laravel-echo";
 
 export default {
   components: {
@@ -329,19 +332,53 @@ export default {
     const loading = ref(true);
     const chatLines = ref([]);
     const route = useRoute();
-    let id = route.params.hasOwnProperty("id")
-      ? route.params.id
-      : "general_user";
+    const chat_id = ref(null);
+
+    function scroll_to_end_of_chat_content() {
+      var objDiv = document.getElementById("chat-content");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+    function set_echo_listener() {
+      let Echoo = new Echo({
+        broadcaster: "pusher",
+        key: process.env.MIX_PUSHER_APP_KEY,
+        cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+        forceTLS: true,
+      });
+
+      let channel = Echoo.private("my-channel." + chat_id.value);
+      channel.listen(".my-event", function (data) {
+        // alert(data)
+        if (user.id != data.user_id) {
+          $.when(chatLines.value.push(data.data)).then(
+            scroll_to_end_of_chat_content
+          );
+        }
+      });
+    }
+    if (route.params.hasOwnProperty("id")) {
+      chat_id.value = route.params.id;
+      set_echo_listener();
+    } else {
+      chat_id.value = "general_user";
+
+      watch(chat_id, (count) => {
+        if (typeof count == "number") {
+          set_echo_listener();
+        }
+      });
+    }
 
     axios
-      .get("/" + module.pluralName + "/" + id)
+      .get("/" + module.pluralName + "/" + chat_id.value)
       .then(function (response) {
         switch (response.status) {
           case 204:
             break;
           default:
             if (response.data.hasOwnProperty("chat_id"))
-              id = response.data.chat_id;
+              chat_id.value = response.data.chat_id;
             chatLines.value = response.data.data;
             break;
         }
@@ -361,11 +398,6 @@ export default {
       send_status: "send",
       content_type: "text",
     });
-
-    function scroll_to_end_of_chat_content() {
-      var objDiv = document.getElementById("chat-content");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }
 
     function sendMessage() {
       message_box_row.value = 1;
@@ -419,7 +451,7 @@ export default {
 
     function send() {
       let formDataAxios = new FormData();
-      formDataAxios.append("chat_id", id);
+      formDataAxios.append("chat_id", chat_id.value);
       let added_index;
 
       if (chat_line_object.value.content_type == "file") {
@@ -466,7 +498,7 @@ export default {
         .post("/" + module.pluralName + "/send_chat", formDataAxios)
         .then(function (response) {
           if (response.data.hasOwnProperty("chat_id"))
-            id = response.data.chat_id;
+            chat_id.value = response.data.chat_id;
           if (response.data.hasOwnProperty("link"))
             chatLines.value[added_index].file.link = response.data.link;
 
@@ -491,21 +523,6 @@ export default {
       }
       return size;
     }
-
-
-    // Enable pusher logging - don't include this in production
-
-    var pusher = new Pusher('8bc4c243b8cabb181f6b', {
-      cluster: 'eu'
-    });
-
-    var channel = pusher.subscribe('message-channel');
-    channel.bind('message-event', function(data) {
-      chatLines.value.push(data)
-    });
-
-
-
 
     return {
       chatLines,
