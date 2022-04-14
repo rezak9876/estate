@@ -60,6 +60,10 @@ const sidebar = [
     },
     {
         type: 'router-link',
+        permission: {
+            arg: 'index',
+            value: 'chats'
+        },
         link: '/chats',
         persianName: 'پیام ها'
     },

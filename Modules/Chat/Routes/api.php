@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'], function () {
     Route::prefix('admin')->as('admin.')->middleware(['auth:sanctum'])->group(function () {
         Route::resource('chats', 'Admin\ChatController')->only([
-            'index', 'show', 'create', 'store', 'edit', 'update', 'destroy'
+            'index', 'show'
         ]);
 
         Route::post('chats/send_chat', 'Admin\ChatLineController@send_chat');

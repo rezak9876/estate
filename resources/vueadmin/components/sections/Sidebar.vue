@@ -61,7 +61,7 @@
                   aria-expanded="false"
                   :aria-controls="'flush-headingOne-' + row.id"
                 >
-                  <i class="bi bi-house-door"></i>
+                  <i class="bi bi-house-door me-1"></i>
                   {{ row.persianName }}
                 </button>
               </h2>
@@ -89,7 +89,6 @@
             </div>
           </div>
         </li>
-
 
         <li>
           <a href="/" class="nav-link link-dark" aria-current="page">
@@ -205,5 +204,9 @@ export default {
 .router-link-exact-active {
   color: #fff !important;
   background-color: #0d6efd !important;
+}
+
+.accordion-button {
+  padding: 1rem;
 }
 </style>

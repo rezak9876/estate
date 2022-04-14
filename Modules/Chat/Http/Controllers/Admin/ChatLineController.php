@@ -4,20 +4,26 @@ namespace Modules\Chat\Http\Controllers\Admin;
 
 use App\Events\SendMessage;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatLine;
 use Modules\File\Entities\File;
 
 class ChatLineController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function send_chat(Request $request)
     {
+        $this->authorize('send_chat', Chat::class);
+
         $response = [
             'message' => 'پیام با موفقیت ارسال شد'
         ];
@@ -88,7 +94,7 @@ class ChatLineController extends Controller
                 $x['content'] = $chat_line->content;
         }
 
-        SendMessage::dispatch($x, $chat_id,Auth::id());
+        SendMessage::dispatch($x, $chat_id, Auth::id());
 
         return response()->json($response, 201);
     }

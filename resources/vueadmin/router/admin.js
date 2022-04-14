@@ -89,7 +89,8 @@ router.beforeEach((to, from, next) => {
         const url_array = to.name.split("-", 2);
 
 
-        const freeModules = ["estates", "chats"];
+        console.log(url_array)
+        const freeModules = ["estates"];
 
 
         if (freeModules.includes(url_array[0]))
@@ -97,6 +98,7 @@ router.beforeEach((to, from, next) => {
 
         const condition = check_permission(url_array[1], url_array[0])
 
+        console.log(url_array[1], url_array[0]);
         return next(condition)
     }
 })

@@ -26,7 +26,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $facilities = Role::where('slug','<>','general_user')->orderBy('created_at', 'desc')->get();
+        $facilities = Role::where('slug', '<>', 'general_user')->orderBy('created_at', 'desc')->get();
         return response()->json(new RoleCollection($facilities), 200);
     }
 
@@ -59,31 +59,35 @@ class RoleController extends Controller
             'data' =>  [
                 [
                     'persianName' => 'کاربران',
-                    'children' =>Permission::where('slug', 'like', 'users.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'users.%')->pluck('title', 'id')
                 ],
                 [
                     'persianName' => 'شرایط',
-                    'children' =>Permission::where('slug', 'like', 'terms.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'terms.%')->pluck('title', 'id')
                 ],
                 [
                     'persianName' => 'نقش ها',
-                    'children' =>Permission::where('slug', 'like', 'roles.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'roles.%')->pluck('title', 'id')
                 ],
                 [
                     'persianName' => 'صفحات',
-                    'children' =>Permission::where('slug', 'like', 'pages.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'pages.%')->pluck('title', 'id')
                 ],
                 [
                     'persianName' => 'امکانات',
-                    'children' =>Permission::where('slug', 'like', 'facilities.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'facilities.%')->pluck('title', 'id')
                 ],
                 [
                     'persianName' => 'آگهی ها',
-                    'children' =>Permission::where('slug', 'like', 'estates.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'estates.%')->pluck('title', 'id')
                 ],
                 [
                     'persianName' => 'تنظیمات',
-                    'children' =>Permission::where('slug', 'like', 'settings.%')->pluck('title', 'id')
+                    'children' => Permission::where('slug', 'like', 'settings.%')->pluck('title', 'id')
+                ],
+                [
+                    'persianName' => 'پیام ها',
+                    'children' => Permission::where('slug', 'like', 'chats.%')->pluck('title', 'id')
                 ]
             ]
         ]);
