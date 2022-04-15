@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('chat')->group(function() {
-    Route::get('/', 'ChatController@index');
-});

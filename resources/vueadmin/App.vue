@@ -3,7 +3,19 @@
     <Sidebar />
     <div id="page-content-wrapper">
       <div class="container-fluid">
-        <div class="d-flex justify-content-between my-3 w-100 position-sticky top-0 bg-white p-3" style="z-index:1;">
+        <div
+          class="
+            d-flex
+            justify-content-between
+            my-3
+            w-100
+            position-sticky
+            top-0
+            bg-white
+            p-3
+          "
+          style="z-index: 1"
+        >
           <div>
             <i
               class="bi bi-justify menu-toggle-btn d-none ms-2"
@@ -25,7 +37,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <strong class="me-3">{{user.name}}</strong>
+              <strong class="me-3">{{ user.name }}</strong>
               <img
                 :src="user.picture"
                 alt=""
@@ -90,11 +102,11 @@ import Sidebar from "./components/sections/Sidebar.vue";
 import { ref } from "vue";
 import * as $ from "jquery";
 import axios from "axios";
+import { store } from "./store/index";
 
 export default {
   name: "App",
   beforeCreate() {
-
     const base_url = window.location.origin + "/api/v1/admin";
     axios.defaults.headers["Content-Type"] = "application/json";
     axios.defaults.headers["responseType"] = "json";
@@ -108,27 +120,6 @@ export default {
     const classObject = ref("bg-warning");
     const message = ref("سلام");
 
-    function getCookie(cname) {
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    const user_response = JSON.parse(getCookie('user'))
-
-    const user = ref({
-      name : user_response.name,
-      picture : user_response.picture,
-    })
     function toastShow(status, fmessage) {
       message.value = fmessage;
       function allll() {
@@ -154,14 +145,15 @@ export default {
 
     function sign_out() {
       axios
-        .post(location.origin+"/logout")
+        .post(location.origin + "/logout")
         .then(function (response) {
-          location.replace('/login')
+          location.replace("/login");
         })
-        .catch(function (error) {
-        });
+        .catch(function (error) {});
     }
-    return { message, classObject, toastShow, sign_out,user };
+
+    const user = store.user;
+    return { message, classObject, toastShow, sign_out, user };
   },
   provide() {
     return {

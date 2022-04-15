@@ -1,31 +1,8 @@
-function getCookie(cname) {
-    let name = cname + "=";
-    let ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
+import { store } from '../store/index'
 
-// let user = getCookie('user')
+const user = store.user
 
-// if (user != '')
-//     user = JSON.parse(getCookie('user'))
 
-let user;
-try {
-    user = JSON.parse(getCookie('user'))
-} catch (e) {
-    user = {
-        is_admin: false
-    }
-}
 const is_admin = user.is_admin;
 
 export { is_admin }
@@ -50,10 +27,5 @@ export function check_permission(arg, section) {
 
 
 
-try {
-    user = JSON.parse(getCookie('user'))
-} catch (e) {
-    user = null
-}
 
 export { user }
