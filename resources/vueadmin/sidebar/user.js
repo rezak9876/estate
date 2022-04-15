@@ -6,18 +6,22 @@ const sidebar = [
         children: [
             {
                 link: '/estates/create',
-                persianName: 'ایجاد آگهی'
+                persianName: 'ایجاد آگهی',
+                icon: 'plus-lg'
             },
             {
                 link: '/estates',
-                persianName: 'لیست آگهی ها'
+                persianName: 'لیست آگهی ها',
+                icon: 'list'
             }
-        ]
+        ],
+        icon: 'house'
     },
     {
         type: 'router-link',
         link: '/chats',
-        persianName: 'پیام ها'
+        persianName: 'پیام ها',
+        icon: 'chat'
     }
 ];
 

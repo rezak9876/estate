@@ -6,7 +6,8 @@ const sidebar = [
             value: 'terms'
         },
         link: '/terms',
-        persianName: 'شرایط'
+        persianName: 'شرایط',
+        icon: 'file'
     },
     {
         type: 'router-link',
@@ -15,7 +16,8 @@ const sidebar = [
             value: 'facilities'
         },
         link: '/facilities',
-        persianName: 'امکانات'
+        persianName: 'امکانات',
+        icon: 'building'
     },
     {
         type: 'div',
@@ -24,11 +26,13 @@ const sidebar = [
         children: [
             {
                 link: '/estates/create',
-                persianName: 'ایجاد آگهی'
+                persianName: 'ایجاد آگهی',
+                icon: 'plus-lg'
             },
             {
                 link: '/estates',
-                persianName: 'لیست آگهی ها'
+                persianName: 'لیست آگهی ها',
+                icon: 'list'
             },
             {
                 permission: {
@@ -38,7 +42,8 @@ const sidebar = [
                 link: '/estates/excel',
                 persianName: 'اکسل آگهی ها'
             }
-        ]
+        ],
+        icon: 'house'
     },
     {
         type: 'router-link',
@@ -47,7 +52,8 @@ const sidebar = [
             value: 'roles'
         },
         link: '/roles',
-        persianName: 'نقش ها'
+        persianName: 'نقش ها',
+        icon: 'person-lines-fill'
     },
     {
         type: 'router-link',
@@ -56,7 +62,8 @@ const sidebar = [
             value: 'users'
         },
         link: '/users',
-        persianName: 'کاربران'
+        persianName: 'کاربران',
+        icon: 'person'
     },
     {
         type: 'router-link',
@@ -65,7 +72,8 @@ const sidebar = [
             value: 'chats'
         },
         link: '/chats',
-        persianName: 'پیام ها'
+        persianName: 'پیام ها',
+        icon: 'chat'
     },
     {
         type: 'router-link',
@@ -74,7 +82,8 @@ const sidebar = [
             arg: 'edit',
             value: 'settings'
         },
-        persianName: 'تنظیمات'
+        persianName: 'تنظیمات',
+        icon: 'gear'
     },
 ];
 

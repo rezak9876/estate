@@ -39,7 +39,7 @@
             class="nav-link link-dark"
             aria-current="page"
           >
-            <i class="bi bi-house-door"></i>
+            <i :class="getIcons(row.icon)"></i>
             {{ row.persianName }}
           </router-link>
 
@@ -61,7 +61,7 @@
                   aria-expanded="false"
                   :aria-controls="'flush-headingOne-' + row.id"
                 >
-                  <i class="bi bi-house-door me-1"></i>
+                  <i class="me-1" :class="getIcons(row.icon)"></i>
                   {{ row.persianName }}
                 </button>
               </h2>
@@ -80,7 +80,7 @@
                     "
                   >
                     <router-link :to="child.link" class="nav-link link-dark">
-                      <i class="bi bi-house-door"></i>
+                      <i :class="getIcons(child.icon)"></i>
                       {{ child.persianName }}
                     </router-link>
                   </li>
@@ -92,7 +92,7 @@
 
         <li>
           <a href="/" class="nav-link link-dark" aria-current="page">
-            <i class="bi bi-house-door"></i>
+            <i :class="getIcons('eye')"></i>
             مشاهده سایت
           </a>
         </li>
@@ -111,6 +111,7 @@ import sidebar from "../../sidebar/index.js";
 
 export default {
   name: "Sidebar",
+  computed: {},
   setup() {
     onMounted(() => {
       if (
@@ -195,7 +196,34 @@ export default {
       });
     });
 
-    return { sidebar };
+    function getIcons(icon) {
+      switch (icon) {
+        case "file":
+          return "bi bi-file-word";
+        case "building":
+          return "bi bi-building";
+        case "house":
+          return "bi bi-house";
+        case "person-lines-fill":
+          return "bi bi-person-lines-fill";
+        case "person":
+          return "bi bi-person";
+        case "chat":
+          return "bi bi-chat";
+        case "gear":
+          return "bi bi-gear";
+        case "eye":
+          return "bi bi-eye";
+        case "list":
+          return "bi bi-list";
+        case "plus-lg":
+          return "bi bi-plus-lg";
+        default:
+          return "bi bi-house-door";
+      }
+    }
+
+    return { sidebar, getIcons };
   },
 };
 </script>
