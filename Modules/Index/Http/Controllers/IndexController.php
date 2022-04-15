@@ -66,7 +66,7 @@ class IndexController extends BaseController
             'min_year_of_construction' => $min_year_of_construction,
             'max_year_of_construction' => $max_year_of_construction,
         ];
-        $estates = Estate::limit(21)->get();
+        $estates = Estate::whereStatus('approved')->limit(21)->get();
         return view('index::index',compact(['usetypes','provinces','neighborhoods','estates','extremum','terms' , 'facilities']));
     }
 

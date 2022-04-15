@@ -211,5 +211,6 @@ return [
         'socialYoutube' => 'یوتیوب',
         'socialWhatsapp' => 'واتساپ',
         'province' => 'استان',
+        'status' => 'وضعیت',
     ],
 ];

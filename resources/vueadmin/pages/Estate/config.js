@@ -17,6 +17,11 @@ export default module = {
                 slug: 'type',
             },
             {
+                type: 'text',
+                title: 'وضعیت',
+                slug: 'status',
+            },
+            {
                 type: 'button',
                 title: 'ویرایش',
                 slug: 'edit',
@@ -188,6 +193,20 @@ export default module = {
         },
 
 
+        status: {
+            type: 'select',
+            persianName: 'وضعیت',
+            col: 6,
+            options: {
+                'not_approved': 'تایید نشده',
+                'approved': 'تایید شده',
+                'pending_approval': 'در انتظار تایید',
+            },
+            permission: {
+                arg: 'verification',
+                value: 'estates'
+            },
+        },
     },
     // events: {
     //     mounted:

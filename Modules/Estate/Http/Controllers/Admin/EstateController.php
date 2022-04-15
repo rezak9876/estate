@@ -199,6 +199,13 @@ class EstateController extends Controller
      */
     public function update(EstateRequest $request, Estate $estate)
     {
+        if (Auth::user()->cannot('verification', $estate))
+            $request['status'] = 'pending_approval';
+        else {
+            $request->validate([
+                'status' => 'required',
+            ]);
+        }
         if ($request->delete_galleries != null) {
             foreach ($request->delete_galleries as $delete_gallery_id) {
                 $gallery = Gallery::find($delete_gallery_id);
@@ -233,6 +240,7 @@ class EstateController extends Controller
                 'main_picture' => $name,
             ]);
         }
+
         $estate->update($request->all());
         $estate->terms()->sync($request->terms);
         $int_facilities = collect($request->int_facilities, [])

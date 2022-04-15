@@ -76,7 +76,7 @@ class SearchController extends BaseController
             'max_facility' => $max_facility,
         ];
 
-        $estates = Estate::limit(1)->get();
+        $estates = Estate::whereStatus('approved')->limit(1)->get();
         return view('search::index', compact(['estates', 'usetypes', 'usetypesproperties', 'facilities', 'terms', 'provinces', 'neighborhoods', 'extremum', 'form_value']));
     }
 

@@ -21,6 +21,7 @@ class EstateResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'type' => $this->gettypeName(),
+            'status' => $this->getStatusPersian(),
             'deletable' => $login_user->can('delete', Estate::where('id',$this->id)->first()),
             'editable' => $login_user->can('update', Estate::where('id',$this->id)->first()),
         ];

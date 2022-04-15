@@ -5,6 +5,9 @@
       v-for="(row, index) in module.formfields"
       :key="index"
       :class="'col-md-' + row.col"
+      v-can:[row.permission?row.permission.arg:null]="
+        row.permission ? row.permission.value : null
+      "
     >
       <div
         v-if="row.type == 'input'"

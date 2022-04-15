@@ -77,4 +77,9 @@ class EstatePolicy
     {
         return ($user->permissions()->where('slug', 'estates.excel')->exists());
     }
+
+    public function verification(User $user)
+    {
+        return ($user->permissions()->where('slug', 'estates.verification')->exists());
+    }
 }

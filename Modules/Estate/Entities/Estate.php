@@ -16,7 +16,7 @@ class Estate extends Model
 
     protected $fillable = [
         'type', 'total_price', 'mortgage_price', 'rent_price', 'neighborhood_id', 'latitude', 'longitude', 'area',
-        'year_of_construction', 'address', 'title', 'slug', 'description', 'use_type_id', 'use_type_property_id', 'main_picture'
+        'year_of_construction', 'address', 'title', 'slug', 'description', 'use_type_id', 'use_type_property_id', 'main_picture', 'status'
     ];
 
     protected static function newFactory()
@@ -134,5 +134,17 @@ class Estate extends Model
     public function thumbnail_picture()
     {
         return Gallery::$prefix_images . 'thumbnail_' . $this->main_picture;
+    }
+
+    public function getStatusPersian()
+    {
+        switch ($this->status) {
+            case "approved":
+                return 'تاییده شده';
+            case "pending_approval":
+                return 'در انتظار تایید';
+            case "not_approved":
+                return 'تاییده نشده';
+        }
     }
 }

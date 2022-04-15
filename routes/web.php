@@ -22,19 +22,3 @@ Route::middleware(['auth:sanctum', 'admin'])->get('/admin', function () {
 Route::middleware('auth:sanctum')->get('/user', function () {
     return view('admin');
 })->name('user');
-
-
-
-Route::get('/pusher/index', function () {
-    return view('messages');
-});
-
-
-Route::get('/pusher/form', function () {
-    return view('form');
-});
-
-
-Route::get('/pusher/send', function () {
-    event(new SendMessage());
-})->name('sendMessage');
