@@ -42,6 +42,7 @@ class PermissionTableSeeder extends Seeder
             ['title' => 'ویرایش آگهی', 'slug' => 'estates.edit'],
             ['title' => 'حذف آگهی', 'slug' => 'estates.delete'],
             ['title' => 'اکسل آگهی', 'slug' => 'estates.excel'],
+            ['title' => 'تایید آگهی', 'slug' => 'estates.verification'],
             ['title' => 'مشاهده پیام', 'slug' => 'chats.show'],
             ['title' => 'پاسخ به پیام', 'slug' => 'chats.send_chat'],
         ];

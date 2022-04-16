@@ -102,7 +102,7 @@ class EstateTableSeeder extends Seeder
                 'longitude' => 50.0052069,
                 'area' => rand(40, 300),
                 'year_of_construction' => rand(1320, 1400),
-                'status' => rand(0, 1),
+                'status' => 'approved',
                 'title' => $estate['title'],
                 'description' => $estate['description'],
                 'user_id' => User::first()->id,
