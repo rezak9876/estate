@@ -50,10 +50,18 @@
               class="dropdown-menu text-small shadow"
               aria-labelledby="dropdownUser2"
             >
-              <!-- <li><a class="dropdown-item" href="#">ویرایش پروفایل</a></li>
               <li>
-                <hr class="dropdown-divider" /> -->
-              <!-- </li> -->
+                <router-link
+                  :to="{ name: 'profile-update' }"
+                  class="nav-link link-dark p-0"
+                  aria-current="page"
+                >
+                  <a class="dropdown-item" href="#">ویرایش پروفایل</a>
+                </router-link>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
               <li>
                 <a class="dropdown-item" href="#" @click="sign_out">خروج</a>
               </li>

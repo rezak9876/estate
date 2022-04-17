@@ -279,7 +279,7 @@
                 type="text"
                 placeholder="پیام خود را بنویسید ..."
               />
-              <div class="mb-2">
+              <div class="mb-md-2 d-flex">
                 <span class="publisher-btn file-group">
                   <label for="upload-file" style="cursor: pointer"
                     ><i class="bi bi-paperclip file-browser"></i
@@ -612,7 +612,6 @@ h4.card-title {
 }
 
 .card-title {
-  font-family: Roboto, sans-serif;
   font-weight: 300;
   line-height: 1.5;
   margin-bottom: 0;
@@ -773,7 +772,6 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: Roboto, sans-serif;
   font-weight: 300;
 }
 

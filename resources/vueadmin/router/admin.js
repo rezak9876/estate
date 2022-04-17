@@ -34,6 +34,9 @@ import ChatIndex from '../pages/Chat/Index.vue'
 import ChatCreate from '../pages/Chat/Create'
 import ChatShow from '../pages/Chat/Show'
 
+import EditProfile from '../pages/EditProfile/Update'
+
+
 
 import { check_permission } from '../permissions'
 const routes = [
@@ -71,6 +74,9 @@ const routes = [
     { path: "/chats", name: 'chats-index', component: ChatIndex },
     { path: "/chats/create", name: 'chats-create', component: ChatCreate },
     { path: "/chats/:id", name: 'chats-show', component: ChatShow },
+    
+    
+    { path: "/edit-profile", name: 'profile-update', component: EditProfile },
 
 
 ];
@@ -89,7 +95,7 @@ router.beforeEach((to, from, next) => {
         const url_array = to.name.split("-", 2);
 
 
-        const freeModules = ["estates"];
+        const freeModules = ["estates","profile"];
 
 
         if (freeModules.includes(url_array[0]))

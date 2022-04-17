@@ -211,4 +211,9 @@ class UserController extends Controller
             'is_admin' => Auth::user()->role->slug != 'general_user',
         ]);
     }
+
+    public function edit_profile(UserRequest $request, User $user)
+    {
+        dd($request->all());
+    }
 }

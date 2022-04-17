@@ -22,5 +22,6 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::prefix('admin')->as('admin.')->middleware(['auth:sanctum'])->group(function () {
         Route::get('users/login_user', 'Admin\UserController@login_user');
+        Route::patch('users/edit_profile', 'Admin\UserController@edit_profile');
     });
 });
