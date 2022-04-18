@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Estate\Entities\Estate;
+use Modules\Facility\Entities\Facility;
+use Modules\Term\Entities\Term;
 
 class EstateTableSeeder extends Seeder
 {
@@ -130,32 +132,32 @@ class EstateTableSeeder extends Seeder
         //
         $estates = Estate::all();
         //
-        // $terms = \App\Term::all();
-        // foreach ($estates as $estate) {
-        //     $rand_terms = [];
-        //     foreach ($terms as $term) {
-        //         if (rand() < 2147483647 / 3)
-        //             array_push($rand_terms, $term->id);
-        //     }
-        //     $estate->terms()->attach($rand_terms);
-        //     unset($rand_terms);
-        // }
+        $terms = Term::all();
+        foreach ($estates as $estate) {
+            $rand_terms = [];
+            foreach ($terms as $term) {
+                if (rand() < 2147483647 / 3)
+                    array_push($rand_terms, $term->id);
+            }
+            $estate->terms()->attach($rand_terms);
+            unset($rand_terms);
+        }
 
         //
         //        DB::table('estate_facility')->truncate();
 
-        // foreach ($estates as $estate) {
-        //     $facilities = \App\Facility::all();
-        //     foreach ($facilities as $facility) {
-        //         if ($facility->type == \App\Facility::Integer) {
-        //             $estate->intfacilities()->attach([
-        //                 $facility->id => ['value' => rand(1, 4)],
-        //             ]);
-        //         } elseif ($facility->type == \App\Facility::Check_box && rand() < 2147483647 / 3) {
-        //             $estate->boolfacilities()->attach($facility->id);
-        //         }
-        //     }
-        // }
+        foreach ($estates as $estate) {
+            $facilities = Facility::all();
+            foreach ($facilities as $facility) {
+                if ($facility->type == Facility::Integer) {
+                    $estate->intfacilities()->attach([
+                        $facility->id => ['value' => rand(1, 4)],
+                    ]);
+                } elseif ($facility->type == Facility::Check_box && rand() < 2147483647 / 3) {
+                    $estate->boolfacilities()->attach($facility->id);
+                }
+            }
+        }
 
         //        DB::table('galleries')->truncate();
 

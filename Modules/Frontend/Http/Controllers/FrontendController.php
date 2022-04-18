@@ -160,7 +160,7 @@ class FrontendController extends BaseController
             if ($facility->type == Facility::Integer) {
                 $id = $facility->id;
                 $estates->whereHas('intfacilities', function ($q) use ($request ,$id) {
-                    $q->Where('facility_id', $id)->whereBetween('value', [$request->min_facility[$id], $request->max_facility[$id]]);
+                    $q->where('facility_id', $id)->whereBetween('value', [$request->min_facility[$id], $request->max_facility[$id]]);
                 });
             }
         }

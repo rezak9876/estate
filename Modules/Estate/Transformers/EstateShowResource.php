@@ -41,6 +41,7 @@ class EstateShowResource extends JsonResource
             'delete_galleries' => $this->galleries->pluck('path', 'id')->map(function ($item, $key) {
                 return Gallery::$prefix_images.$item;
             }),
+            'status' => $this->status,
         ];
 
         foreach ($this->intfacilities as $int_facility) {
