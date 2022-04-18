@@ -1,18 +1,25 @@
 <template>
-  <div id="page-content" class="bg-light shadow-lg p-3 mb-5 bg-body rounded">
+  <GetLoading v-if="mount_loading" />
+
+  <div
+    v-else
+    id="page-content"
+    class="bg-light shadow-lg p-3 mb-5 bg-body rounded"
+  >
     <Header :header-info="headerInfo" />
 
     <form
       id="myform"
       method="POST"
-      class="frmAjax form-vertical row"
+      class="frmAjax form-vertical"
       enctype="multipart/form-data"
     >
       <input type="hidden" name="_method" value="patch" />
-      <Filelds :module="module" :data="data" />
-
-      <button type="submit" class="btn btn-primary" :disabled="loading">
-        <div v-if="loading">
+      <div class="mb-3 row">
+        <Filelds v-if="!mount_loading" :module="module" :data="data" />
+      </div>
+      <button type="submit" class="btn btn-primary" :disabled="submit_loading">
+        <div v-if="submit_loading">
           <span
             class="spinner-border spinner-border-sm"
             role="status"
@@ -30,7 +37,7 @@
 import GetLoading from "../../components/sections/GetLoading.vue";
 import Filelds from "../../components/Modules/Partials/Filelds.vue";
 import module from "./config";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, inject } from "vue";
 import axios from "axios";
 import router from "../../router";
 import { store } from "../../store";
@@ -41,14 +48,17 @@ export default {
     GetLoading,
     Filelds,
   },
+  inject: ["toastShow"],
+
   setup() {
-    const loading = ref(true);
     const data = ref({});
 
     const user_id = store.user.id;
 
+    const mount_loading = ref(true);
+
     axios
-      .get("/users/" + user_id + "/edit")
+      .get("/user/get_user_info")
       .then(function (response) {
         data.value = response.data.data;
       })
@@ -57,24 +67,28 @@ export default {
         if (error.response.status == 404) router.push("/");
       })
       .then(function () {
-        loading.value = false;
+        mount_loading.value = false;
       });
+
+    const toastShow = inject("toastShow");
+
+    const submit_loading = ref(false);
 
     onMounted(() => {
       $("form#myform").submit(function (e) {
         e.preventDefault();
-        loading.value = true;
+        submit_loading.value = true;
         var formdata = new FormData(this);
 
         axios
           .post("/user/edit_profile", formdata)
           .then(function (response) {
             toastShow("success", response.data.message);
-            loading.value = false;
-            location.reload();
+            submit_loading.value = false;
+            // location.reload();
           })
           .catch(function (error) {
-            loading.value = false;
+            submit_loading.value = false;
             const obj = error.response.data.errors;
             const firstmessage = obj[Object.keys(obj)[0]][0];
             toastShow("error", firstmessage);
@@ -83,7 +97,7 @@ export default {
       });
     });
 
-    return { module, data };
+    return { module, data, mount_loading, submit_loading };
   },
 };
 </script>

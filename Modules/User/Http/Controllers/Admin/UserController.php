@@ -52,17 +52,17 @@ class UserController extends Controller
             $this->save_picture($file, $name);
             // resize image instance
             // $this->create_thumbnail_picture($image_path, $name);
-            $request_data['picture']= $name;
+            $request_data['picture'] = $name;
         }
         $user = new User();
         $user->create($request_data);
-        
+
         return response()->json([
             'message' => 'کاربر با موفقیت ساخته شد.'
         ], 201);
     }
 
-       /**
+    /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
@@ -71,7 +71,7 @@ class UserController extends Controller
         $roles = Role::pluck('title', 'id');
         return response()->json([
             'data' =>  [
-               'roles' => $roles
+                'roles' => $roles
             ]
         ]);
     }
@@ -102,7 +102,7 @@ class UserController extends Controller
         $request_data = $request->except(['picture']);
         if ($request->delete_picture != null) {
             $this->delete_picture($user->picture);
-            $request_data['picture']=null;
+            $request_data['picture'] = null;
         }
 
 
@@ -117,13 +117,12 @@ class UserController extends Controller
             $this->save_picture($file, $name);
             // resize image instance
             // $this->create_thumbnail_picture($image_path, $name);
-            $request_data['picture']=$name;
-
+            $request_data['picture'] = $name;
         }
 
         if ($request_data['password'] == null) {
             unset($request_data['password']);
-        }else{
+        } else {
             $request_data['password'] = Hash::make($request->password);
         }
 
@@ -192,15 +191,12 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $response = [];
-        foreach($user->permissions as $permission)
-        {
-            $slug = explode(".",$permission->slug);
-            if( array_key_exists($slug[0],$response))
-            {
-                array_push($response[$slug[0]],$slug[1]);
-
-            }else{
-                $response[$slug[0]]=[$slug[1]];
+        foreach ($user->permissions as $permission) {
+            $slug = explode(".", $permission->slug);
+            if (array_key_exists($slug[0], $response)) {
+                array_push($response[$slug[0]], $slug[1]);
+            } else {
+                $response[$slug[0]] = [$slug[1]];
             }
         }
         return response()->json([
@@ -212,8 +208,19 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit_profile(UserRequest $request, User $user)
+
+    // update information from edit profile 
+    public function edit_profile(UserRequest $request)
     {
-        dd($request->all());
+        $this->update($request, Auth::user());
+        return response()->json([
+            'message' => 'پروفایل با موفقیت آپدیت شد.'
+        ], 200);
+    }
+
+    // return information of Auth user for edit profile 
+    public function get_user_info()
+    {
+        return $this->edit(Auth::user());
     }
 }

@@ -8,6 +8,8 @@ import ChatShow from '../pages/Chat/Show'
 
 import HomeIndex from '../pages/user/Home/Index'
 
+import EditProfile from '../pages/EditProfile/Update'
+
 const routes = [
 
     { path: "/", name: 'home', component: HomeIndex },
@@ -20,6 +22,8 @@ const routes = [
 
     { path: "/chats", name: 'chats-show', component: ChatShow },
 
+
+    { path: "/edit-profile", name: 'profile-update', component: EditProfile },
 
 ];
 
