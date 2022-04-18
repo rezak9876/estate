@@ -18,6 +18,9 @@ export default module = {
                     arg: 'edit',
                     value: 'users'
                 },
+                style: {
+                    width: '10%'
+                }
             },
             {
                 type: 'button',
@@ -27,6 +30,9 @@ export default module = {
                     arg: 'delete',
                     value: 'users'
                 },
+                style: {
+                    width: '10%'
+                }
             }
         ],
     formfields: {

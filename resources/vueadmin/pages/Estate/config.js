@@ -25,11 +25,17 @@ export default module = {
                 type: 'button',
                 title: 'ویرایش',
                 slug: 'edit',
+                style: {
+                    width: '10%'
+                }
             },
             {
                 type: 'button',
                 title: 'حذف',
                 slug: 'delete',
+                style: {
+                    width: '10%'
+                }
             }
         ],
     formfields: {

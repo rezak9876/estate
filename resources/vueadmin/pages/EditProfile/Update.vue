@@ -6,8 +6,6 @@
     id="page-content"
     class="bg-light shadow-lg p-3 mb-5 bg-body rounded"
   >
-    <Header :header-info="headerInfo" />
-
     <form
       id="myform"
       method="POST"

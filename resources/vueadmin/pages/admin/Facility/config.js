@@ -23,6 +23,9 @@ export default module = {
                     arg: 'edit',
                     value: 'facilities'
                 },
+                style: {
+                    width: '10%'
+                }
             },
             {
                 type: 'button',
@@ -32,6 +35,9 @@ export default module = {
                     arg: 'delete',
                     value: 'facilities'
                 },
+                style: {
+                    width: '10%'
+                }
             }
         ],
     formfields: {

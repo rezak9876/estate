@@ -1,5 +1,5 @@
 <template>
-  <Form :module="module" v-if="!loading" />
+  <Form :module="module" />
 </template>
 
 <script>
@@ -50,15 +50,12 @@ export default {
       .catch(function (error) {})
       .then(function () {
         // setTimeout(()=>{
-        vd.loading = false;
         // },8000)
       });
   },
 
   setup() {
-    const loading = ref(true);
-
-    return { module, loading };
+    return { module };
   },
   mounted() {
     waitForElm("select[name='type']").then((elm) => {

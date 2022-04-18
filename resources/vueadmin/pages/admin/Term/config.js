@@ -17,6 +17,9 @@ export default module = {
                 arg: 'edit',
                 value: 'terms'
             },
+            style: {
+                width: '10%'
+            }
         },
         {
             type: 'button',
@@ -26,6 +29,9 @@ export default module = {
                 arg: 'delete',
                 value: 'terms'
             },
+            style: {
+                width: '10%'
+            }
         }
     ],
     formfields: {

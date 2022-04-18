@@ -10,6 +10,7 @@
           v-can:[row.permission?row.permission.arg:null]="
             row.permission ? row.permission.value : null
           "
+          :style="row.style"
         >
           {{ row.title }}
         </th>

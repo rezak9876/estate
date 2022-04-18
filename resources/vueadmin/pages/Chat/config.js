@@ -15,6 +15,9 @@ export default module = {
                 type: 'button',
                 title: 'مشاهده',
                 slug: 'view',
+                style: {
+                    width: '10%'
+                }
             }
         ],
     formfields: {

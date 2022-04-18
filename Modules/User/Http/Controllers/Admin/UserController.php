@@ -86,7 +86,16 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return response()->json([
-            'data' => new UserResource($user)
+            'data' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'phone' => $user->phone,
+                'mobile' => $user->mobile,
+                'email' => $user->email,
+                'description' => $user->description,
+                'role_id' => $user->role_id,
+                'delete_picture' => $user->picture ? '/images/users/' . $user->picture : null,
+            ]
         ], 200);
     }
 
