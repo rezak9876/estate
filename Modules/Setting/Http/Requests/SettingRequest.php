@@ -31,9 +31,9 @@ class SettingRequest extends FormRequest
             'phone' => 'nullable|numeric',
             'phone2' => 'nullable|numeric',
             'phone3' => 'nullable|numeric',
-            'email' => 'email',
-            'email2' => 'email',
-            'email3' => 'email',
+            'email' => 'nullable|email',
+            'email2' => 'nullable|email',
+            'email3' => 'nullable|email',
                 
             'mobileWhatsup' => 'nullable|regex:/(?:0)?(9\d{9})$/',
         ];
