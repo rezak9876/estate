@@ -7,6 +7,17 @@ use Illuminate\Validation\Rule;
 
 class EstateRequest extends FormRequest
 {
+
+    public function prepareForValidation()
+    {
+
+        $slug = $this->slug;
+        $slug = str_replace(" ", "_", $slug);
+        $slug = str_replace("/", "_", $slug);
+        $this->merge([
+            'slug' => $slug,
+        ]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -17,7 +28,7 @@ class EstateRequest extends FormRequest
         return [
             'type' => 'required',
             'area' => 'required|regex:/^\d+$/',
-            'year_of_construction' => 'required|integer|between:1281,'.verta()->year,
+            'year_of_construction' => 'required|integer|between:1281,' . verta()->year,
             'total_price' => 'regex:/^\d+([.]\d+)?$/',
             'mortgage_price' => 'regex:/^\d+([.]\d+)?$/',
             'rent_price' => 'regex:/^\d+([.]\d+)?$/',

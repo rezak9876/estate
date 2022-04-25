@@ -1,12 +1,12 @@
 <template>
-  <Form :module="module" />
+  <Form v-if="loadingFinished" :module="module" :data="data" />
 </template>
 
 <script>
 import Form from "../../../components/Modules/Partials/Form.vue";
 import module from "../config";
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import * as $ from "jquery";
 import { waitForElm } from "../../../helper/dom";
 
@@ -14,8 +14,13 @@ export default {
   components: {
     Form,
   },
-  beforeCreate() {
-    const vd = this;
+  beforeCreate() {},
+
+  setup() {
+    const loadingFinished = ref(false);
+
+    const data = ref({});
+
     axios
       .get("/estates/create")
       .then(function (response) {
@@ -51,44 +56,45 @@ export default {
       .then(function () {
         // setTimeout(()=>{
         // },8000)
+        loadingFinished.value = true;
       });
-  },
 
-  setup() {
-    return { module };
-  },
-  mounted() {
-    waitForElm("select[name='type']").then((elm) => {
-      const select_type_tag = $("select[name='type']");
-      if (select_type_tag.val() === null) {
-        select_type_tag.val(0);
-        change_form(0);
-      }
-      change_form(select_type_tag.val());
-
-      function hide(type) {
-        var buy_sell = $(`input[data-group='${type}']`);
-        buy_sell.prop("disabled", true);
-        buy_sell.parent().parent().parent().addClass("d-none");
-      }
-
-      function show(type) {
-        var buy_sell = $(`input[data-group='${type}']`);
-        buy_sell.prop("disabled", false);
-        buy_sell.parent().parent().parent().removeClass("d-none");
-      }
-
-      function change_form(type) {
-        if (type == 1) {
-          show(1);
-          hide(0);
-        } else {
-          show(0);
-          hide(1);
+    onMounted(() => {
+      waitForElm("select[name='type']").then((elm) => {
+        const select_type_tag = $("select[name='type']");
+        if (select_type_tag.val() === null) {
+          select_type_tag.val(0);
+          change_form(0);
+          data.value['type'] = 0;
         }
-      }
+        change_form(select_type_tag.val());
+
+        function hide(type) {
+          var buy_sell = $(`input[data-group='${type}']`);
+          buy_sell.prop("disabled", true);
+          buy_sell.parent().parent().parent().addClass("d-none");
+        }
+
+        function show(type) {
+          var buy_sell = $(`input[data-group='${type}']`);
+          buy_sell.prop("disabled", false);
+          buy_sell.parent().parent().parent().removeClass("d-none");
+        }
+
+        function change_form(type) {
+          if (type == 1) {
+            show(1);
+            hide(0);
+          } else {
+            show(0);
+            hide(1);
+          }
+        }
+      });
     });
+    return { module, loadingFinished, data };
   },
+  mounted() {},
   // updated(){
   //   alert('hiup')
   // }

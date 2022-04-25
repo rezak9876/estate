@@ -21,6 +21,42 @@ class EstateTableSeeder extends Seeder
     {
         Model::unguard();
 
+        $debug_mode = env('APP_DEBUG');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        DB::table('provinces')->truncate();
+        if (!$debug_mode)
+            DB::table('provinces')->insert(
+                [
+                    'title' => 'تهران',
+                ]
+            );
+        DB::table('cities')->truncate();
+        if (!$debug_mode)
+            DB::table('cities')->insert(
+                [
+                    'title' => 'تهران',
+                    'province_id' => '1',
+                ]
+            );
+        DB::table('regions')->truncate();
+        if (!$debug_mode)
+            DB::table('regions')->insert(
+                [
+                    'title' => 'تهران',
+                    'city_id' => '1',
+                ]
+            );
+        DB::table('neighborhoods')->truncate();
+        if (!$debug_mode)
+            DB::table('neighborhoods')->insert(
+                [
+                    'title' => 'تهران',
+                    'region_id' => '1',
+                ]
+            );
+
+
         $estates = [
             ['title' => 'فروش آپارتمان 78 متر در جاده ملارد', 'description' => 'این آگهی خرید آپارتمان/برج 370 متری در محله اجودانیه و در منطقه 1 شهر تهران واقع شده است و از امکاناتی نظیر سونا، سالن اجتماعات، آسانسور، درب ریموت، سالن ورزش، بالکن، لابی، تهویه مطبوع، جکوزی، روف گاردن، انباری، استخر، نگهبان و آنتن مرکزی برخوردار است. این آپارتمان/برج مسکونی نوساز، 4 اتاق خواب دارد. با احتساب هر متر مربع 184 میلیون تومان با قیمت 68 میلیارد تومان به فروش می‌رسد.با توجه به گزینه انتخابی شما، 10 ملک مشابه دیگر نیز در سامانه کیلید وجود دارد که پیشنهاد می‏شود آنها را بررسی کنید. این خانه‌ها در محله اجودانیه و در منطقه 1 شهر تهران قرار دارند و از نظر متراژ، تعداد اتاق‌ خواب‌ها و امکانات با آنچه انتخاب کرده‌اید، مشابهت دارند.'],
             ['title' => 'فروش آپارتمان 70 متر در فلکه اول و دوم', 'description' => 'این آگهی خرید آپارتمان/برج 370 متری در محله اجودانیه و در منطقه 1 شهر تهران واقع شده است و از امکاناتی نظیر سونا، سالن اجتماعات، آسانسور، درب ریموت، سالن ورزش، بالکن، لابی، تهویه مطبوع، جکوزی، روف گاردن، انباری، استخر، نگهبان و آنتن مرکزی برخوردار است. این آپارتمان/برج مسکونی نوساز، 4 اتاق خواب دارد. با احتساب هر متر مربع 184 میلیون تومان با قیمت 68 میلیارد تومان به فروش می‌رسد.با توجه به گزینه انتخابی شما، 10 ملک مشابه دیگر نیز در سامانه کیلید وجود دارد که پیشنهاد می‏شود آنها را بررسی کنید. این خانه‌ها در محله اجودانیه و در منطقه 1 شهر تهران قرار دارند و از نظر متراژ، تعداد اتاق‌ خواب‌ها و امکانات با آنچه انتخاب کرده‌اید، مشابهت دارند.'],
@@ -72,61 +108,39 @@ class EstateTableSeeder extends Seeder
             ['title' => 'فروش آپارتمان 133 متر در شهرزیبا', 'description' => 'این آگهی خرید آپارتمان/برج 370 متری در محله اجودانیه و در منطقه 1 شهر تهران واقع شده است و از امکاناتی نظیر سونا، سالن اجتماعات، آسانسور، درب ریموت، سالن ورزش، بالکن، لابی، تهویه مطبوع، جکوزی، روف گاردن، انباری، استخر، نگهبان و آنتن مرکزی برخوردار است. این آپارتمان/برج مسکونی نوساز، 4 اتاق خواب دارد. با احتساب هر متر مربع 184 میلیون تومان با قیمت 68 میلیارد تومان به فروش می‌رسد.با توجه به گزینه انتخابی شما، 10 ملک مشابه دیگر نیز در سامانه کیلید وجود دارد که پیشنهاد می‏شود آنها را بررسی کنید. این خانه‌ها در محله اجودانیه و در منطقه 1 شهر تهران قرار دارند و از نظر متراژ، تعداد اتاق‌ خواب‌ها و امکانات با آنچه انتخاب کرده‌اید، مشابهت دارند.'],
         ];
 
-        DB::table('provinces')->insert(
-            [
-                'title' => 'تهران',
-            ]
-        );
-        DB::table('cities')->insert(
-            [
-                'title' => 'تهران',
-                'province_id' => '1',
-            ]
-        );
-        DB::table('regions')->insert(
-            [
-                'title' => 'تهران',
-                'city_id' => '1',
-            ]
-        );
-        DB::table('neighborhoods')->insert(
-            [
-                'title' => 'تهران',
-                'region_id' => '1',
-            ]
-        );
+        DB::table('estates')->truncate();
 
-        foreach ($estates as $estate) {
-            $query = [
-                'type' => rand(0, 3),
-                'neighborhood_id' => 1,
-                'latitude' => 34.6861418,
-                'longitude' => 50.0052069,
-                'area' => rand(40, 300),
-                'year_of_construction' => rand(1320, 1400),
-                'status' => 'approved',
-                'title' => $estate['title'],
-                'description' => $estate['description'],
-                'user_id' => User::first()->id,
-                'views' => rand(0, 100),
-                'use_type_property_id' => rand(1, 13),
-                'slug' => $estate['title'] . rand(),
-                'address' => 'خیابان شمشیری ، پاساژ آریوسنتر ، طبقه پنجم ، واحد 14',
-            ];
-            if ($query['type'] == 1) {
-                $query['total_price'] = null;
-                $query['mortgage_price'] = rand(30, 1000) * 1000000;
-                $query['rent_price'] = rand(2, 40) * 1000000;
-            } else {
-                $query['total_price'] = rand(100, 10000) * 1000000;
-                $query['mortgage_price'] = null;
-                $query['rent_price'] = null;
+        if (!$debug_mode)
+            foreach ($estates as $estate) {
+                $query = [
+                    'type' => rand(0, 3),
+                    'neighborhood_id' => 1,
+                    'latitude' => 34.6861418,
+                    'longitude' => 50.0052069,
+                    'area' => rand(40, 300),
+                    'year_of_construction' => rand(1320, 1400),
+                    'status' => 'approved',
+                    'title' => $estate['title'],
+                    'description' => $estate['description'],
+                    'user_id' => User::first()->id,
+                    'views' => rand(0, 100),
+                    'use_type_property_id' => rand(1, 13),
+                    'slug' => $estate['title'] . rand(),
+                    'address' => 'خیابان شمشیری ، پاساژ آریوسنتر ، طبقه پنجم ، واحد 14',
+                ];
+                if ($query['type'] == 1) {
+                    $query['total_price'] = null;
+                    $query['mortgage_price'] = rand(30, 1000) * 1000000;
+                    $query['rent_price'] = rand(2, 40) * 1000000;
+                } else {
+                    $query['total_price'] = rand(100, 10000) * 1000000;
+                    $query['mortgage_price'] = null;
+                    $query['rent_price'] = null;
+                }
+
+
+                DB::table('estates')->insert($query);
             }
-
-            //            DB::table('estates')->truncate();
-
-            DB::table('estates')->insert($query);
-        }
 
         //        DB::table('estate_term')->truncate();
         //
@@ -159,123 +173,125 @@ class EstateTableSeeder extends Seeder
             }
         }
 
-        //        DB::table('galleries')->truncate();
 
-        // $galleries = [
-        //     'listing_02e2efea-cf3c-4fd8-b0c0-716f1ce7b4ec.jpg',
-        //     'listing_03fb854b-0573-4969-a0f9-655573482cba.jpg',
-        //     'listing_04a89da8-9815-4f7b-91b4-4cb27cd1afc8.jpg',
-        //     'listing_0e3f5312-9aed-44a9-a630-445a3f829dc7.jpg',
-        //     'listing_1167c434-e522-4285-a5ce-11a89609bed3.jpg',
-        //     'listing_29dfa1bd-5f56-4818-8c3f-a6f1ff5c70c9.jpg',
-        //     'listing_32109022-bf0e-47b7-acad-65f087f8087d.jpg',
-        //     'listing_3912f5a4-92fb-4ba5-9393-e1c408d7b9b1.jpg',
-        //     'listing_41fa2777-e535-40c2-8899-a8ab485f116a.jpg',
-        //     'listing_49e5f4e8-20c6-4a89-a20e-bde0a4ffaf07.jpg',
-        //     'listing_4c46284c-49a5-49e8-add9-3ba15453dd3c.jpg',
-        //     'listing_4fae0e5d-a6f2-423c-ac88-be7a81554a5e.jpg',
-        //     'listing_5a097e15-437e-4781-99c9-7e5c110d465f.jpg',
-        //     'listing_695ef461-b5e9-40e6-9f56-ba9f794ece9a.jpg',
-        //     'listing_74c923ea-a5f0-45a6-9de2-3c7d6458ea35.jpg',
-        //     'listing_897aaf0c-4870-4b57-a13b-0d495bcd79a7.jpg',
-        //     'listing_8a016659-8774-48e6-b417-3a31b326341d.jpg',
-        //     'listing_9c08d501-b3f8-4cad-aadf-739ac9844d4b.jpg',
-        //     'listing_a0114868-cd75-4734-aa11-e4da5eaab132.jpg',
-        //     'listing_a0e384b3-114d-441e-bbc1-81db128796d8.jpg',
-        //     'listing_a2789cc4-3164-49b7-b8ba-5e0b6ac4433d.jpg',
-        //     'listing_d1fdaaf0-d165-477b-83e6-fcfb51d407d4.jpg',
-        //     'listing_db06ab32-bdaa-443b-b978-18afa5991c13.jpg',
-        //     'listing_e07c8ada-b308-428a-b390-f286877d729c.jpg',
-        //     'listing_e32a829c-46a0-418a-853d-f974b6c1ee69.jpg',
-        //     'listing_eacb1f1f-5e6e-493f-994a-34e7d825627f.jpg',
-        //     'listing_eb2c6d44-7288-4a98-89f6-25115cb53868.jpg',
-        //     'listing_ec6e43c4-49aa-45e0-88ff-15fb021fd114.jpg',
-        //     'listing_f65d488c-3eaf-405b-8889-dfd8370c9c7a.jpg',
-        //     'listing_fc8ee849-89b3-4449-80ac-73aab7592930.jpg',
+        $galleries = [
+            'listing_02e2efea-cf3c-4fd8-b0c0-716f1ce7b4ec.jpg',
+            'listing_03fb854b-0573-4969-a0f9-655573482cba.jpg',
+            'listing_04a89da8-9815-4f7b-91b4-4cb27cd1afc8.jpg',
+            'listing_0e3f5312-9aed-44a9-a630-445a3f829dc7.jpg',
+            'listing_1167c434-e522-4285-a5ce-11a89609bed3.jpg',
+            'listing_29dfa1bd-5f56-4818-8c3f-a6f1ff5c70c9.jpg',
+            'listing_32109022-bf0e-47b7-acad-65f087f8087d.jpg',
+            'listing_3912f5a4-92fb-4ba5-9393-e1c408d7b9b1.jpg',
+            'listing_41fa2777-e535-40c2-8899-a8ab485f116a.jpg',
+            'listing_49e5f4e8-20c6-4a89-a20e-bde0a4ffaf07.jpg',
+            'listing_4c46284c-49a5-49e8-add9-3ba15453dd3c.jpg',
+            'listing_4fae0e5d-a6f2-423c-ac88-be7a81554a5e.jpg',
+            'listing_5a097e15-437e-4781-99c9-7e5c110d465f.jpg',
+            'listing_695ef461-b5e9-40e6-9f56-ba9f794ece9a.jpg',
+            'listing_74c923ea-a5f0-45a6-9de2-3c7d6458ea35.jpg',
+            'listing_897aaf0c-4870-4b57-a13b-0d495bcd79a7.jpg',
+            'listing_8a016659-8774-48e6-b417-3a31b326341d.jpg',
+            'listing_9c08d501-b3f8-4cad-aadf-739ac9844d4b.jpg',
+            'listing_a0114868-cd75-4734-aa11-e4da5eaab132.jpg',
+            'listing_a0e384b3-114d-441e-bbc1-81db128796d8.jpg',
+            'listing_a2789cc4-3164-49b7-b8ba-5e0b6ac4433d.jpg',
+            'listing_d1fdaaf0-d165-477b-83e6-fcfb51d407d4.jpg',
+            'listing_db06ab32-bdaa-443b-b978-18afa5991c13.jpg',
+            'listing_e07c8ada-b308-428a-b390-f286877d729c.jpg',
+            'listing_e32a829c-46a0-418a-853d-f974b6c1ee69.jpg',
+            'listing_eacb1f1f-5e6e-493f-994a-34e7d825627f.jpg',
+            'listing_eb2c6d44-7288-4a98-89f6-25115cb53868.jpg',
+            'listing_ec6e43c4-49aa-45e0-88ff-15fb021fd114.jpg',
+            'listing_f65d488c-3eaf-405b-8889-dfd8370c9c7a.jpg',
+            'listing_fc8ee849-89b3-4449-80ac-73aab7592930.jpg',
 
-        //     'listing_0096cb10-632d-4590-95e7-46a651a7ec54.jpg',
-        //     'listing_0efd35f8-5b73-4390-892e-672257e1248f.jpg',
-        //     'listing_0f996191-139d-417f-a6c6-406750510260.jpg',
-        //     'listing_12966758-30a5-4913-aa4b-2dcb18820e11.jpg',
-        //     'listing_14baddd6-250f-4ef4-909a-13a8af27ab9e.jpg',
-        //     'listing_26c37de5-5aeb-424d-b0c6-f290d5d50d23.jpg',
-        //     'listing_26e14646-8fba-4c57-8b9f-4df5fedab3d0.jpg',
-        //     'listing_28a8725f-f2c3-419d-b77d-3fd2b585012e.jpg',
-        //     'listing_3267052a-a6c5-4f97-8542-32856b4afe87.jpg',
-        //     'listing_34669bce-784f-49c1-9ab5-c78aa0fb14f9.jpg',
-        //     'listing_3a94d84a-eabb-4356-8f66-1f527881cc3c.jpg',
-        //     'listing_3f381094-83fc-4a64-9a14-2b4d137037e6.jpg',
-        //     'listing_44386f3d-fd5c-4132-b9ff-8588712966c6.jpg',
-        //     'listing_46477eb7-721c-47e3-bd00-c0956f216c45.jpg',
-        //     'listing_4650aaf4-a548-4450-91c3-c3c0c36ff542.jpg',
-        //     'listing_47f4d880-cb7d-42a2-982c-de4bdf92d0df.jpg',
-        //     'listing_557e0401-9bab-4737-a302-b04cdadaba11.jpg',
-        //     'listing_6079286e-2249-4eff-8e23-10159e2b0c1c.jpg',
-        //     'listing_649160bb-7c1e-411c-ab91-fefabe2dab63.jpg',
-        //     'listing_66e7e5dd-7cff-495c-87c2-fcdc5f738e3f.jpg',
-        //     'listing_693d0050-94b6-4618-a850-81565ab7fe05.jpg',
-        //     'listing_69618f3f-6bc9-48a4-98c5-b7cca4adf253.jpg',
-        //     'listing_6c081389-d8bb-42f4-ae85-c3892b06aba1.jpg',
-        //     'listing_6eb9f549-0d84-45f3-9e0e-28a566395f4d.jpg',
-        //     'listing_74bdae6e-2b55-408b-8c78-32b2f824e559.jpg',
-        //     'listing_7655efca-55e9-454a-9635-0c15c2917168.jpg',
-        //     'listing_7a98f774-1287-4a48-8e4d-84c9bc64a24d.jpg',
-        //     'listing_8128fae2-f7c8-4b98-8969-4050292f35b9.jpg',
-        //     'listing_865dc70a-5e78-48f3-9952-affc37605eb9.jpg',
-        //     'listing_8826330b-6c9b-4705-bc3a-91c15d17b1aa.jpg',
-        //     'listing_8cd4cf64-199b-4221-b252-8491ba14ca40.jpg',
-        //     'listing_983b5e93-778f-4abe-8db5-b335d71ee9d6.jpg',
-        //     'listing_9be3f8f6-27c0-4909-b8b3-0443d62122a6.jpg',
-        //     'listing_9d4449d0-ec24-47e6-84d0-19f3b7a8c50f.jpg',
-        //     'listing_a11f29da-a8bc-4002-a82b-8e778aacbc65.jpg',
-        //     'listing_aa6c63f2-c412-4288-a588-58be35967043.jpg',
-        //     'listing_adf2efe1-5a1c-4ceb-8acc-ebfc0d2c4889.jpg',
-        //     'listing_b301d972-67d3-48d7-9720-3663066b83f1.jpg',
-        //     'listing_b436ceb0-1f4e-4a06-a116-d029dfc038cc.jpg',
-        //     'listing_b8bdaae9-677d-40e9-ae5f-7106ff2a55ba.jpg',
-        //     'listing_bc440ac0-1ee3-4de5-a805-a8838c317c18.jpg',
-        //     'listing_c08b344b-0408-43bf-8256-d7bfbf2561d3.jpg',
-        //     'listing_c0924d34-6564-4326-88fa-bef32a83a154.jpg',
-        //     'listing_c256fd48-1437-43a1-a734-3d2cd04ad770.jpg',
-        //     'listing_c57888ac-8ab3-4c8a-a07f-aa5c4cf22261.jpg',
-        //     'listing_c9605f70-5b92-4ac0-a28c-e097ad52f6f4.jpg',
-        //     'listing_caeb32e4-7f5e-4d52-a3a5-255ec4e725b7.jpg',
-        //     'listing_d62d2d5d-9aeb-46a7-81ab-a0d94f4f3dd3.jpg',
-        //     'listing_d70d92d1-c64b-4971-8d66-b38d992656a4.jpg',
-        //     'listing_d87e22b1-779f-4a5a-a13c-aa00221b9fa6.jpg',
-        //     'listing_dca71c54-c762-47d2-9727-1f7ad321abd3.jpg',
-        //     'listing_e4c7e587-747d-4852-a0f0-9986260bfdb0.jpg',
-        //     'listing_e98525eb-855e-4e9f-aedf-29e7e945ff31.jpg',
-        //     'listing_edbb10d7-6ae7-4011-a08e-691314f5126d.jpg',
-        //     'listing_f2a90f9e-99d1-406a-a9b5-1ea8ce7fe2b6.jpg',
-        //     'listing_f2d89fc8-0858-407a-b693-3f404ba3b7e9.jpg',
-        //     'listing_f7052944-33ef-495c-ac28-7b489627c9e8.jpg',
-        //     'listing_f8613b38-5f60-4357-9e52-beffdb106cb6.jpg',
-        //     'listing_fc02f117-4c62-4eec-b1fe-e35b802c0e1b.jpg',
-        //     'listing_fc533dcc-5f0f-4016-9139-71227804ebdd.jpg',
-        //     'listing_fe26ad8f-4076-4c95-986b-637be8c0fc45.jpg',
-        // ];
+            'listing_0096cb10-632d-4590-95e7-46a651a7ec54.jpg',
+            'listing_0efd35f8-5b73-4390-892e-672257e1248f.jpg',
+            'listing_0f996191-139d-417f-a6c6-406750510260.jpg',
+            'listing_12966758-30a5-4913-aa4b-2dcb18820e11.jpg',
+            'listing_14baddd6-250f-4ef4-909a-13a8af27ab9e.jpg',
+            'listing_26c37de5-5aeb-424d-b0c6-f290d5d50d23.jpg',
+            'listing_26e14646-8fba-4c57-8b9f-4df5fedab3d0.jpg',
+            'listing_28a8725f-f2c3-419d-b77d-3fd2b585012e.jpg',
+            'listing_3267052a-a6c5-4f97-8542-32856b4afe87.jpg',
+            'listing_34669bce-784f-49c1-9ab5-c78aa0fb14f9.jpg',
+            'listing_3a94d84a-eabb-4356-8f66-1f527881cc3c.jpg',
+            'listing_3f381094-83fc-4a64-9a14-2b4d137037e6.jpg',
+            'listing_44386f3d-fd5c-4132-b9ff-8588712966c6.jpg',
+            'listing_46477eb7-721c-47e3-bd00-c0956f216c45.jpg',
+            'listing_4650aaf4-a548-4450-91c3-c3c0c36ff542.jpg',
+            'listing_47f4d880-cb7d-42a2-982c-de4bdf92d0df.jpg',
+            'listing_557e0401-9bab-4737-a302-b04cdadaba11.jpg',
+            'listing_6079286e-2249-4eff-8e23-10159e2b0c1c.jpg',
+            'listing_649160bb-7c1e-411c-ab91-fefabe2dab63.jpg',
+            'listing_66e7e5dd-7cff-495c-87c2-fcdc5f738e3f.jpg',
+            'listing_693d0050-94b6-4618-a850-81565ab7fe05.jpg',
+            'listing_69618f3f-6bc9-48a4-98c5-b7cca4adf253.jpg',
+            'listing_6c081389-d8bb-42f4-ae85-c3892b06aba1.jpg',
+            'listing_6eb9f549-0d84-45f3-9e0e-28a566395f4d.jpg',
+            'listing_74bdae6e-2b55-408b-8c78-32b2f824e559.jpg',
+            'listing_7655efca-55e9-454a-9635-0c15c2917168.jpg',
+            'listing_7a98f774-1287-4a48-8e4d-84c9bc64a24d.jpg',
+            'listing_8128fae2-f7c8-4b98-8969-4050292f35b9.jpg',
+            'listing_865dc70a-5e78-48f3-9952-affc37605eb9.jpg',
+            'listing_8826330b-6c9b-4705-bc3a-91c15d17b1aa.jpg',
+            'listing_8cd4cf64-199b-4221-b252-8491ba14ca40.jpg',
+            'listing_983b5e93-778f-4abe-8db5-b335d71ee9d6.jpg',
+            'listing_9be3f8f6-27c0-4909-b8b3-0443d62122a6.jpg',
+            'listing_9d4449d0-ec24-47e6-84d0-19f3b7a8c50f.jpg',
+            'listing_a11f29da-a8bc-4002-a82b-8e778aacbc65.jpg',
+            'listing_aa6c63f2-c412-4288-a588-58be35967043.jpg',
+            'listing_adf2efe1-5a1c-4ceb-8acc-ebfc0d2c4889.jpg',
+            'listing_b301d972-67d3-48d7-9720-3663066b83f1.jpg',
+            'listing_b436ceb0-1f4e-4a06-a116-d029dfc038cc.jpg',
+            'listing_b8bdaae9-677d-40e9-ae5f-7106ff2a55ba.jpg',
+            'listing_bc440ac0-1ee3-4de5-a805-a8838c317c18.jpg',
+            'listing_c08b344b-0408-43bf-8256-d7bfbf2561d3.jpg',
+            'listing_c0924d34-6564-4326-88fa-bef32a83a154.jpg',
+            'listing_c256fd48-1437-43a1-a734-3d2cd04ad770.jpg',
+            'listing_c57888ac-8ab3-4c8a-a07f-aa5c4cf22261.jpg',
+            'listing_c9605f70-5b92-4ac0-a28c-e097ad52f6f4.jpg',
+            'listing_caeb32e4-7f5e-4d52-a3a5-255ec4e725b7.jpg',
+            'listing_d62d2d5d-9aeb-46a7-81ab-a0d94f4f3dd3.jpg',
+            'listing_d70d92d1-c64b-4971-8d66-b38d992656a4.jpg',
+            'listing_d87e22b1-779f-4a5a-a13c-aa00221b9fa6.jpg',
+            'listing_dca71c54-c762-47d2-9727-1f7ad321abd3.jpg',
+            'listing_e4c7e587-747d-4852-a0f0-9986260bfdb0.jpg',
+            'listing_e98525eb-855e-4e9f-aedf-29e7e945ff31.jpg',
+            'listing_edbb10d7-6ae7-4011-a08e-691314f5126d.jpg',
+            'listing_f2a90f9e-99d1-406a-a9b5-1ea8ce7fe2b6.jpg',
+            'listing_f2d89fc8-0858-407a-b693-3f404ba3b7e9.jpg',
+            'listing_f7052944-33ef-495c-ac28-7b489627c9e8.jpg',
+            'listing_f8613b38-5f60-4357-9e52-beffdb106cb6.jpg',
+            'listing_fc02f117-4c62-4eec-b1fe-e35b802c0e1b.jpg',
+            'listing_fc533dcc-5f0f-4016-9139-71227804ebdd.jpg',
+            'listing_fe26ad8f-4076-4c95-986b-637be8c0fc45.jpg',
+        ];
 
         // //
-        // foreach ($estates as $estate) {
-        //     $key = rand(0, count($galleries) - 1);
-        //     $estate->main_picture = $galleries[$key];
-        //     $estate->save();
-        //     unset($key);
-        // }
+        foreach ($estates as $estate) {
+            $key = rand(0, count($galleries) - 1);
+            $estate->main_picture = $galleries[$key];
+            $estate->save();
+            unset($key);
+        }
         // //
-        // try {
-        //     foreach ($galleries as $gallery) {
-        //         DB::table('galleries')->insert(
-        //             [
-        //                 'estate_id' => rand(1, $estates->count()),
-        //                 'path' => $gallery,
-        //             ]
-        //         );
-        //     }
-        // } catch (\Illuminate\Database\QueryException $e) {
-        //     $this->command->error("SQL Error: " . $e->getMessage() . "\n");
-        // }
+
+        try {
+            DB::table('galleries')->truncate();
+            if (!$debug_mode)
+                foreach ($galleries as $gallery) {
+                    DB::table('galleries')->insert(
+                        [
+                            'estate_id' => rand(1, $estates->count()),
+                            'path' => $gallery,
+                        ]
+                    );
+                }
+        } catch (\Illuminate\Database\QueryException $e) {
+            $this->command->error("SQL Error: " . $e->getMessage() . "\n");
+        }
 
 
 

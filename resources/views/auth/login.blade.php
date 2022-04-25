@@ -7,7 +7,7 @@
 
 
     <!-- Contact
-                ================================================== -->
+                                        ================================================== -->
 
     <!-- Container -->
     <div class="container">
@@ -101,7 +101,8 @@
                                 <p class="form-row form-row-wide">
                                     <label for="password_confirmation">تکرار رمز عبور:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input class="input-text" type="password" name="password_confirmation" id="password_confirmation" />
+                                        <input class="input-text" type="password" name="password_confirmation"
+                                            id="password_confirmation" />
                                     </label>
                                 </p>
 
@@ -127,7 +128,7 @@
 
 
     <!-- Footer
-                ================================================== -->
+                                        ================================================== -->
     <div class="margin-top-55"></div>
 @endsection
 @section('style')
@@ -138,6 +139,8 @@
         $("form#loginform").submit(function(e) {
             e.preventDefault();
 
+            $("input[name='login']").prop("disabled", true);
+            $("input[name='login']").val("...");
             var formdata = new FormData(this);
             $.ajax({
                 url: "{{ route('login') }}",
@@ -151,6 +154,10 @@
                 error: function(jqXHR, textStatus, errorThrown) {
                     if (jqXHR.status == 422)
                         alert('اطلاعات وارد شده صحیح نمی باشد')
+                },
+                complete: function(data) {
+                    $("input[name='login']").prop("disabled", false);
+                    $("input[name='login']").val("ورود");
                 }
             });
         });
@@ -158,6 +165,8 @@
 
         $("form#registerform").submit(function(e) {
             e.preventDefault();
+            $("input[name='register']").prop("disabled", true);
+            $("input[name='register']").val("...");
             var formdata = new FormData(this);
             $.ajax({
                 url: "{{ route('register') }}",
@@ -169,8 +178,16 @@
                     location.replace("{{ route('admin') }}")
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status == 422)
-                        alert('اطلاعات وارد شده صحیح نمی باشد')
+                    if (jqXHR.status == 422) {
+                        let err = jqXHR.responseJSON.errors
+                        let first_key = Object.keys(err)[0]
+                        let message = err[first_key][0]
+                        alert(message)
+                    }
+                },
+                complete: function(data) {
+                    $("input[name='register']").prop("disabled", false);
+                    $("input[name='register']").val("ثبت نام");
                 }
             });
         });

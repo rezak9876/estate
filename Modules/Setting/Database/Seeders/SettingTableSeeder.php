@@ -22,7 +22,7 @@ class SettingTableSeeder extends Seeder
                 'title' => 'ایران هوس',
                 'meta_description' => 'توضیحات متا',
                 'themColor' => '#204abb',
-                'logo' => '16373220872936720.png',
+                'logo' => '165054466231197.png',
                 'faIco' => '16350921708165604.png',
                 'watermark' => '16350921706587955.png',
                 'watermarkActive' => '0',
@@ -44,8 +44,8 @@ class SettingTableSeeder extends Seeder
                 'fax' => 'فکس 1',
                 'mobileWhatsupStatus' => '0',
                 'maintenance' => '0',
-                'main_page_pic' => '1637336584481059.jpg 	',
-                'search_page_pic' => '16370548414134839.jpg',
+                'main_page_pic' => '16503105749385153.jpg',
+                'search_page_pic' => '16503105742155688.jpg',
             ]
         );
     }

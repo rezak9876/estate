@@ -22,10 +22,11 @@ export default {
     Table,
     GetLoading,
     Map,
-    Filelds
+    Filelds,
   },
   props: {
     module: Object,
+    data: Object,
   },
   setup(props) {
     onMounted(() => {
@@ -36,6 +37,8 @@ export default {
     });
     const loading = ref(true);
     const data = ref({});
+
+    if (typeof props.data !== "undefined") data.value = props.data;
 
     const route = useRoute();
     const id = route.params.id;
@@ -89,9 +92,6 @@ export default {
     } else {
       loading.value = false;
     }
-
-
-
 
     return {
       loading,
