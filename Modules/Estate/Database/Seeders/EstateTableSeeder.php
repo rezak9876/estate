@@ -115,8 +115,8 @@ class EstateTableSeeder extends Seeder
                 $query = [
                     'type' => rand(0, 3),
                     'neighborhood_id' => 1,
-                    'latitude' => 34.6861418,
-                    'longitude' => 50.0052069,
+                    'latitude' => 35.0 + rand(1, 9) / 10 + rand(1, 9) / 100 + rand(1, 9) / 1000 + rand(1, 9) / 10000 + rand(1, 9) / 100000 + rand(1, 9) / 1000000,
+                    'longitude' => 51.0 + rand(1, 9) / 10 + rand(1, 9) / 100 + rand(1, 9) / 1000 + rand(1, 9) / 10000 + rand(1, 9) / 100000 + rand(1, 9) / 1000000,
                     'area' => rand(40, 300),
                     'year_of_construction' => rand(1320, 1400),
                     'status' => 'approved',

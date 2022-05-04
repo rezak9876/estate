@@ -9,8 +9,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Estate\Entities\Estate;
 use Modules\Facility\Entities\Facility;
+use Modules\Frontend\Http\Controllers\FrontendController;
 use Modules\Neighborhood\Entities\Neighborhood;
 use Modules\Province\Entities\Province;
+use Modules\Search\Transformers\MarkerClusterResource;
 use Modules\Term\Entities\Term;
 use Modules\UseType\Entities\UseType;
 use Modules\UseTypeProperty\Entities\UseTypeProperty;
@@ -41,13 +43,13 @@ class SearchController extends BaseController
         $max_area = $estates->max('area');
         $min_year_of_construction = $estates->min('year_of_construction');
         $max_year_of_construction = $estates->max('year_of_construction');
-   
-//        $a = $estates->whereHas('facilities',function ($query){
-//            $query->where('facility_id', 2);
-//        })->get()->max('pivot.value');
-//        dd($a);
 
-//        $x = DB::table('estate_facility')->select(DB::raw('MAX(CAST(value AS SIGNED))'))->first();
+        //        $a = $estates->whereHas('facilities',function ($query){
+        //            $query->where('facility_id', 2);
+        //        })->get()->max('pivot.value');
+        //        dd($a);
+
+        //        $x = DB::table('estate_facility')->select(DB::raw('MAX(CAST(value AS SIGNED))'))->first();
 
         foreach ($facilities as $facility) {
             if ($facility->type == Facility::Integer) {
@@ -84,9 +86,12 @@ class SearchController extends BaseController
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function markercluster(Request $request)
     {
-        return view('search::create');
+        $estates = FrontendController::filterd_estates($request);
+
+        $estates = $estates->get();
+        return MarkerClusterResource::collection($estates);
     }
 
     /**

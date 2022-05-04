@@ -13,4 +13,5 @@
 
 Route::middleware('maintenance')->group(function() {
     Route::get('/search', 'SearchController@index')->name('search');
+    Route::get('/markercluster', 'SearchController@markercluster')->name('markercluster');
 });
