@@ -29,11 +29,11 @@
                             <form id="loginform" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
-                                    <label for="username">ایمیل:
+                                    <label for="username">موبایل:
                                         <i class="im im-icon-Male"></i>
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="mobile" type="text"
+                                            class="form-control @error('mobile') is-invalid @enderror" name="mobile"
+                                            value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
                                     </label>
                                 </p>
 
@@ -84,12 +84,6 @@
                                     </label>
                                 </p>
 
-                                <p class="form-row form-row-wide">
-                                    <label for="email2">ایمیل:
-                                        <i class="im im-icon-Mail"></i>
-                                        <input type="text" class="input-text" name="email" id="email2" value="" />
-                                    </label>
-                                </p>
 
                                 <p class="form-row form-row-wide">
                                     <label for="password">رمز عبور:

@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
             [
                 'name' => 'اکانت دمو',
                 'email' => 'info@demo.com',
-                'mobile' => '09363389294',
+                'mobile' => '09121234567',
                 'password' => Hash::make('1'),
                 'role_id' => 1,
             ]

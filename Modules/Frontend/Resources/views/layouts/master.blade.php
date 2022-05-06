@@ -1213,7 +1213,7 @@ $pages = [];
                                 <li class="mobile_device"><a rel="nofollow"
                                                              href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                                     <ul>
-                                        <li><a rel="nofollow" href="{{route('admin.estates.index')}}">پنل
+                                        <li><a rel="nofollow" href="{{route('admin')}}">پنل
                                                 کاربری</a></li>
                                         <li><a rel="nofollow" href="{{route('logout')}}"
                                                onclick="event.preventDefault();
@@ -1334,7 +1334,7 @@ $pages = [];
                                 <li class="mobile_device"><a rel="nofollow"
                                                              href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
                                     <ul>
-                                        <li><a rel="nofollow" href="{{route('admin.estates.index')}}">پنل
+                                        <li><a rel="nofollow" href="{{route('admin')}}">پنل
                                                 کاربری</a></li>
                                         <li><a rel="nofollow" href="{{route('logout')}}"
                                                onclick="event.preventDefault();

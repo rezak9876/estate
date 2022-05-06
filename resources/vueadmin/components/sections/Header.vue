@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex justify-content-between align-items-center container my-5">
     <div>
-      <i class="bi bi-justify"></i>
       {{ headerInfo.title }}
     </div>
     <router-link

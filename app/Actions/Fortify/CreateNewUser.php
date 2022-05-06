@@ -23,20 +23,12 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'regex:/(?:0)?(9\d{9})$/'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique(User::class),
-            ],
+            'mobile' => ['required', 'unique:users', 'regex:/(?:0)?(9\d{9})$/'],
             'password' => $this->passwordRules(),
         ])->validate();
 
         return User::create([
             'name' => $input['name'],
-            'email' => $input['email'],
             'mobile' => $input['mobile'],
             'role_id' => Role::whereSlug('general_user')->first()->id,
             'password' => Hash::make($input['password']),
