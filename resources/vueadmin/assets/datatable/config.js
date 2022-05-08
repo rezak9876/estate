@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 
 export default function  miDataTable(){
-    $('#miTabla').DataTable({
+    return $('#miTabla').DataTable({
 
         "language": {
             "emptyTable":			"<i>موردی یافت نشد.</i>",

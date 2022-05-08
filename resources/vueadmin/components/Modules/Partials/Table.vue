@@ -1,7 +1,7 @@
 <template>
   <GetLoading v-if="loading" />
 
-  <table id="miTabla" class="display responsive" style="width: 100%">
+  <table id="miTabla" class="display responsive dataTable" style="width: 100%">
     <thead>
       <tr>
         <th
@@ -33,8 +33,9 @@
         >
           <button
             v-if="row.slug == 'edit'"
-            @click="edit(data.id)"
             type="button"
+            :data-id="data.id"
+            class="editMe"
             :class="
               typeof data.editable == 'undefined' || data.editable
                 ? 'btn btn-success'
@@ -47,8 +48,9 @@
 
           <button
             v-else-if="row.slug == 'delete'"
-            @click="destroy(data.id)"
             type="button"
+            class="deleteMe"
+            :data-id="data.id"
             :class="
               typeof data.deletable == 'undefined' || data.deletable
                 ? 'btn btn-danger'
@@ -72,9 +74,9 @@
 
           <button
             v-else-if="row.slug == 'view'"
-            @click="show(data.id)"
             type="button"
-            class="btn btn-info"
+            :data-id="data.id"
+            class="showMe btn btn-info"
             :disabled="typeof data.editable != 'undefined' && !data.editable"
           >
             <i class="bi bi-eye"></i>
@@ -154,9 +156,9 @@ export default {
   },
   setup(props) {
     const loading = ref(true);
-    onMounted(() => {});
     const datas = ref([]);
     const module = props.module;
+    let table;
     function getDatas() {
       axios
         .get("/" + module.pluralName)
@@ -169,63 +171,75 @@ export default {
         .catch(function (error) {})
         .then(function () {
           loading.value = false;
-          miDataTable();
+          table = miDataTable();
         });
     }
     getDatas();
 
-    function edit(id) {
-      router.push({
-        name: module.pluralName + "-edit",
-        params: { id: id },
-      });
-    }
-
-    function show(id) {
-      router.push({
-        name: module.pluralName + "-show",
-        params: { id: id },
-      });
-    }
-
     const toastShow = inject("toastShow");
-    function destroy(id) {
-      Swal.fire({
-        title: "آیا اطمینان دارید",
-        text: "بعد از حذف امکان بازگشت وجود ندارد",
-        icon: "warning",
-        showCancelButton: true,
-        cancelButtonText: "انصراف",
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "بله",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          let data = {};
-          for (var key in datas.value) {
-            if (datas.value[key].id == id) {
-              data = datas.value[key];
-              data.loading = true;
-              data["key"] = key;
-              break;
-            }
-          }
-          axios
-            .delete("/" + module.pluralName + "/" + id)
-            .then(function (response) {
-              datas.value.splice(data.key, 1);
-              toastShow("success", response.data.message);
-            })
-            .catch(function (error) {
-              data.loading = false;
-              toastShow("error", error.response.data.message);
-            });
-        }
-      });
-    }
 
-    return { loading, datas, destroy, edit, show, module };
+    onMounted(() => {
+      //delete event
+      $(".dataTable").on("click", ".deleteMe", function () {
+        let id = $(this).data("id");
+        Swal.fire({
+          title: "آیا اطمینان دارید",
+          text: "بعد از حذف امکان بازگشت وجود ندارد",
+          icon: "warning",
+          showCancelButton: true,
+          cancelButtonText: "انصراف",
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "بله",
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            let data = {};
+            for (var key in datas.value) {
+              if (datas.value[key].id == id) {
+                data = datas.value[key];
+                data.loading = true;
+                data["key"] = key;
+                break;
+              }
+            }
+            axios
+              .delete("/" + module.pluralName + "/" + id)
+              .then(function (response) {
+                $("#miTabla").DataTable().destroy();
+                $.when(datas.value.splice(data.key, 1)).then(function () {
+                  miDataTable();
+                });
+                toastShow("success", response.data.message);
+              })
+              .catch(function (error) {
+                data.loading = false;
+                toastShow("error", error.response.data.message);
+              });
+          }
+        });
+      });
+
+      //edit event
+      $(".dataTable").on("click", ".editMe", function () {
+        let id = $(this).data("id");
+        router.push({
+          name: module.pluralName + "-edit",
+          params: { id: id },
+        });
+      });
+
+      //show event
+      $(".dataTable").on("click", ".showMe", function () {
+        let id = $(this).data("id");
+        router.push({
+          name: module.pluralName + "-show",
+          params: { id: id },
+        });
+      });
+    });
+
+    return { loading, datas, module };
   },
   components: {
     GetLoading,

@@ -38,20 +38,22 @@ class IndexController extends BaseController
         $max_rent_price = floor($estates->max('rent_price') / 1000000);
         $min_mortgage_price = floor($estates->min('mortgage_price') / 1000000);
         $max_mortgage_price = floor($estates->max('mortgage_price') / 1000000);
+        $min_facility = array();
         foreach ($facilities as $facility) {
             if ($facility->type == Facility::Integer) {
                 $x = DB::table('int_estate_facility')->where('facility_id', $facility->id)->selectRaw('MIN(CAST(value AS SIGNED))')->first();
                 $min_facility[$facility->id] = reset($x);
             }
         }
+        $max_facility = array();
         foreach ($facilities as $facility) {
             if ($facility->type == Facility::Integer) {
                 $x = DB::table('int_estate_facility')->where('facility_id', $facility->id)->selectRaw('MAX(CAST(value AS SIGNED))')->first();
                 $max_facility[$facility->id] = reset($x);
             }
         }
-        $min_year_of_construction = $estates->min('year_of_construction');
-        $max_year_of_construction = $estates->max('year_of_construction');
+        $min_year_of_construction = $estates->min('year_of_construction') ?? 0;
+        $max_year_of_construction = $estates->max('year_of_construction') ?? 1;
         $extremum = [
             'min_total_price' => $min_total_price - fmod($min_total_price, 10),
             'max_total_price' => 10 + $max_total_price - fmod($max_total_price, 10),
@@ -67,7 +69,7 @@ class IndexController extends BaseController
             'max_year_of_construction' => $max_year_of_construction,
         ];
         $estates = Estate::whereStatus('approved')->limit(21)->get();
-        return view('index::index',compact(['usetypes','provinces','neighborhoods','estates','extremum','terms' , 'facilities']));
+        return view('index::index', compact(['usetypes', 'provinces', 'neighborhoods', 'estates', 'extremum', 'terms', 'facilities']));
     }
 
     /**
