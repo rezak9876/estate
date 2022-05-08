@@ -62,6 +62,8 @@ export default {
             if (props.module.redirect != false)
               router.push({ name: props.module.pluralName + "-index" });
             else slotkey.value++;
+            const updated_function = props.module.onUpdatedForm;
+            if (updated_function) updated_function();
           })
           .catch(function (error) {
             loading.value = false;
@@ -70,8 +72,7 @@ export default {
             toastShow("error", firstmessage);
           })
           .then(function () {
-            const updated_function = props.module.onUpdatedForm;
-            if (updated_function) updated_function();
+            
           });
       });
     });

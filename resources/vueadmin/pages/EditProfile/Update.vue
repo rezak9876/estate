@@ -40,6 +40,7 @@ import axios from "axios";
 import router from "../../router";
 import { store } from "../../store";
 import * as $ from "jquery";
+import { waitForElm } from "../../helper/dom";
 
 export default {
   components: {
@@ -73,25 +74,27 @@ export default {
     const submit_loading = ref(false);
 
     onMounted(() => {
-      $("form#myform").submit(function (e) {
-        e.preventDefault();
-        submit_loading.value = true;
-        var formdata = new FormData(this);
+      waitForElm("form#myform").then((elm) => {
+        $("form#myform").submit(function (e) {
+          e.preventDefault();
+          submit_loading.value = true;
+          var formdata = new FormData(this);
 
-        axios
-          .post("/user/edit_profile", formdata)
-          .then(function (response) {
-            toastShow("success", response.data.message);
-            submit_loading.value = false;
-            // location.reload();
-          })
-          .catch(function (error) {
-            submit_loading.value = false;
-            const obj = error.response.data.errors;
-            const firstmessage = obj[Object.keys(obj)[0]][0];
-            toastShow("error", firstmessage);
-          })
-          .then(function () {});
+          axios
+            .post("/user/edit_profile", formdata)
+            .then(function (response) {
+              toastShow("success", response.data.message);
+              submit_loading.value = false;
+              location.reload();
+            })
+            .catch(function (error) {
+              submit_loading.value = false;
+              const obj = error.response.data.errors;
+              const firstmessage = obj[Object.keys(obj)[0]][0];
+              toastShow("error", firstmessage);
+            })
+            .then(function () {});
+        });
       });
     });
 

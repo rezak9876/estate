@@ -41,7 +41,7 @@ class UserRequest extends FormRequest
             'phone' => 'nullable|numeric',
             'mobile' => 'required|regex:/(?:0)?(9\d{9})$/',
             'email' => [
-                'required',
+                'nullable',
                 'email',
                 Rule::unique('users')->ignore(request()->user),
             ],

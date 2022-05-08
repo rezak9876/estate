@@ -21,10 +21,10 @@ class UserTableSeeder extends Seeder
 
         DB::table('users')->insert(
             [
-                'name' => 'اکانت دمو',
+                'name' => env('CUSTOMER_NAME'),
                 'email' => 'info@demo.com',
-                'mobile' => '09121234567',
-                'password' => Hash::make('1'),
+                'mobile' => env('CUSTOMER_MOBILE'),
+                'password' => Hash::make(env('CUSTOMER_PASSWORD')),
                 'role_id' => 1,
             ]
         );

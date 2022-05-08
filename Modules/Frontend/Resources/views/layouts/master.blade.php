@@ -1167,7 +1167,7 @@ $pages = [];
                     <div id="logo" style="margin-right: 10px;left: auto;right: auto;">
                         <a href="/">
                         <img src="{{'/'.\Modules\Setting\Entities\Setting::PATH_UPLOAD.$setting->logo}}" alt=""
-                             width="128px" height="43px">
+                             width="128px" height="43px" style="background-color: var(--maincolor);">
                         </a>
                     </div>
 
@@ -1311,7 +1311,7 @@ $pages = [];
                     <div id="logo">
                         <a href="/">
                             <img src="{{'/'.\Modules\Setting\Entities\Setting::PATH_UPLOAD.$setting->logo}}" alt=""
-                                 width="128px" height="43px">
+                                 width="128px" height="43px" style="background-color: var(--maincolor);">
                         </a>
                     </div>
 
@@ -1455,7 +1455,7 @@ $pages = [];
             <div class="row text-center">
                 <div class="col-md-3 col-sm-6">
                     <img class="footer-logo" src="{{'/'.\Modules\Setting\Entities\Setting::PATH_UPLOAD.$setting->logo}}" alt="" width="128px"
-                         height="43px">
+                         height="43px" style="background-color: var(--maincolor);">
                     <br><br>
                     <p>{{$setting->description}}</p>
                 </div>

@@ -120,6 +120,9 @@ export default {
     axios.defaults.headers["responseType"] = "json";
     axios.defaults.headers["Accept"] = "application/json";
     axios.defaults.baseURL = base_url;
+    //remove admin loading div
+    const panel_loading = document.getElementById("panel_loading");
+    panel_loading.remove();
   },
   components: {
     Sidebar,
