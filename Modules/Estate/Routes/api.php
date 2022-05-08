@@ -26,4 +26,6 @@ Route::group(['prefix' => 'v1'], function () {
             'index', 'create', 'store', 'edit', 'update', 'destroy'
         ]);
     });
+
+    Route::get('estate_by_id', 'EstateController@estate_by_id')->name('estate_by_id');
 });

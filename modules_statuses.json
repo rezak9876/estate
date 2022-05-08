@@ -20,5 +20,6 @@
     "Single": true,
     "Ticket": true,
     "Chat": true,
-    "File": true
+    "File": true,
+    "Comparison": true
 }
