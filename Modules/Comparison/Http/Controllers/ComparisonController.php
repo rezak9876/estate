@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Estate\Entities\Estate;
 use Modules\Estate\Transformers\EstateComparison;
+use Modules\Facility\Entities\Facility;
 
 class ComparisonController extends BaseController
 {
@@ -17,9 +18,13 @@ class ComparisonController extends BaseController
      */
     public function index()
     {
-        $array = explode(',', $_COOKIE['comparison_estates']);
-        $estates = Estate::wherein('id', $array)->limit(3)->get();
-        return view('comparison::index', compact(['estates']));
+        if (isset($_COOKIE['comparison_estates'])) {
+            $array = explode(',', $_COOKIE['comparison_estates']);
+            $estates = Estate::wherein('id', $array)->limit(3)->get();
+            $facilities = Facility::all();
+            return view('comparison::index', compact(['estates', 'facilities']));
+        } else
+            return 'موردی برای مقایسه انتخاب نشده است.';
     }
 
     /**

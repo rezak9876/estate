@@ -16,10 +16,11 @@ class EstateComparison extends JsonResource
     public function toArray($request)
     {
         $reponse = [
+            'id' => $this->id,
             'title' => $this->title,
             'type' => $this->type,
             'type_name' => $this->gettypeName(),
-            'main_picture' => $this->main_picture ? $this->thumbnail_picture() : null,
+            'main_picture' => $this->thumbnail_picture(),
         ];
 
         if ($this->type == Estate::Mortgage_Rent) {

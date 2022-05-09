@@ -42,12 +42,11 @@
                             <a href="#">
                                 <div class="clp-img">
                                     <img class="thumbnail_picture" src="{{ $estate->thumbnail_picture()}}" alt="">
-                                    <span class="remove-from-compare"><i class="fa fa-close"></i></span>
+                                    <span class="remove-from-compare" onclick="return remove_estate_id_from_cookie('{{ $estate->id}}')"><i class="fa fa-close"></i></span>
                                 </div>
 
                                 <div class="clp-title">
                                     <h4>{{$estate->title}}</h4>
-                                    <span>275,000 تومان</span>
                                 </div>
                             </a>
                         </div>
@@ -65,6 +64,24 @@
                     </li>
 
                     <li>
+                        <div>محله</div>
+                        @foreach($estates as $estate)
+
+                        <div>{{$estate->neighborhood->title}}</div>
+                        @endforeach
+
+                    </li>
+
+
+                    <li>
+                        <div>نوع ملک</div>
+                        @foreach($estates as $estate)
+
+                        <div>{{$estate->use_type->title}}</div>
+                        @endforeach
+
+                    </li>
+                    <li>
                         <div>مساحت</div>
                         @foreach($estates as $estate)
 
@@ -72,6 +89,92 @@
                         @endforeach
 
                     </li>
+
+                    <li>
+                        <div>سال ساخت</div>
+                        @foreach($estates as $estate)
+
+                        <div>{{$estate->year_of_construction}}</div>
+                        @endforeach
+
+                    </li>
+
+                    <li>
+                        <div>قیمت</div>
+                        @foreach($estates as $estate)
+
+                        <div>{{$estate->type != \Modules\Estate\Entities\Estate::Mortgage_Rent?number_format($estate->total_price):'-'}}</div>
+                        @endforeach
+
+                    </li>
+
+                    <li>
+                        <div>قیمت رهن</div>
+                        @foreach($estates as $estate)
+
+                        <div>{{$estate->type == \Modules\Estate\Entities\Estate::Mortgage_Rent?number_format($estate->mortgage_price):'-'}}</div>
+                        @endforeach
+
+                    </li>
+
+                    <li>
+                        <div>قیمت اجاره</div>
+                        @foreach($estates as $estate)
+
+                        <div>{{$estate->type == \Modules\Estate\Entities\Estate::Mortgage_Rent?number_format($estate->rent_price):'-'}}</div>
+                        @endforeach
+
+                    </li>
+
+
+                    <li>
+                        <div>شرایط</div>
+                        @foreach($estates as $estate)
+                        <div>
+                            <ul>
+                                @foreach($estate->terms as $term)
+                                <li>{{$term->title}}</li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                        @endforeach
+                    </li>
+
+                    <li>
+                        <div>امکانات</div>
+                        @foreach($estates as $estate)
+                        <div>
+                            <ul>
+
+                                @foreach($estate->boolfacilities as $facility)
+                                <li>{{$facility->title}}</li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                        @endforeach
+                    </li>
+
+                    @foreach($facilities as $facility)
+                    @if($facility->type == \Modules\Facility\Entities\Facility::Integer)
+                    <li>
+                        <div>{{$facility->title}}</div>
+                        @foreach($estates as $estate)
+
+                        @if($estate->intfacilities->where('id',$facility->id)->first())
+                        <div>{{$estate->intfacilities->where('id',$facility->id)->first()->pivot->value}}</div>
+                        @else
+                        <div>-</div>
+                        @endif
+                        @endforeach
+
+                    </li>
+                    @endif
+                    @endforeach
+
+
+
 
                 </ul>
             </div>
@@ -377,5 +480,17 @@
             }
         });
     });
+</script>
+
+<script>
+    function remove_estate_id_from_cookie(estate_id) {
+        let comparison_estates = getCookie('comparison_estates')
+        comparison_estates_array = comparison_estates.split(",");
+
+        comparison_estates_array.splice(comparison_estates_array.indexOf(estate_id), 1)
+        let text = comparison_estates_array.toString();
+        setCookie('comparison_estates', text, 1)
+        location.reload()
+    }
 </script>
 @endsection

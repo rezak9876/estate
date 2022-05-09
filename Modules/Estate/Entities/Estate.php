@@ -133,7 +133,10 @@ class Estate extends Model
     }
     public function thumbnail_picture()
     {
-        return Gallery::$prefix_images . 'thumbnail_' . $this->main_picture;
+        if ($this->main_picture)
+            return Gallery::$prefix_images . 'thumbnail_' . $this->main_picture;
+        else
+            return "findeo/images/listing-03.jpg";
     }
 
     public function getStatusPersian()

@@ -6,7 +6,7 @@
     ================================================== -->
 <div class="compare-slide-menu">
 
-    <div class="csm-trigger"></div>
+    <div class="csm-trigger" style="display:none;"></div>
 
     <div class="csm-content">
         <h4>مقایسه کنید
@@ -17,7 +17,7 @@
         </div>
 
         <div class="csm-buttons">
-            <a href="compare-properties.html" class="button">مقایسه</a>
+            <a href="/compare-properties" class="button">مقایسه</a>
             <a href="#" class="button reset">انصراف</a>
         </div>
     </div>
@@ -275,9 +275,9 @@
 
             @foreach($estates as $estate)
             <!-- Listing Item -->
-            <div class="listing-item">
+            <div class="listing-item estate-item" data-estateid="{{$estate->id}}">
 
-                <a href="{{route('show',$estate->slug)}}" class="listing-img-container" style="height: auto;">
+                <div href="{{route('show',$estate->slug)}}" class="listing-img-container" style="height: auto;">
 
                     <div class="listing-badges">
                         @if($estate->special)
@@ -297,7 +297,7 @@
                         <span class="listing-price">{{number_format($estate->total_price)}}
                             تومان </span>
                         @endif
-                        <span class="compare-button with-tip" data-tip-content="افزودن برای مقایسه" onclick="return add_to_compare('{{$estate->id}}')"></span>
+                        <i class="fa-solid fa-code-compare text-white estate-icon" onclick="return add_to_compare('{{$estate->id}}')"></i>
                     </div>
 
                     <img src=@if($estate->main_picture)
@@ -307,7 +307,7 @@
                     @endif
                     alt="" style="height: 260px;">
 
-                </a>
+                </div>
 
                 <div class="listing-content">
 
@@ -479,6 +479,25 @@
         background-repeat: repeat;
     }
 </style>
+
+<style>
+    .text-white {
+        color: #fff !important;
+    }
+
+    .estate-icon {
+        margin: 0 auto;
+        font-size: 3rem;
+    }
+
+    .estate-icon:hover {
+        font-size: 3.5rem;
+    }
+
+    .estate-icon.active {
+        color: var(--maincolor) !important;
+    }
+</style>
 @endsection
 @section('script')
 {{--my scipts--}}
@@ -553,41 +572,81 @@
     }
 
 
+    function comparison_estates_added() {
+        $(".csm-trigger").show()
+
+    }
+
+
+    function comparison_estates_empty() {
+        $(".csm-trigger").hide()
+        $(".compare-slide-menu").removeClass('active')
+
+    }
+
+    function remove_from_sidebar(estate_id) {
+        // element_classes.remove("active")
+        $(`.estate-item[data-estateid='${estate_id}'] .fa-code-compare`).removeClass('active');
+
+        $('#comparison-estates').children(`[data-estateid='${estate_id}']`).remove()
+
+        let comparison_estates = getCookie('comparison_estates')
+        comparison_estates_array = comparison_estates.split(",");
+
+        comparison_estates_array.splice(comparison_estates_array.indexOf(estate_id), 1)
+        let text = comparison_estates_array.toString();
+        setCookie('comparison_estates', text, 1)
+        if (text == '')
+            comparison_estates_empty()
+
+
+    }
+
     function add_to_compare(estate_id) {
+        console.clear()
+        let element_classes = window.event.target.classList
         let comparison_estates = getCookie('comparison_estates')
 
-        let array;
-        if (comparison_estates != '') {
-            array = comparison_estates.split(",");
-            if (!array.includes(estate_id))
-                array.push(estate_id)
-            else
-                return false;
+        if (element_classes.contains("active")) {
+
+            remove_from_sidebar(estate_id)
         } else {
-            array = [estate_id];
-        }
-        let text = array.toString();
-        setCookie('comparison_estates', text, 1)
 
-        $.ajax({
-            url: "{{route('estate_by_id')}}",
-            type: "get",
-            data: {
-                id: estate_id,
-            },
-            success: function(response) {
-                let estate = response.data
-                let price_div
-                if (estate.type != "{{\Modules\Estate\Entities\Estate::Mortgage_Rent}}")
-                    price_div = `<i>${numberWithCommas(estate.total_price)} تومان</i>`
-                else {
-                    price_div = `<i> اجاره ${numberWithCommas(estate.rent_price)} تومان</i>`
-                    price_div += `<i> رهن ${numberWithCommas(estate.mortgage_price)} تومان</i>`
-                }
+            element_classes.add("active")
 
-                let estate_div = `<div class="listing-item compact">
-                        <a href="single-property-page-2.html" class="listing-img-container">
-                            <div class="remove-from-compare"><i class="fa fa-close"></i></div>
+            let array;
+            if (comparison_estates != '') {
+                array = comparison_estates.split(",");
+                if (!array.includes(estate_id))
+                    array.push(estate_id)
+                else
+                    return false;
+            } else {
+                array = [estate_id];
+                comparison_estates_added()
+            }
+            let text = array.toString();
+            setCookie('comparison_estates', text, 1)
+
+            $.ajax({
+                url: "{{route('estate_by_id')}}",
+                type: "get",
+                data: {
+                    id: estate_id,
+                },
+                success: function(response) {
+                    let estate = response.data
+                    let price_div
+                    if (estate.type != "{{\Modules\Estate\Entities\Estate::Mortgage_Rent}}")
+                        price_div = `<i>${numberWithCommas(estate.total_price)} تومان</i>`
+                    else {
+                        price_div = `<i> اجاره ${numberWithCommas(estate.rent_price)} تومان</i>`
+                        price_div += `<i> رهن ${numberWithCommas(estate.mortgage_price)} تومان</i>`
+                    }
+
+                    let estate_div = `<div class="listing-item compact" data-estateid="${estate_id}">
+                        <div class="listing-img-container">
+                            <div class="remove-from-compare"><i class="fa fa-close" style="cursor:pointer;" onclick="return remove_from_sidebar('${estate_id}')"></i></div>
                             <div class="listing-badges">
                                 <span>${estate.type_name}</span>
                             </div>
@@ -595,27 +654,44 @@
                                 <span class="listing-compact-title">${estate.title} ${price_div}</span>
                             </div>
                             <img src="${estate.main_picture}" alt="">
-                        </a>
+                        </div>
                     </div>`;
 
 
-                $('#comparison-estates').append(estate_div)
-            },
-            error: function(xhr) {
-                //Do Something to handle error
-            }
-        });
+                    $('#comparison-estates').append(estate_div)
+                },
+                error: function(xhr) {
+                    //Do Something to handle error
+                }
+            });
+
+        }
 
     }
 
 
     $(document).ready(function() {
+        let comparison_estates_cookie = getCookie('comparison_estates')
+        if (comparison_estates_cookie != '') {
+            $('.estate-item').each((index, estate_tag) => {
+                var compare_buttons = estate_tag.getElementsByClassName('fa-code-compare');
+                compare_btn = compare_buttons[0];
+
+
+                let estate_id = estate_tag.getAttribute('data-estateid');
+
+                let comparison_estates_array = comparison_estates_cookie.split(",");
+                if (comparison_estates_array.includes(estate_id))
+                    compare_btn.classList.add('active')
+            })
+            comparison_estates_added()
+        }
         $.ajax({
             url: "{{route('compare_slide_menu')}}",
             type: "post",
             data: {
                 "_token": "{{ csrf_token() }}",
-                array_id: getCookie('comparison_estates'),
+                array_id: comparison_estates_cookie,
             },
             success: function(response) {
                 let estates = response.data
@@ -629,9 +705,9 @@
                         price_div += `<i> رهن ${numberWithCommas(estate.mortgage_price)} تومان</i>`
                     }
 
-                    let estate_div = `<div class="listing-item compact">
-                        <a href="single-property-page-2.html" class="listing-img-container">
-                            <div class="remove-from-compare"><i class="fa fa-close"></i></div>
+                    let estate_div = `<div class="listing-item compact"  data-estateid="${estate.id}">
+                        <div class="listing-img-container">
+                            <div class="remove-from-compare"><i class="fa fa-close" style="cursor:pointer;"  onclick="return remove_from_sidebar('${estate.id}')"></i></div>
                             <div class="listing-badges">
                                 <span>${estate.type_name}</span>
                             </div>
@@ -639,7 +715,7 @@
                                 <span class="listing-compact-title">${estate.title} ${price_div}</span>
                             </div>
                             <img src="${estate.main_picture}" alt="">
-                        </a>
+                        </div>
                     </div>`;
 
 
