@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\Estate\Entities\Estate;
 use Modules\Facility\Entities\Facility;
@@ -68,8 +69,15 @@ class IndexController extends BaseController
             'min_year_of_construction' => $min_year_of_construction,
             'max_year_of_construction' => $max_year_of_construction,
         ];
-        $estates = Estate::whereStatus('approved')->limit(21)->get();
-        return view('index::index', compact(['usetypes', 'provinces', 'neighborhoods', 'estates', 'extremum', 'terms', 'facilities']));
+        $estates = Estate::whereStatus('approved')->limit(21);
+        $like_estates = $estates;
+        $estates = $estates->get();
+
+        $liked_estates_id_array = $like_estates->whereHas('likes', function ($q) {
+            $q->where('user_id', Auth::id())->where('status', 'like');
+        })->pluck('id')->toarray();
+
+        return view('index::index', compact(['usetypes', 'provinces', 'neighborhoods', 'estates', 'extremum', 'terms', 'facilities','liked_estates_id_array']));
     }
 
     /**

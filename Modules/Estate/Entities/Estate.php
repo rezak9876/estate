@@ -2,6 +2,7 @@
 
 namespace Modules\Estate\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Facility\Entities\Facility;
@@ -149,5 +150,11 @@ class Estate extends Model
             case "not_approved":
                 return 'تاییده نشده';
         }
+    }
+
+    
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withPivot('status');
     }
 }

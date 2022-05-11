@@ -21,5 +21,6 @@
     "Ticket": true,
     "Chat": true,
     "File": true,
-    "Comparison": true
+    "Comparison": true,
+    "Like": true
 }

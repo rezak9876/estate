@@ -18,7 +18,7 @@
 
         <div class="csm-buttons">
             <a href="/compare-properties" class="button">مقایسه</a>
-            <a href="#" class="button reset">انصراف</a>
+            <!-- <a href="#" class="button reset">انصراف</a> -->
         </div>
     </div>
 
@@ -298,6 +298,7 @@
                             تومان </span>
                         @endif
                         <i class="fa-solid fa-code-compare text-white estate-icon" onclick="return add_to_compare('{{$estate->id}}')"></i>
+                        <i class="fa fa-heart text-white estate-icon {{in_array($estate->id,$liked_estates_id_array)?'active':null}}" onclick="return add_to_favorite('{{$estate->id}}')"></i>
                     </div>
 
                     <img src=@if($estate->main_picture)
@@ -488,6 +489,7 @@
     .estate-icon {
         margin: 0 auto;
         font-size: 3rem;
+        cursor: pointer;
     }
 
     .estate-icon:hover {
@@ -646,7 +648,7 @@
 
                     let estate_div = `<div class="listing-item compact" data-estateid="${estate_id}">
                         <div class="listing-img-container">
-                            <div class="remove-from-compare"><i class="fa fa-close" style="cursor:pointer;" onclick="return remove_from_sidebar('${estate_id}')"></i></div>
+                            <div class="remove-from-compare"  style="cursor:pointer;" onclick="return remove_from_sidebar('${estate_id}')"><i class="fa fa-close"></i></div>
                             <div class="listing-badges">
                                 <span>${estate.type_name}</span>
                             </div>
@@ -707,7 +709,7 @@
 
                     let estate_div = `<div class="listing-item compact"  data-estateid="${estate.id}">
                         <div class="listing-img-container">
-                            <div class="remove-from-compare"><i class="fa fa-close" style="cursor:pointer;"  onclick="return remove_from_sidebar('${estate.id}')"></i></div>
+                            <div class="remove-from-compare"  style="cursor:pointer;"  onclick="return remove_from_sidebar('${estate.id}')"><i class="fa fa-close"></i></div>
                             <div class="listing-badges">
                                 <span>${estate.type_name}</span>
                             </div>
@@ -728,5 +730,39 @@
             }
         });
     });
+
+
+    //like
+    function add_to_favorite(estate_id) {
+        let element_classes = window.event.target.classList
+        let status = ''
+        if (element_classes.contains("active")) {
+            status = 'unlike'
+            element_classes.remove("active")
+        } else {
+            status = 'like'
+            element_classes.add("active")
+        }
+        $.ajax({
+            url: "{{route('change-like-status')}}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: estate_id,
+                status: status
+            },
+            success: function(data, textStatus, xhr) {},
+            error: function(xhr, textStatus) {
+                switch (xhr.status) {
+                    case 401:
+                        alert('برای افزودن به علاقه مندی ها باید وارد شوید')
+                        break;
+                }
+                element_classes.toggle("active");
+
+            }
+        });
+
+    }
 </script>
 @endsection
