@@ -25,7 +25,7 @@ class Facility extends Model
 
 
     public  static $text = [
-        self::Check_box => 'چک باکس',
+        self::Check_box => 'انتخابی',
         self::Integer => 'مقدار',
         self::Text => 'متن',
     ];

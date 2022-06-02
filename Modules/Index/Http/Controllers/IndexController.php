@@ -71,7 +71,7 @@ class IndexController extends BaseController
         ];
         $estates = Estate::whereStatus('approved')->limit(21);
         $like_estates = $estates;
-        $estates = $estates->get();
+        $estates = $estates->orderBy('created_at', 'desc')->get();
 
         $liked_estates_id_array = $like_estates->whereHas('likes', function ($q) {
             $q->where('user_id', Auth::id())->where('status', 'like');

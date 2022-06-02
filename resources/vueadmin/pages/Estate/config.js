@@ -4,40 +4,38 @@ export default module = {
     pluralName: 'estates',
     singularPersianName: 'آگهی',
     pluralPersianName: 'آگهی ها',
-    tableRows:
-        [
-            {
-                type: 'text',
-                title: 'عنوان',
-                slug: 'title',
-            },
-            {
-                type: 'text',
-                title: 'نوع',
-                slug: 'type',
-            },
-            {
-                type: 'text',
-                title: 'وضعیت',
-                slug: 'status',
-            },
-            {
-                type: 'button',
-                title: 'ویرایش',
-                slug: 'edit',
-                style: {
-                    width: '10%'
-                }
-            },
-            {
-                type: 'button',
-                title: 'حذف',
-                slug: 'delete',
-                style: {
-                    width: '10%'
-                }
+    tableRows: [{
+            type: 'text',
+            title: 'عنوان',
+            slug: 'title',
+        },
+        {
+            type: 'text',
+            title: 'نوع',
+            slug: 'type',
+        },
+        {
+            type: 'text',
+            title: 'وضعیت',
+            slug: 'status',
+        },
+        {
+            type: 'button',
+            title: 'ویرایش',
+            slug: 'edit',
+            style: {
+                width: '10%'
             }
-        ],
+        },
+        {
+            type: 'button',
+            title: 'حذف',
+            slug: 'delete',
+            style: {
+                width: '10%'
+            }
+        }
+    ],
     formfields: {
         type: {
             type: 'select',
@@ -45,7 +43,7 @@ export default module = {
             col: 6,
             options: {},
             events: {
-                change: function (e) {
+                change: function(e) {
                     change_form(e.target.value)
 
                     function hide(type) {
@@ -204,8 +202,8 @@ export default module = {
             persianName: 'وضعیت',
             col: 6,
             options: {
-                'not_approved': 'تایید نشده',
-                'approved': 'تایید شده',
+                'not_approved': 'غیرفعال',
+                'approved': 'فعال',
                 'pending_approval': 'در انتظار تایید',
             },
             permission: {
