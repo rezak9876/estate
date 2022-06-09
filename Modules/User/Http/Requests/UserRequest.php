@@ -14,13 +14,14 @@ class UserRequest extends FormRequest
     protected function prepareForValidation()
     {
         // set user for request come from edit profile (to execpt email validation)
-        if (Route::current()->getName() == 'admin.edit_profile')
+        if (Route::current()->getName() == 'admin.edit_profile') {
             request()->user = Auth::user();
 
-        //set role if for request come from edit profile
-        $this->merge([
-            'role_id' => Auth::user()->role->id,
-        ]);
+            //set role if for request come from edit profile
+            $this->merge([
+                'role_id' => Auth::user()->role->id,
+            ]);
+        }
     }
     public function nullable_password()
     {
