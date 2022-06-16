@@ -464,7 +464,7 @@
                 <div class="col-md-4">
                     <div class="listing-item compact">
 
-                        <a href="{{route('show',$like_estate->slug)}}" class="listing-img-container">
+                        <a href="{{route('show',$like_estate->slug)}}" class="listing-img-container" style="max-height: 250px">
 
                             <div class="listing-badges">
                                 @if($like_estate->special)
