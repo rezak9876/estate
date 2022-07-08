@@ -430,11 +430,28 @@ class EstateController extends Controller
 
             // generate bool facilities array
             if ($row['amkanat']) {
-                $facility_array = explode('،', $row['amkanat']);
-                $facility_array = array_map(function ($title) {
+                $facility_array_excel = explode('،', $row['amkanat']);
+                $facility_array = array();
+                $hasInvalidFacility = false;
+                foreach ($facility_array_excel as $title) {
                     $title = trim($title);
-                    return Facility::whereTitle($title)->first()->id;
-                }, $facility_array);
+                    $facility_title = Facility::whereTitle($title)->first();
+                    if ($facility_title)
+                        $facility_array[] = $facility_title->id;
+                    else {
+                        $hasInvalidFacility = $title;
+                        break;
+                    }
+                }
+                if ($hasInvalidFacility !== false) {
+                    $result = [
+                        'title' => $row['aanoan'],
+                        'status' => 'failed',
+                        'message' => "امکان '$hasInvalidFacility' در سایت ثبت نشده است."
+                    ];
+                    array_push($results_array, $result);
+                    continue;
+                }
             } else
                 $facility_array = null;
 
@@ -442,11 +459,28 @@ class EstateController extends Controller
             // generate terms array
 
             if ($row['shrayt']) {
-                $terms_array = explode('،', $row['shrayt']);
-                $terms_array = array_map(function ($title) {
+                $terms_array_excel = explode('،', $row['shrayt']);
+                $terms_array = array();
+                $hasInvalidTerm = false;
+                foreach ($terms_array_excel as $title) {
                     $title = trim($title);
-                    return Term::whereTitle($title)->first()->id;
-                }, $terms_array);
+                    $term_title = Term::whereTitle($title)->first();
+                    if ($term_title)
+                        $term_array[] = $term_title->id;
+                    else {
+                        $hasInvalidTerm = $title;
+                        break;
+                    }
+                }
+                if ($hasInvalidTerm !== false) {
+                    $result = [
+                        'title' => $row['aanoan'],
+                        'status' => 'failed',
+                        'message' => "شرط '$hasInvalidTerm' در سایت ثبت نشده است."
+                    ];
+                    array_push($results_array, $result);
+                    continue;
+                }
             } else
                 $terms_array = null;
 
