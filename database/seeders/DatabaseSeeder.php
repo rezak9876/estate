@@ -13,6 +13,7 @@ use Modules\Term\Database\Seeders\TermTableSeeder;
 use Modules\User\Database\Seeders\UserTableSeeder;
 use Modules\UseType\Database\Seeders\UseTypeTableSeeder;
 use Modules\UseTypeProperty\Database\Seeders\UseTypePropertyTableSeeder;
+use Modules\WhatsApp\Database\Seeders\WhatsAppDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,16 +24,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(FacilityTableSeeder::class);
-        $this->call(TermTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
+        // $this->call(FacilityTableSeeder::class);
+        // $this->call(TermTableSeeder::class);
+        // $this->call(RoleTableSeeder::class);
+        // $this->call(UserTableSeeder::class);
+        // $this->call(PermissionTableSeeder::class);
         
-        // User::factory()->create();
-        $this->call(UseTypeTableSeeder::class);
-        $this->call(UseTypePropertyTableSeeder::class);
-        $this->call(EstateTableSeeder::class);
-        $this->call(SettingTableSeeder::class);
+        // // User::factory()->create();
+        // $this->call(UseTypeTableSeeder::class);
+        // $this->call(UseTypePropertyTableSeeder::class);
+        // $this->call(EstateTableSeeder::class);
+        // $this->call(SettingTableSeeder::class);
+        $this->call(WhatsAppDatabaseSeeder::class);
     }
 }

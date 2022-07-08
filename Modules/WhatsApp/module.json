@@ -1,0 +1,13 @@
+{
+    "name": "WhatsApp",
+    "alias": "whatsapp",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\WhatsApp\\Providers\\WhatsAppServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

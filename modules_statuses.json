@@ -22,5 +22,6 @@
     "Chat": true,
     "File": true,
     "Comparison": true,
-    "Like": true
+    "Like": true,
+    "WhatsApp": true
 }
