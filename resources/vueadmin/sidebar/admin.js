@@ -1,25 +1,5 @@
 const sidebar = [
     {
-        type: 'router-link',
-        permission: {
-            arg: 'index',
-            value: 'terms'
-        },
-        link: '/terms',
-        persianName: 'شرایط',
-        icon: 'file'
-    },
-    {
-        type: 'router-link',
-        permission: {
-            arg: 'index',
-            value: 'facilities'
-        },
-        link: '/facilities',
-        persianName: 'امکانات',
-        icon: 'building'
-    },
-    {
         type: 'div',
         id: 'estates',
         persianName: 'آگهی ها',
@@ -45,6 +25,27 @@ const sidebar = [
         ],
         icon: 'house'
     },
+    {
+        type: 'router-link',
+        permission: {
+            arg: 'index',
+            value: 'terms'
+        },
+        link: '/terms',
+        persianName: 'شرایط',
+        icon: 'file'
+    },
+    {
+        type: 'router-link',
+        permission: {
+            arg: 'index',
+            value: 'facilities'
+        },
+        link: '/facilities',
+        persianName: 'امکانات',
+        icon: 'building'
+    },
+
     {
         type: 'router-link',
         permission: {

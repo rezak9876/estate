@@ -237,4 +237,9 @@ export default {
 .accordion-button {
   padding: 1rem;
 }
+
+ul.nav {
+ min-height: 100vh;
+}
+
 </style>

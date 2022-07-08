@@ -44,7 +44,7 @@ app.directive('can', (el, binding, vnode, prevVnode) => {
     const condition = check_permission(binding.arg, binding.value)
 
     if (!condition)
-        el.outerHTML = null
+        el.remove()
 })
 app.use(router)
 app.mount('#app')
