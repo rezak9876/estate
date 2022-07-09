@@ -26,7 +26,7 @@ class PermissionTableSeeder extends Seeder
             ['title' => 'ویرایش کاربر', 'slug' => 'users.edit'],
             ['title' => 'حذف کاربر', 'slug' => 'users.delete'],
             ['title' => 'ایجاد کاربر', 'slug' => 'users.create'],
-            ['title' => 'آپدیت شرایط', 'slug' => 'terms.edit'],
+            ['title' => 'ویرایش شرایط', 'slug' => 'terms.edit'],
             ['title' => 'پاک کردن شرایط', 'slug' => 'terms.delete'],
             ['title' => 'ایجاد شرایط', 'slug' => 'terms.create'],
             ['title' => 'ویرایش تنظیمات', 'slug' => 'settings.edit'],

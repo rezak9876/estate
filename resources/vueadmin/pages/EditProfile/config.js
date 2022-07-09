@@ -86,7 +86,10 @@ export default module = {
             persianName: 'تصویر پروفایل',
             input_type: 'file',
             accept: "image/*",
-            col: 6
+            col: 6,
+            span: {
+                text: 'تصویر پروفایل باید حداکثر 5 مگابایت باشد.'
+            }
         },
         delete_picture: {
             type: 'picture',

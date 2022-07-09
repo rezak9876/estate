@@ -5,36 +5,36 @@ export default module = {
     singularPersianName: 'آگهی',
     pluralPersianName: 'آگهی ها',
     tableRows: [{
-            type: 'text',
-            title: 'عنوان',
-            slug: 'title',
-        },
-        {
-            type: 'text',
-            title: 'نوع',
-            slug: 'type',
-        },
-        {
-            type: 'text',
-            title: 'وضعیت',
-            slug: 'status',
-        },
-        {
-            type: 'button',
-            title: 'ویرایش',
-            slug: 'edit',
-            style: {
-                width: '10%'
-            }
-        },
-        {
-            type: 'button',
-            title: 'حذف',
-            slug: 'delete',
-            style: {
-                width: '10%'
-            }
+        type: 'text',
+        title: 'عنوان',
+        slug: 'title',
+    },
+    {
+        type: 'text',
+        title: 'نوع',
+        slug: 'type',
+    },
+    {
+        type: 'text',
+        title: 'وضعیت',
+        slug: 'status',
+    },
+    {
+        type: 'button',
+        title: 'ویرایش',
+        slug: 'edit',
+        style: {
+            width: '10%'
         }
+    },
+    {
+        type: 'button',
+        title: 'حذف',
+        slug: 'delete',
+        style: {
+            width: '10%'
+        }
+    }
     ],
     formfields: {
         type: {
@@ -43,7 +43,7 @@ export default module = {
             col: 6,
             options: {},
             events: {
-                change: function(e) {
+                change: function (e) {
                     change_form(e.target.value)
 
                     function hide(type) {
@@ -142,12 +142,15 @@ export default module = {
 
 
 
-        main_pic: {
+        main_picture: {
             type: 'input',
             persianName: 'تصویر اصلی',
             input_type: 'file',
             accept: "image/*",
-            col: 6
+            col: 6,
+            span: {
+                text: 'تصویر اصلی باید حداکثر 5 مگابایت باشد.'
+            }
         },
 
         delete_main_picture: {
@@ -165,6 +168,9 @@ export default module = {
             col: 6,
             attributes: {
                 multiple: true
+            },
+            span: {
+                text: 'تصاویر گالری باید حداکثر 5 مگابایت باشند.'
             }
         },
 

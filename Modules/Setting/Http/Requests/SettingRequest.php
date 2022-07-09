@@ -14,11 +14,11 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'logo' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
-            'faIco' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
-            'watermark' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
-            'main_page_pic' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
-            'search_page_pic' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
+            'logo' => 'image|mimes:jpeg,jpg,png,gif|max:5000',
+            'faIco' => 'image|mimes:jpeg,jpg,png,gif|max:5000',
+            'watermark' => 'image|mimes:jpeg,jpg,png,gif|max:5000',
+            'main_page_pic' => 'image|mimes:jpeg,jpg,png,gif|max:5000',
+            'search_page_pic' => 'image|mimes:jpeg,jpg,png,gif|max:5000',
             'socialTelegram' => 'nullable|active_url',
             'socialInstagram' => 'nullable|active_url',
             'socialFacebook' => 'nullable|active_url',

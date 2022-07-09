@@ -95,7 +95,7 @@ class SettingController extends Controller
 
         $setting->save();
         return response()->json([
-            'message' => 'تنظیمات با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'تنظیمات'])
         ], 200);
     }
 

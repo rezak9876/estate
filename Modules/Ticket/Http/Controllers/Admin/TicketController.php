@@ -256,7 +256,7 @@ class TicketController extends Controller
             }
         }
         return response()->json([
-            'message' => 'آگهی با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'آگهی'])
         ], 200);
     }
 

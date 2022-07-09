@@ -47,7 +47,7 @@ class UserRequest extends FormRequest
                 Rule::unique('users')->ignore(request()->user),
             ],
             'password' => $this->nullable_password() . 'confirmed|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
-            'picture' => 'image|mimes:jpeg,jpg,png,gif|max:1000',
+            'picture' => 'image|mimes:jpeg,jpg,png,gif|max:5000',
         ];
     }
 

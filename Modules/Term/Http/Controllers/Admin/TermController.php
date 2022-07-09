@@ -69,7 +69,7 @@ class TermController extends Controller
     {
         $term->update($request->all());
         return response()->json([
-            'message' => 'شرط با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'شرط'])
         ], 200);
     }
 

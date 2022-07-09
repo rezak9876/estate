@@ -270,7 +270,7 @@ class EstateController extends Controller
             }
         }
         return response()->json([
-            'message' => 'آگهی با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'آگهی'])
         ], 200);
     }
 
@@ -548,7 +548,7 @@ class EstateController extends Controller
 
         try {
             // delete previous file for prevent error
-            unlink('files/estaet-export.xlsx');
+            unlink(config('filesystems.disks.real_public.root') . '/files/estaet-export.xlsx');
             \Excel::store(new EstatesExport(), 'files/estaet-export.xlsx', 'real_public');
         } catch (Exception $e) {
             return response()->json([

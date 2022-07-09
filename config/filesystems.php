@@ -55,7 +55,7 @@ return [
 
         'real_public' => [
             'driver' => 'local',
-            'root' => public_path(),
+            'root' => getcwd(),
             'url' => env('APP_URL'),
             'visibility' => 'public',
         ],

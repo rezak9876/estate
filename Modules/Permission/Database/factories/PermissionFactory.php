@@ -18,7 +18,7 @@ class PermissionFactory extends Factory
         ['title' => 'ویرایش کاربر' , 'slug' => 'user.update'],
         ['title' => 'حذف کاربر' , 'slug' => 'user.delete'],
         ['title' => 'ایجاد کاربر' , 'slug' => 'user.create'],
-        ['title' => 'آپدیت شرایط' , 'slug' => 'term.update'],
+        ['title' => 'ویرایش شرایط' , 'slug' => 'term.update'],
         ['title' => 'پاک کردن شرایط' , 'slug' => 'term.delete'],
         ['title' => 'ایجاد شرایط' , 'slug' => 'term.create'],
         ['title' => 'ویرایش تنظیمات' , 'slug' => 'setting.update'],

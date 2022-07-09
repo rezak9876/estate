@@ -126,12 +126,15 @@ export default module = {
 
 
 
-        main_pic: {
+        main_picture: {
             type: 'input',
             persianName: 'تصویر اصلی',
             input_type: 'file',
             accept: "image/*",
-            col: 6
+            col: 6,
+            span: {
+                text: 'تصویر اصلی باید حداکثر 5 مگابایت باشد.'
+            }
         },
 
         delete_main_picture: {

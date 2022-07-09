@@ -137,7 +137,7 @@ class UserController extends Controller
 
         $user->update($request_data);
         return response()->json([
-            'message' => 'کاربر با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'کاربر'])
         ], 200);
     }
 
@@ -223,7 +223,7 @@ class UserController extends Controller
     {
         $this->update($request, Auth::user());
         return response()->json([
-            'message' => 'پروفایل با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'پروفایل'])
         ], 200);
     }
 

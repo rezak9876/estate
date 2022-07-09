@@ -212,5 +212,7 @@ return [
         'socialWhatsapp' => 'واتساپ',
         'province' => 'استان',
         'status' => 'وضعیت',
+        'main_picture' => 'تصویر اصلی',
+        'picture' => 'تصویر',
     ],
 ];

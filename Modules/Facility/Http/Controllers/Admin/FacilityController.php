@@ -69,7 +69,7 @@ class FacilityController extends Controller
     {
         $facility->update($request->all());
         return response()->json([
-            'message' => 'امکان با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'امکان'])
         ], 200);
     }
 

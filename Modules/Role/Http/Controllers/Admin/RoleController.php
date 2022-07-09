@@ -119,7 +119,7 @@ class RoleController extends Controller
         $role->update($request->all());
         $role->permissions()->sync($request->permissions);
         return response()->json([
-            'message' => 'نقش با موفقیت آپدیت شد.'
+            'message' => __('messages.updated', ['name' => 'نقش'])
         ], 200);
     }
 

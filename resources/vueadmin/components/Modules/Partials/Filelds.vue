@@ -9,7 +9,7 @@
   >
     <div
       v-if="row.type == 'input'"
-      class="d-flex justify-content-between align-items-center"
+      class="d-flex justify-content-between align-items-center mb-4"
     >
       <img
         v-if="row.input_type == 'file'"
