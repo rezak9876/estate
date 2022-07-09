@@ -3,6 +3,7 @@
     <div>
       {{ headerInfo.title }}
     </div>
+    <div v-if="headerInfo.permission.value !== 'settings'">
     <router-link
       v-if="headerInfo.permission.arg != 'create'"
       :to="headerInfo.button.link"
@@ -30,6 +31,7 @@
       <i :class="headerInfo.button.icon"></i>
       {{ headerInfo.button.title }}
     </router-link>
+    </div>
   </div>
 </template>
 
