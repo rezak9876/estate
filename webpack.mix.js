@@ -19,4 +19,9 @@ const mix = require('laravel-mix');
 mix.js('resources/vueadmin/app.js', 'public/js/admin')
     .sourceMaps()
     .vue();
+
+     
+if (mix.inProduction()) {
+    mix.version();
+}
     // .browserSync(process.env.APP_URL);
