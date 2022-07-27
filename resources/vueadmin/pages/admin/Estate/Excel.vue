@@ -15,7 +15,9 @@
     </div>
     <span v-else>دریافت</span>
   </button>
-  <a class="mx-5" v-if="expotExcelUrl.url" :href="expotExcelUrl.url">دانلود فایل اکسل</a>
+  <a class="mx-5" v-if="expotExcelUrl.url" :href="expotExcelUrl.url"
+    >دانلود فایل اکسل</a
+  >
   <hr />
   <h2>آپلود اکسل آگهی ها</h2>
   <form @submit="formSubmitted">
@@ -101,8 +103,10 @@ export default {
         })
         .catch(function (error) {
           const obj = error.response.data.errors;
-          const firstmessage = obj[Object.keys(obj)[0]][0];
-          toastShow("error", firstmessage);
+          let message;
+          if (typeof obj === "undefined") message = "مشکلی پیش آمده است";
+          else message = obj[Object.keys(obj)[0]][0];
+          toastShow("error", message);
           loading.value = false;
         })
         .then(function () {});

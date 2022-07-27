@@ -485,9 +485,19 @@ class EstateController extends Controller
                 $terms_array = null;
 
 
+            $userTypeProperty = UseTypeProperty::whereTitle($row['noaa_mlk'])->first();
+            if ($userTypeProperty == null) {
+                $result = [
+                    'title' => $row['aanoan'],
+                    'status' => 'failed',
+                    'message' => "نوع ملک پر نشده است"
+                ];
+                array_push($results_array, $result);
+                continue;
+            }
             $params = [
                 "type" => Estate::get_type_id_by_title($row['noaa']),
-                "use_type_property_id" => UseTypeProperty::whereTitle($row['noaa_mlk'])->first()->id,
+                "use_type_property_id" => $userTypeProperty->id,
                 "area" => $row['mtrazh'],
                 "year_of_construction" => $row['sal_sakht'],
                 "total_price" => $row['kymt_khryd'],
