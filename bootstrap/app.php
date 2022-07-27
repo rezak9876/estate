@@ -15,7 +15,7 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-$server_name = $_SERVER['SERVER_NAME'];
+$server_name = $_SERVER['SERVER_NAME'] ?? false;
 if ($server_name) {
     $suffix = $server_name;
     $app->loadEnvironmentFrom('env/.env.' . $suffix);
