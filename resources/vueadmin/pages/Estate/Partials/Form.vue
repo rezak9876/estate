@@ -1,5 +1,6 @@
 <template>
   <Form v-if="loadingFinished" :module="module" :data="data" />
+  <GetLoading v-else />
 </template>
 
 <script>
@@ -9,10 +10,12 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import * as $ from "jquery";
 import { waitForElm } from "../../../helper/dom";
+import GetLoading from "../../../components/sections/GetLoading.vue";
 
 export default {
   components: {
     Form,
+    GetLoading
   },
   beforeCreate() {},
 
