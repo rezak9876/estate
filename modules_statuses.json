@@ -23,5 +23,6 @@
     "File": true,
     "Comparison": true,
     "Like": true,
-    "WhatsApp": true
+    "WhatsApp": true,
+    "FrontEndLog": true
 }

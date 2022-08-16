@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>پنل ادمین</title>
 
@@ -443,6 +444,27 @@
     </div>
     <div id="app">
     </div>
+
+    <script>
+        function logError(error) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/api/frontendlog", true);
+            xhttp.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]').content);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            var data = {
+                error: JSON.stringify(error, Object.getOwnPropertyNames(error))
+            };
+            xhttp.send(JSON.stringify(data));
+            alert('ممکن است مشکلی پیش آمده باشد. برای رفع گزارش شد')
+        }
+        window.onerror = function(msg, url, line, columnNo, error) {
+            logError(error)
+        };
+
+        window.addEventListener('unhandledrejection', function(event) {
+            logError(event.reason)
+        });
+    </script>
     <script src="{{ mix('/js/admin/app.js') }}"></script>
 </body>
 

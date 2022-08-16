@@ -1,0 +1,13 @@
+{
+    "name": "FrontEndLog",
+    "alias": "frontendlog",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FrontEndLog\\Providers\\FrontEndLogServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
