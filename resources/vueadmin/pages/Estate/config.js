@@ -142,7 +142,7 @@ export default module = {
 
 
 
-        main_picture: {
+        main_pic: {
             type: 'input',
             persianName: 'تصویر اصلی',
             input_type: 'file',
