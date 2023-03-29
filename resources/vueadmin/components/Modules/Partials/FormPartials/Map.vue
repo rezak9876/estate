@@ -82,8 +82,8 @@ export default {
   // },
   setup(props) {
     onMounted(() => {
-      let latitude = props.data.latitude ?? 35.66240244665957;
-      let longitude = props.data.longitude ?? 51.38972845460646;
+      let latitude = props.data.latitude ?? 36.575643580840264;
+      let longitude = props.data.longitude ?? 52.01935719209333;
       var mymap = L.map("mapid").setView([latitude, longitude], 15);
       L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
