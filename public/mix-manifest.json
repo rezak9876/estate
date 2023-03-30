@@ -1,3 +1,5 @@
 {
-    "/js/admin/app.js": "/js/admin/app.js"
+    "/js/admin/app.js": "/js/admin/app.js",
+    "/packages/leaflet/leaflet.js": "/packages/leaflet/leaflet.js",
+    "/packages/leaflet/leaflet.css": "/packages/leaflet/leaflet.css"
 }

@@ -20,7 +20,10 @@ mix.js('resources/vueadmin/app.js', 'public/js/admin')
     .sourceMaps()
     .vue();
 
-     
+mix.js('node_modules/leaflet/dist/leaflet.js', 'public/packages/leaflet')
+    .postCss('node_modules/leaflet/dist/leaflet.css', 'public/packages/leaflet')
+
+
 if (mix.inProduction()) {
     mix.version();
 }
