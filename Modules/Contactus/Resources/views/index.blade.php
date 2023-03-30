@@ -1,12 +1,11 @@
 @extends('frontend::layouts.master')
 @section('content')
-
     <div class="clearfix"></div>
     <!-- Header Container / End -->
 
 
     <!-- Content
-                                                    ================================================== -->
+                                                        ================================================== -->
 
     <!-- Map Container -->
     <div class="contact-map margin-bottom-55">
@@ -54,8 +53,6 @@
                         <li><i class="im im-icon-Phone-2"></i> <strong>تلفن:</strong> <span>{{ $setting->phone }} </span>
                         </li>
                         <li><i class="im im-icon-Fax"></i> <strong>فکس:</strong> <span>{{ $setting->fax }} </span></li>
-                        <li><i class="im im-icon-Globe"></i> <strong>سایت:</strong> <span><a
-                                    href="www.amlak.com">www.amlak.com</a></span></li>
                         <li><i class="im im-icon-Envelope"></i> <strong>ایمیل:</strong> <span><a
                                     href="www.email.com">{{ $setting->email }}</a></span></li>
                     </ul>
@@ -115,7 +112,7 @@
 
 
     <!-- Footer
-                                                    ================================================== -->
+                                                        ================================================== -->
     <div class="margin-top-55"></div>
 @endsection
 @section('style')
