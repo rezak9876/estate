@@ -18,5 +18,5 @@ yarn-error.log
 /public/images/users
 /public/images/setting
 /public/files/chats
-/public/js/admin/app.js
+/public/js/admin/*
 /public/packages/*
