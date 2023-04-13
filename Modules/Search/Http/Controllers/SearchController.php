@@ -88,7 +88,8 @@ class SearchController extends BaseController
      */
     public function markercluster(Request $request)
     {
-        $estates = FrontendController::filterd_estates($request);
+        $estates = app(FrontendController::class);
+        $estates = $estates->filterd_estates($request);
 
         $estates = $estates->get();
         return MarkerClusterResource::collection($estates);
