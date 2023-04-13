@@ -94,6 +94,8 @@ class FrontendController extends BaseController
             }
         }
 
+        $estates->where('status', 'approved');
+
         return $estates;
     }
 
