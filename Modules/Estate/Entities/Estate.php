@@ -149,6 +149,8 @@ class Estate extends Model
                 return 'در انتظار تایید';
             case "not_approved":
                 return 'تاییده نشده';
+            case "archived":
+                return 'بایگانی';
         }
     }
 
