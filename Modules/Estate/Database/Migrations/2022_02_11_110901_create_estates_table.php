@@ -31,7 +31,7 @@ class CreateEstatesTable extends Migration
             $table->text('description');
             $table->unsignedTinyInteger('user_id');
             $table->integer('views')->default(0);
-//            $table->unsignedBigInteger('use_type_id');
+            //            $table->unsignedBigInteger('use_type_id');
             $table->unsignedBigInteger('use_type_property_id');
             $table->string('main_picture')->nullable();
 
@@ -39,8 +39,10 @@ class CreateEstatesTable extends Migration
 
             $table->foreign('neighborhood_id')->references('id')->on('neighborhoods');
             $table->foreign('user_id')->references('id')->on('users');
-//            $table->foreign('use_type_id')->references('id')->on('use_types');
+            //            $table->foreign('use_type_id')->references('id')->on('use_types');
             $table->foreign('use_type_property_id')->references('id')->on('use_type_properties');
+
+            $table->enum('status', ['approved', 'pending_approval', 'not_approved', 'archived'])->default('pending_approval');
         });
     }
 
