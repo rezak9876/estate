@@ -211,6 +211,7 @@ export default module = {
                 'not_approved': 'غیرفعال',
                 'approved': 'فعال',
                 'pending_approval': 'در انتظار تایید',
+                'archived': 'آرشیو',
             },
             permission: {
                 arg: 'verification',
