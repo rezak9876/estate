@@ -52,6 +52,10 @@ class SingleController extends BaseController
     public function show($slug)
     {
         $estate = Estate::whereStatus('approved')->where('slug', $slug)->firstOrfail();
+
+        $estate->views ++;
+        $estate->update();
+
         $neighborhood_id = $estate->neighborhood_id;
         $similar_estates = Estate::where('id', '!=', $estate->id)->where('neighborhood_id', $neighborhood_id)->limit(2)->get();
         $new_estates = Estate::orderBy('created_at', 'desc')->limit(2)->get();
