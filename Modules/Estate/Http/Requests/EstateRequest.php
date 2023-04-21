@@ -28,7 +28,7 @@ class EstateRequest extends FormRequest
         return [
             'type' => 'required',
             'area' => 'required|regex:/^\d+$/',
-            'year_of_construction' => 'required|integer|between:1281,' . verta()->year,
+            'year_of_construction' => 'nullable|integer|between:1281,' . verta()->year,
             'total_price' => 'regex:/^\d+([.]\d+)?$/',
             'mortgage_price' => 'regex:/^\d+([.]\d+)?$/',
             'rent_price' => 'regex:/^\d+([.]\d+)?$/',

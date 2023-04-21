@@ -24,7 +24,7 @@ class CreateEstatesTable extends Migration
             $table->decimal('longitude', 11, 8);
             $table->text('address');
             $table->float('area');
-            $table->integer('year_of_construction');
+            $table->integer('year_of_construction')->nullable();
             $table->integer('status')->default(0);
             $table->string('title');
             $table->string('slug')->unique();
