@@ -136,8 +136,16 @@ class Estate extends Model
     {
         if ($this->main_picture)
             return Gallery::$prefix_images . 'thumbnail_' . $this->main_picture;
-        else
-            return "findeo/images/listing-03.jpg";
+        else {
+            switch ($this->use_type_property_id) {
+                case 1:
+                    return "findeo/images/estate/apartment.jpg";
+                case 4:
+                    return "findeo/images/estate/land.jpg";
+                default:
+                    return "findeo/images/estate/default.jpg";
+            }
+        }
     }
 
     public function getStatusPersian()
