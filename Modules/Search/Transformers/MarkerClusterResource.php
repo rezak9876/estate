@@ -21,7 +21,7 @@ class MarkerClusterResource extends JsonResource
             'title' => $this->title,
             'type' => $this->type,
             'link' => $request->getSchemeAndHttpHost() . '/estates/' . $this->slug,
-            'image' => $this->main_picture ? $this->thumbnail_picture() : "/findeo/images/listing-03.jpg",
+            'image' => $this->thumbnail_picture(),
         ];
 
         if ($this->type == Estate::Mortgage_Rent)
